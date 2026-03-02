@@ -1,7 +1,7 @@
 ---
 id: "001"
 title: "初回 git commit を作成する"
-status: "todo"
+status: "done"
 priority: "high"
 phase: 1
 depends_on: []
