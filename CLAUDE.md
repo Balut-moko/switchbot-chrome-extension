@@ -34,6 +34,11 @@ SwitchBot デバイスをブラウザから操作する Chrome 拡張機能（Ma
 - ステータスリクエストはスタガード（200ms+ 間隔）
 - 長時間処理は `waitUntil` パターン（25秒ごとに `getPlatformInfo` 呼び出し）
 
+## Git Rules
+- コミットに `Co-Authored-By` 行を付与しない
+- タスク管理コミット: `task: complete|create|block {id}-{slug}`
+- 実装コミット: Conventional Commits（`feat:` / `fix:` / `chore:` 等）+ 日本語メッセージ
+
 ## Task Management
 
 `tasks/` ディレクトリで markdown ベースのタスク管理を運用。詳細は `tasks/GUIDE.md` を参照。
@@ -42,7 +47,6 @@ SwitchBot デバイスをブラウザから操作する Chrome 拡張機能（Ma
 - **タスク検索**: `grep -l 'status: "todo"' tasks/[0-9]*.md` → `depends_on` チェック
 - **完了**: `status: "done"` + Acceptance Criteria チェック → コミット
 - **新規作成**: 最大IDの次の連番 + `tasks/GUIDE.md` のテンプレート使用
-- **コミット**: `task: complete|create|block {id}-{slug}`
 - **並列作業**: Agent tool の `isolation: "worktree"` で並列実行
 
 ## Reference Docs
