@@ -1,0 +1,59 @@
+import { useState, useEffect } from 'react';
+import { sendMessage } from '@/lib/messaging';
+import DeviceList from '@/components/DeviceList';
+import UnlockPrompt from '@/components/UnlockPrompt';
+
+type AppState = 'loading' | 'no-credentials' | 'locked' | 'ready';
+
+export default function App() {
+  const [state, setState] = useState<AppState>('loading');
+
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        const isAuth = await sendMessage('isAuthenticated', undefined);
+        if (!isAuth) {
+          setState('no-credentials');
+          return;
+        }
+        const unlocked = await sendMessage('isUnlocked', undefined);
+        setState(unlocked ? 'ready' : 'locked');
+      } catch {
+        setState('no-credentials');
+      }
+    }
+    checkAuth();
+  }, []);
+
+  if (state === 'loading') {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <p className="text-sm text-gray-400">Loading...</p>
+      </div>
+    );
+  }
+
+  if (state === 'no-credentials') {
+    return (
+      <div className="flex flex-col items-center justify-center p-6 h-full text-center">
+        <div className="text-4xl mb-4">{'\u{1F527}'}</div>
+        <h2 className="text-lg font-semibold mb-2">Setup Required</h2>
+        <p className="text-xs text-gray-500 mb-4">
+          Configure your SwitchBot API credentials to get started.
+        </p>
+        <button
+          onClick={() => browser.runtime.openOptionsPage()}
+          className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700"
+        >
+          Open Settings
+        </button>
+      </div>
+    );
+  }
+
+  if (state === 'locked') {
+    return <UnlockPrompt onUnlock={() => setState('ready')} />;
+  }
+
+  return <DeviceList />;
+}

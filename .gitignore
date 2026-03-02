@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# WXT build output
+.output/
+.wxt/
+dist/
+
+# Chrome extension packaging
+*.crx
+*.pem
+*.zip
+
+# Environment variables
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code (local)
+.claude/settings.local.json
+.claude/worktrees/
+.claude/plans/
