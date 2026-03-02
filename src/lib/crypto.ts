@@ -1,5 +1,5 @@
+import type { EncryptedCredentials, StoredCredentials } from '@/types/switchbot';
 import { PBKDF2_ITERATIONS } from '@/utils/constants';
-import type { StoredCredentials, EncryptedCredentials } from '@/types/switchbot';
 
 async function deriveKey(password: string, salt: Uint8Array): Promise<CryptoKey> {
   const keyMaterial = await crypto.subtle.importKey(
@@ -41,11 +41,7 @@ export async function encryptCredentials(
   const key = await deriveKey(password, salt);
 
   const plaintext = new TextEncoder().encode(JSON.stringify(credentials));
-  const ciphertext = await crypto.subtle.encrypt(
-    { name: 'AES-GCM', iv },
-    key,
-    plaintext,
-  );
+  const ciphertext = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, plaintext);
 
   return {
     ciphertext: toBase64(ciphertext),
@@ -63,11 +59,7 @@ export async function decryptCredentials(
   const ciphertext = fromBase64(encrypted.ciphertext);
   const key = await deriveKey(password, salt);
 
-  const plaintext = await crypto.subtle.decrypt(
-    { name: 'AES-GCM', iv },
-    key,
-    ciphertext,
-  );
+  const plaintext = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ciphertext);
 
   return JSON.parse(new TextDecoder().decode(plaintext));
 }

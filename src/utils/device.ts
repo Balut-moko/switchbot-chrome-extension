@@ -1,4 +1,4 @@
-import type { SwitchBotDevice, SwitchBotIRDevice, Device } from '@/types/switchbot';
+import type { Device, SwitchBotDevice, SwitchBotIRDevice } from '@/types/switchbot';
 
 export type DeviceCategory =
   | 'switch'
@@ -10,19 +10,9 @@ export type DeviceCategory =
   | 'light'
   | 'other';
 
-const SWITCH_TYPES = new Set([
-  'Bot',
-  'Plug',
-  'Plug Mini (US)',
-  'Plug Mini (JP)',
-]);
+const SWITCH_TYPES = new Set(['Bot', 'Plug', 'Plug Mini (US)', 'Plug Mini (JP)']);
 
-const LIGHT_TYPES = new Set([
-  'Color Bulb',
-  'Strip Light',
-  'Ceiling Light',
-  'Ceiling Light Pro',
-]);
+const LIGHT_TYPES = new Set(['Color Bulb', 'Strip Light', 'Ceiling Light', 'Ceiling Light Pro']);
 
 const SENSOR_TYPES = new Set([
   'Meter',
@@ -34,19 +24,13 @@ const SENSOR_TYPES = new Set([
   'Contact Sensor',
 ]);
 
-const CURTAIN_TYPES = new Set([
-  'Curtain',
-  'Curtain3',
-  'Blind Tilt',
-  'Roller Shade',
-]);
+const CURTAIN_TYPES = new Set(['Curtain', 'Curtain3', 'Blind Tilt', 'Roller Shade']);
 
-const LOCK_TYPES = new Set([
-  'Smart Lock',
-  'Smart Lock Pro',
-]);
+const LOCK_TYPES = new Set(['Smart Lock', 'Smart Lock Pro']);
 
-export function isIRDevice(device: SwitchBotDevice | SwitchBotIRDevice): device is SwitchBotIRDevice {
+export function isIRDevice(
+  device: SwitchBotDevice | SwitchBotIRDevice,
+): device is SwitchBotIRDevice {
   return 'remoteType' in device;
 }
 
@@ -141,8 +125,7 @@ const CATEGORY_SORT_ORDER: Record<DeviceCategory, number> = {
 function sortDevicesByCategory(devices: Device[]): Device[] {
   return [...devices].sort((a, b) => {
     const orderDiff =
-      CATEGORY_SORT_ORDER[getDeviceCategory(a)] -
-      CATEGORY_SORT_ORDER[getDeviceCategory(b)];
+      CATEGORY_SORT_ORDER[getDeviceCategory(a)] - CATEGORY_SORT_ORDER[getDeviceCategory(b)];
     if (orderDiff !== 0) return orderDiff;
     return a.deviceName.localeCompare(b.deviceName);
   });

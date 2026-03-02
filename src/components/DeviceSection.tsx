@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import type { Device } from '@/types/switchbot';
 import DeviceCard from '@/components/DeviceCard';
+import type { Device } from '@/types/switchbot';
 
 interface Props {
   title: string;
@@ -21,6 +21,7 @@ export default function DeviceSection({
   return (
     <div>
       <button
+        type="button"
         onClick={() => setCollapsed((c) => !c)}
         className="flex items-center justify-between w-full py-1.5 px-1 text-xs font-semibold text-gray-500 uppercase tracking-wider hover:text-gray-700 transition-colors"
       >

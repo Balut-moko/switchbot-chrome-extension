@@ -38,9 +38,5 @@ export default function SensorDisplay({ device }: Props) {
     parts.push(state === 'open' ? 'Open' : 'Closed');
   }
 
-  return (
-    <span className="text-xs text-gray-600 font-mono">
-      {parts.join(' | ') || '--'}
-    </span>
-  );
+  return <span className="text-xs text-gray-600 font-mono">{parts.join(' | ') || '--'}</span>;
 }

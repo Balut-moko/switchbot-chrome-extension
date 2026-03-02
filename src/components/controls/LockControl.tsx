@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDeviceCommand } from '@/hooks/useDeviceCommand';
 import { useDeviceStatus } from '@/hooks/useDeviceStatus';
 import type { Device } from '@/types/switchbot';
@@ -48,6 +48,7 @@ export default function LockControl({ device }: Props) {
 
   return (
     <button
+      type="button"
       onClick={isLocked ? handleUnlock : handleLock}
       disabled={isPending}
       className={`px-2 py-0.5 rounded text-xs font-medium ${

@@ -35,6 +35,7 @@ export default function TVControl({ device }: Props) {
   return (
     <div className="flex items-center gap-1.5">
       <button
+        type="button"
         onClick={() => volume('down')}
         disabled={isPending}
         className="w-6 h-6 flex items-center justify-center text-xs bg-gray-100 rounded hover:bg-gray-200 disabled:opacity-30"
@@ -42,17 +43,17 @@ export default function TVControl({ device }: Props) {
         -
       </button>
       <button
+        type="button"
         onClick={togglePower}
         disabled={isPending}
         className={`px-2 py-0.5 rounded text-xs font-medium ${
-          isOn
-            ? 'bg-green-500 text-white'
-            : 'bg-gray-200 text-gray-600'
+          isOn ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-600'
         }`}
       >
         {isOn ? 'ON' : 'OFF'}
       </button>
       <button
+        type="button"
         onClick={() => volume('up')}
         disabled={isPending}
         className="w-6 h-6 flex items-center justify-center text-xs bg-gray-100 rounded hover:bg-gray-200 disabled:opacity-30"

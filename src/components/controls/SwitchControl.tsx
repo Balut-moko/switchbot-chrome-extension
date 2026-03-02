@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDeviceCommand } from '@/hooks/useDeviceCommand';
 import { useDeviceStatus } from '@/hooks/useDeviceStatus';
 import type { Device } from '@/types/switchbot';
@@ -33,6 +33,7 @@ export default function SwitchControl({ device }: Props) {
 
   return (
     <button
+      type="button"
       onClick={toggle}
       disabled={isPending}
       className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${

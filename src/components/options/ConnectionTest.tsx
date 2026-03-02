@@ -28,6 +28,7 @@ export default function ConnectionTest() {
   return (
     <div className="space-y-3">
       <button
+        type="button"
         onClick={handleTest}
         disabled={testing}
         className="w-full py-2 px-4 bg-green-600 text-white rounded-md text-sm font-medium hover:bg-green-700 disabled:opacity-50"

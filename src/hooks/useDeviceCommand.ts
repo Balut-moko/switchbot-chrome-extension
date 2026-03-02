@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { sendMessage } from '@/lib/messaging';
 import type { DeviceCommand } from '@/types/switchbot';
 

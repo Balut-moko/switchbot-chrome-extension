@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { useDeviceCommand } from '@/hooks/useDeviceCommand';
-import { getDeviceIcon } from '@/utils/device';
-import type { Device, ACState } from '@/types/switchbot';
+import type { ACState, Device } from '@/types/switchbot';
 import {
-  AC_MODES,
-  AC_FAN_SPEEDS,
-  AC_TEMP_MIN,
-  AC_TEMP_MAX,
-  AC_MODE_DISPLAY,
   AC_FAN_DISPLAY,
+  AC_FAN_SPEEDS,
+  AC_MODE_DISPLAY,
+  AC_MODES,
+  AC_TEMP_MAX,
+  AC_TEMP_MIN,
 } from '@/utils/constants';
+import { getDeviceIcon } from '@/utils/device';
 
 interface Props {
   device: Device;
@@ -18,6 +18,7 @@ interface Props {
 function PowerIcon() {
   return (
     <svg
+      aria-hidden="true"
       className="w-5 h-5"
       viewBox="0 0 24 24"
       fill="none"
@@ -57,10 +58,7 @@ export default function ACControl({ device }: Props) {
   };
 
   const adjustTemp = (delta: number) => {
-    const newTemp = Math.max(
-      AC_TEMP_MIN,
-      Math.min(AC_TEMP_MAX, state.temperature + delta),
-    );
+    const newTemp = Math.max(AC_TEMP_MIN, Math.min(AC_TEMP_MAX, state.temperature + delta));
     if (newTemp !== state.temperature) {
       sendSetAll({ ...state, temperature: newTemp });
     }
@@ -72,29 +70,22 @@ export default function ACControl({ device }: Props) {
         isOn ? 'bg-gradient-to-b from-blue-50/50 to-white' : 'bg-gray-50'
       }`}
     >
-      {isOn && (
-        <div className="h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400" />
-      )}
+      {isOn && <div className="h-0.5 bg-gradient-to-r from-blue-400 to-cyan-400" />}
 
       {/* Header + Power */}
       <div className="flex items-center justify-between p-3 pb-1">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="text-base flex-shrink-0">
-            {getDeviceIcon(device)}
-          </span>
-          <span className="text-sm font-medium truncate">
-            {device.deviceName}
-          </span>
+          <span className="text-base flex-shrink-0">{getDeviceIcon(device)}</span>
+          <span className="text-sm font-medium truncate">{device.deviceName}</span>
         </div>
         <button
+          type="button"
           onClick={togglePower}
           disabled={isPending}
           aria-pressed={isOn}
           aria-label={isOn ? 'Turn off' : 'Turn on'}
           className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 flex-shrink-0 ${
-            isOn
-              ? 'bg-blue-500 text-white shadow-md shadow-blue-200'
-              : 'bg-gray-200 text-gray-400'
+            isOn ? 'bg-blue-500 text-white shadow-md shadow-blue-200' : 'bg-gray-200 text-gray-400'
           } ${isPending ? 'opacity-50' : ''}`}
         >
           <PowerIcon />
@@ -117,6 +108,7 @@ export default function ACControl({ device }: Props) {
         }`}
       >
         <button
+          type="button"
           onClick={() => adjustTemp(-1)}
           disabled={controlsDisabled || state.temperature <= AC_TEMP_MIN}
           aria-label="Decrease temperature"
@@ -131,6 +123,7 @@ export default function ACControl({ device }: Props) {
           <span className="text-lg text-gray-400 ml-0.5">&deg;C</span>
         </div>
         <button
+          type="button"
           onClick={() => adjustTemp(1)}
           disabled={controlsDisabled || state.temperature >= AC_TEMP_MAX}
           aria-label="Increase temperature"
@@ -141,15 +134,15 @@ export default function ACControl({ device }: Props) {
       </div>
 
       {/* Mode selector */}
-      <div
-        className={`px-3 pb-2 transition-opacity ${!isOn ? 'opacity-40' : ''}`}
-      >
+      <div className={`px-3 pb-2 transition-opacity ${!isOn ? 'opacity-40' : ''}`}>
         <div className="text-[10px] uppercase tracking-wider text-gray-400 font-medium mb-1.5">
           Mode
         </div>
         <div className="grid grid-cols-5 gap-1" role="radiogroup" aria-label="AC mode">
           {AC_MODES.map((m) => (
+            /* biome-ignore lint/a11y/useSemanticElements: custom radio UI with buttons */
             <button
+              type="button"
               key={m.value}
               onClick={() => sendSetAll({ ...state, mode: m.value })}
               disabled={controlsDisabled}
@@ -169,15 +162,15 @@ export default function ACControl({ device }: Props) {
       </div>
 
       {/* Fan speed selector */}
-      <div
-        className={`px-3 pb-3 transition-opacity ${!isOn ? 'opacity-40' : ''}`}
-      >
+      <div className={`px-3 pb-3 transition-opacity ${!isOn ? 'opacity-40' : ''}`}>
         <div className="text-[10px] uppercase tracking-wider text-gray-400 font-medium mb-1.5">
           Fan
         </div>
         <div className="grid grid-cols-4 gap-1" role="radiogroup" aria-label="Fan speed">
           {AC_FAN_SPEEDS.map((f) => (
+            /* biome-ignore lint/a11y/useSemanticElements: custom radio UI with buttons */
             <button
+              type="button"
               key={f.value}
               onClick={() => sendSetAll({ ...state, fanSpeed: f.value })}
               disabled={controlsDisabled}

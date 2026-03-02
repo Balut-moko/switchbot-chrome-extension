@@ -1,12 +1,12 @@
-import type { Device } from '@/types/switchbot';
-import { getDeviceCategory, getDeviceIcon } from '@/utils/device';
-import SwitchControl from '@/components/controls/SwitchControl';
-import SensorDisplay from '@/components/controls/SensorDisplay';
 import ACControl from '@/components/controls/ACControl';
 import CurtainControl from '@/components/controls/CurtainControl';
-import TVControl from '@/components/controls/TVControl';
-import LockControl from '@/components/controls/LockControl';
 import LightControl from '@/components/controls/LightControl';
+import LockControl from '@/components/controls/LockControl';
+import SensorDisplay from '@/components/controls/SensorDisplay';
+import SwitchControl from '@/components/controls/SwitchControl';
+import TVControl from '@/components/controls/TVControl';
+import type { Device } from '@/types/switchbot';
+import { getDeviceCategory, getDeviceIcon } from '@/utils/device';
 
 interface Props {
   device: Device;
@@ -46,11 +46,13 @@ export default function DeviceCard({ device, variant = 'controls' }: Props) {
   }
 
   return (
-    <div className={`flex items-center justify-between p-3 rounded-lg shadow-sm border transition-colors ${
-      variant === 'sensors'
-        ? 'bg-gray-50 border-gray-100'
-        : 'bg-white border-gray-100 hover:border-gray-200'
-    }`}>
+    <div
+      className={`flex items-center justify-between p-3 rounded-lg shadow-sm border transition-colors ${
+        variant === 'sensors'
+          ? 'bg-gray-50 border-gray-100'
+          : 'bg-white border-gray-100 hover:border-gray-200'
+      }`}
+    >
       <div className="flex items-center gap-2 min-w-0">
         <span className="text-base flex-shrink-0">{getDeviceIcon(device)}</span>
         <span className="text-sm font-medium truncate">{device.deviceName}</span>

@@ -39,8 +39,7 @@ export default function SecuritySettings({ mode, onChange }: Props) {
         <div>
           <p className="font-medium text-sm">High Security</p>
           <p className="text-xs text-gray-500 mt-0.5">
-            Encrypted with a master password. You'll need to enter it once
-            per browser session.
+            Encrypted with a master password. You'll need to enter it once per browser session.
           </p>
         </div>
       </label>

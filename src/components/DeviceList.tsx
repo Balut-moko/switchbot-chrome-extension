@@ -1,7 +1,7 @@
-import { useState, useCallback, useMemo } from 'react';
-import { useDevices } from '@/hooks/useDevices';
+import { useCallback, useMemo, useState } from 'react';
 import DeviceSection from '@/components/DeviceSection';
 import SearchBar from '@/components/SearchBar';
+import { useDevices } from '@/hooks/useDevices';
 import { groupDevices } from '@/utils/device';
 
 export default function DeviceList() {
@@ -30,6 +30,7 @@ export default function DeviceList() {
         <h1 className="text-base font-bold">SwitchBot</h1>
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={refresh}
             disabled={loading}
             className={`text-lg hover:opacity-70 ${loading ? 'animate-spin' : ''}`}
@@ -38,6 +39,7 @@ export default function DeviceList() {
             {'\u{1F504}'}
           </button>
           <button
+            type="button"
             onClick={openSettings}
             className="text-lg hover:opacity-70"
             title="Settings"
@@ -85,9 +87,7 @@ export default function DeviceList() {
         )}
 
         {loading && devices.length === 0 && (
-          <div className="text-center py-8 text-sm text-gray-400">
-            Loading devices...
-          </div>
+          <div className="text-center py-8 text-sm text-gray-400">Loading devices...</div>
         )}
       </div>
     </div>

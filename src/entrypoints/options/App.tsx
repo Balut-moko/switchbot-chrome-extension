@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import ApiKeyForm from '@/components/options/ApiKeyForm';
+import ConnectionTest from '@/components/options/ConnectionTest';
+import SecuritySettings from '@/components/options/SecuritySettings';
 import { sendMessage } from '@/lib/messaging';
 import type { SecurityMode } from '@/types/switchbot';
-import ApiKeyForm from '@/components/options/ApiKeyForm';
-import SecuritySettings from '@/components/options/SecuritySettings';
-import ConnectionTest from '@/components/options/ConnectionTest';
 
 export default function App() {
   const [securityMode, setSecurityMode] = useState<SecurityMode>('standard');
@@ -46,8 +46,8 @@ export default function App() {
       <div>
         <h1 className="text-xl font-bold">SwitchBot Controller Settings</h1>
         <p className="text-sm text-gray-500 mt-1">
-          Enter your SwitchBot API credentials to get started.
-          You can find them in the SwitchBot app under Settings &gt; Developer Options.
+          Enter your SwitchBot API credentials to get started. You can find them in the SwitchBot
+          app under Settings &gt; Developer Options.
         </p>
       </div>
 

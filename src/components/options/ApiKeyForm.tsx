@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import type { SecurityMode } from '@/types/switchbot';
 import { sendMessage } from '@/lib/messaging';
+import type { SecurityMode } from '@/types/switchbot';
 
 interface Props {
   securityMode: SecurityMode;
@@ -54,11 +54,12 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
       <h2 className="text-lg font-semibold">API Credentials</h2>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="api-token" className="block text-sm font-medium text-gray-700 mb-1">
           API Token
         </label>
         <div className="relative">
           <input
+            id="api-token"
             type={showToken ? 'text' : 'password'}
             value={token}
             onChange={(e) => setToken(e.target.value)}
@@ -76,11 +77,12 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="api-secret" className="block text-sm font-medium text-gray-700 mb-1">
           API Secret
         </label>
         <div className="relative">
           <input
+            id="api-secret"
             type={showSecret ? 'text' : 'password'}
             value={secret}
             onChange={(e) => setSecret(e.target.value)}
@@ -100,10 +102,14 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
       {isHighSecurity && (
         <>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="master-password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Master Password
             </label>
             <input
+              id="master-password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -112,10 +118,14 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="confirm-password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Confirm Password
             </label>
             <input
+              id="confirm-password"
               type="password"
               value={passwordConfirm}
               onChange={(e) => setPasswordConfirm(e.target.value)}
@@ -126,11 +136,10 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
         </>
       )}
 
-      {error && (
-        <p className="text-sm text-red-600">{error}</p>
-      )}
+      {error && <p className="text-sm text-red-600">{error}</p>}
 
       <button
+        type="button"
         onClick={handleSave}
         disabled={saving}
         className="w-full py-2 px-4 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 disabled:opacity-50"

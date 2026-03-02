@@ -34,10 +34,29 @@ export const DEVICE_CAPABILITIES: Record<string, DeviceCapability> = {
   'Plug Mini (JP)': cap({ canToggle: true, commands: ['turnOn', 'turnOff'] }),
 
   // Lights
-  'Color Bulb': cap({ canToggle: true, hasBrightness: true, hasColor: true, commands: ['turnOn', 'turnOff', 'setBrightness', 'setColor'] }),
-  'Strip Light': cap({ canToggle: true, hasBrightness: true, hasColor: true, commands: ['turnOn', 'turnOff', 'setBrightness', 'setColor'] }),
-  'Ceiling Light': cap({ canToggle: true, hasBrightness: true, commands: ['turnOn', 'turnOff', 'setBrightness'] }),
-  'Ceiling Light Pro': cap({ canToggle: true, hasBrightness: true, hasColor: true, commands: ['turnOn', 'turnOff', 'setBrightness'] }),
+  'Color Bulb': cap({
+    canToggle: true,
+    hasBrightness: true,
+    hasColor: true,
+    commands: ['turnOn', 'turnOff', 'setBrightness', 'setColor'],
+  }),
+  'Strip Light': cap({
+    canToggle: true,
+    hasBrightness: true,
+    hasColor: true,
+    commands: ['turnOn', 'turnOff', 'setBrightness', 'setColor'],
+  }),
+  'Ceiling Light': cap({
+    canToggle: true,
+    hasBrightness: true,
+    commands: ['turnOn', 'turnOff', 'setBrightness'],
+  }),
+  'Ceiling Light Pro': cap({
+    canToggle: true,
+    hasBrightness: true,
+    hasColor: true,
+    commands: ['turnOn', 'turnOff', 'setBrightness'],
+  }),
 
   // Sensors
   Meter: cap({ hasTemperature: true, hasHumidity: true, hasBattery: true }),
@@ -49,8 +68,16 @@ export const DEVICE_CAPABILITIES: Record<string, DeviceCapability> = {
   'Contact Sensor': cap({ hasBattery: true }),
 
   // Curtain / Blind
-  Curtain: cap({ canSetPosition: true, hasBattery: true, commands: ['setPosition', 'turnOn', 'turnOff'] }),
-  Curtain3: cap({ canSetPosition: true, hasBattery: true, commands: ['setPosition', 'turnOn', 'turnOff'] }),
+  Curtain: cap({
+    canSetPosition: true,
+    hasBattery: true,
+    commands: ['setPosition', 'turnOn', 'turnOff'],
+  }),
+  Curtain3: cap({
+    canSetPosition: true,
+    hasBattery: true,
+    commands: ['setPosition', 'turnOn', 'turnOff'],
+  }),
   'Blind Tilt': cap({ canSetPosition: true, hasBattery: true, commands: ['setPosition'] }),
   'Roller Shade': cap({ canSetPosition: true, hasBattery: true, commands: ['setPosition'] }),
 
@@ -59,13 +86,37 @@ export const DEVICE_CAPABILITIES: Record<string, DeviceCapability> = {
   'Smart Lock Pro': cap({ canToggle: true, hasBattery: true, commands: ['lock', 'unlock'] }),
 
   // IR Devices
-  'Air Conditioner': cap({ canToggle: true, canSetTemperature: true, commands: ['turnOn', 'turnOff', 'setAll'] }),
-  TV: cap({ canToggle: true, commands: ['turnOn', 'turnOff', 'SetChannel', 'volumeAdd', 'volumeSub'] }),
-  IPTV: cap({ canToggle: true, commands: ['turnOn', 'turnOff', 'SetChannel', 'volumeAdd', 'volumeSub'] }),
-  'Set Top Box': cap({ canToggle: true, commands: ['turnOn', 'turnOff', 'SetChannel', 'volumeAdd', 'volumeSub'] }),
-  Light: cap({ canToggle: true, hasBrightness: true, commands: ['turnOn', 'turnOff', 'brightnessUp', 'brightnessDown'] }),
-  'DIY Light': cap({ canToggle: true, hasBrightness: true, commands: ['turnOn', 'turnOff', 'brightnessUp', 'brightnessDown'] }),
-  Fan: cap({ canToggle: true, commands: ['turnOn', 'turnOff', 'swing', 'lowSpeed', 'middleSpeed', 'highSpeed'] }),
+  'Air Conditioner': cap({
+    canToggle: true,
+    canSetTemperature: true,
+    commands: ['turnOn', 'turnOff', 'setAll'],
+  }),
+  TV: cap({
+    canToggle: true,
+    commands: ['turnOn', 'turnOff', 'SetChannel', 'volumeAdd', 'volumeSub'],
+  }),
+  IPTV: cap({
+    canToggle: true,
+    commands: ['turnOn', 'turnOff', 'SetChannel', 'volumeAdd', 'volumeSub'],
+  }),
+  'Set Top Box': cap({
+    canToggle: true,
+    commands: ['turnOn', 'turnOff', 'SetChannel', 'volumeAdd', 'volumeSub'],
+  }),
+  Light: cap({
+    canToggle: true,
+    hasBrightness: true,
+    commands: ['turnOn', 'turnOff', 'brightnessUp', 'brightnessDown'],
+  }),
+  'DIY Light': cap({
+    canToggle: true,
+    hasBrightness: true,
+    commands: ['turnOn', 'turnOff', 'brightnessUp', 'brightnessDown'],
+  }),
+  Fan: cap({
+    canToggle: true,
+    commands: ['turnOn', 'turnOff', 'swing', 'lowSpeed', 'middleSpeed', 'highSpeed'],
+  }),
 };
 
 export function getCapabilities(deviceType: string): DeviceCapability {

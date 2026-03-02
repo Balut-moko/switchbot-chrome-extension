@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { sendMessage } from '@/lib/messaging';
 import type { DeviceStatus } from '@/types/switchbot';
 

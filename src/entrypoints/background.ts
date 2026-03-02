@@ -1,18 +1,18 @@
-import { onMessage } from '@/lib/messaging';
 import { SwitchBotAPI } from '@/lib/api';
-import { encryptCredentials, decryptCredentials } from '@/lib/crypto';
+import { decryptCredentials, encryptCredentials } from '@/lib/crypto';
+import { onMessage } from '@/lib/messaging';
 import {
-  securityModeItem,
-  credentialsItem,
-  encryptedCredentialsItem,
-  sessionCredentialsItem,
   cachedDevicesItem,
   cacheTimestampItem,
+  credentialsItem,
+  encryptedCredentialsItem,
   irDeviceStatesItem,
+  securityModeItem,
+  sessionCredentialsItem,
 } from '@/lib/storage';
-import { toUnifiedDevice } from '@/utils/device';
+import type { Device, StoredCredentials } from '@/types/switchbot';
 import { CACHE_TTL_MS, IR_COMMAND_DELAYS } from '@/utils/constants';
-import type { StoredCredentials, Device } from '@/types/switchbot';
+import { toUnifiedDevice } from '@/utils/device';
 
 export default defineBackground({
   type: 'module',
@@ -41,12 +41,8 @@ export default defineBackground({
     // IR command throttle (in-memory, acceptable to lose on SW restart)
     const lastCommandTime = new Map<string, number>();
 
-    async function throttleIRCommand(
-      deviceId: string,
-      deviceType: string,
-    ): Promise<void> {
-      const delay =
-        IR_COMMAND_DELAYS[deviceType] ?? IR_COMMAND_DELAYS.DEFAULT;
+    async function throttleIRCommand(deviceId: string, deviceType: string): Promise<void> {
+      const delay = IR_COMMAND_DELAYS[deviceType] ?? IR_COMMAND_DELAYS.DEFAULT;
       const lastTime = lastCommandTime.get(deviceId) ?? 0;
       const elapsed = Date.now() - lastTime;
       if (elapsed < delay) {
@@ -111,7 +107,7 @@ export default defineBackground({
             ? 'on'
             : data.command.command === 'turnOff'
               ? 'off'
-              : existing?.power ?? 'off';
+              : (existing?.power ?? 'off');
 
         const updated = states.filter((s) => s.deviceId !== data.deviceId);
         updated.push({
@@ -149,8 +145,7 @@ export default defineBackground({
         const creds = await getCredentials();
         const api = createAPI(creds);
         const body = await api.getDevices();
-        const count =
-          body.deviceList.length + body.infraredRemoteList.length;
+        const count = body.deviceList.length + body.infraredRemoteList.length;
         return { success: true, deviceCount: count };
       } catch (err) {
         return {

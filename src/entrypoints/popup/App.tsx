@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { sendMessage } from '@/lib/messaging';
+import { useEffect, useState } from 'react';
 import DeviceList from '@/components/DeviceList';
 import UnlockPrompt from '@/components/UnlockPrompt';
+import { sendMessage } from '@/lib/messaging';
 
 type AppState = 'loading' | 'no-credentials' | 'locked' | 'ready';
 
@@ -42,6 +42,7 @@ export default function App() {
           Configure your SwitchBot API credentials to get started.
         </p>
         <button
+          type="button"
           onClick={() => browser.runtime.openOptionsPage()}
           className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700"
         >

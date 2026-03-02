@@ -1,7 +1,4 @@
-export async function createAuthHeaders(
-  token: string,
-  secret: string,
-): Promise<Headers> {
+export async function createAuthHeaders(token: string, secret: string): Promise<Headers> {
   const t = Date.now().toString();
   const nonce = crypto.randomUUID();
   const data = new TextEncoder().encode(token + t + nonce);

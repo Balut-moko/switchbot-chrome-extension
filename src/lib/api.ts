@@ -1,11 +1,11 @@
 import { createAuthHeaders } from '@/lib/auth';
-import { SWITCHBOT_API_BASE } from '@/utils/constants';
 import type {
-  SwitchBotApiResponse,
+  DeviceCommand,
   DeviceListBody,
   DeviceStatus,
-  DeviceCommand,
+  SwitchBotApiResponse,
 } from '@/types/switchbot';
+import { SWITCHBOT_API_BASE } from '@/utils/constants';
 
 export class SwitchBotAPI {
   constructor(

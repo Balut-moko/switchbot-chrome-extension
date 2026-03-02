@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDeviceCommand } from '@/hooks/useDeviceCommand';
 import { useDeviceStatus } from '@/hooks/useDeviceStatus';
 import type { Device } from '@/types/switchbot';
