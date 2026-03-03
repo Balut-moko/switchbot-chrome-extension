@@ -1,7 +1,7 @@
 ---
 id: "008"
 title: "拡張機能アイコンを作成する"
-status: "todo"
+status: "done"
 priority: "medium"
 phase: 5
 depends_on: ["001"]
@@ -33,10 +33,10 @@ Chrome 拡張機能にはツールバーアイコンと拡張機能管理ペー�
 
 ## Acceptance Criteria
 
-- [ ] 4サイズのアイコンが `public/` に配置されている
-- [ ] ビルド後の `manifest.json` にアイコンパスが含まれている
-- [ ] Chrome のツールバーにアイコンが表示される
-- [ ] `bun run build` が成功する
+- [x] 4サイズのアイコンが `public/` に配置されている
+- [x] ビルド後の `manifest.json` にアイコンパスが含まれている
+- [x] Chrome のツールバーにアイコンが表示される
+- [x] `bun run build` が成功する
 
 ## Notes
 
