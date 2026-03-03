@@ -1,6 +1,7 @@
 import { storage } from '@wxt-dev/storage';
 import type {
   Device,
+  DeviceStatus,
   EncryptedCredentials,
   IRDeviceState,
   SecurityMode,
@@ -40,3 +41,8 @@ export const irDeviceStatesItem = storage.defineItem<IRDeviceState[]>('local:irD
 export const devicePreferencesItem = storage.defineItem<
   Record<string, { visible: boolean; order: number }>
 >('local:devicePreferences', { fallback: {} });
+
+export const deviceStatusCacheItem = storage.defineItem<Record<string, DeviceStatus>>(
+  'local:deviceStatusCache',
+  { fallback: {} },
+);
