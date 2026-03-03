@@ -1,7 +1,7 @@
 ---
 id: "003"
 title: "ステータスリクエストの200ms+スタガード間隔を実装する"
-status: "todo"
+status: "done"
 priority: "high"
 phase: 2
 depends_on: ["001"]
@@ -31,10 +31,10 @@ CLAUDE.md の Implementation Rules に「ステータスリクエストはスタ
 
 ## Acceptance Criteria
 
-- [ ] 複数デバイスのステータス取得時、各リクエスト間に200ms以上の間隔がある
-- [ ] IR デバイスのステータス取得をスキップしている
-- [ ] 単一デバイスのステータス取得には遅延が入らない
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] 複数デバイスのステータス取得時、各リクエスト間に200ms以上の間隔がある
+- [x] IR デバイスのステータス取得をスキップしている
+- [x] 単一デバイスのステータス取得には遅延が入らない
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
