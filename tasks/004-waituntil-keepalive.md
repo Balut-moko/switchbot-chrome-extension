@@ -1,7 +1,7 @@
 ---
 id: "004"
 title: "waitUntil パターンで SW の長時間処理を維持する"
-status: "todo"
+status: "done"
 priority: "medium"
 phase: 2
 depends_on: ["001"]
@@ -30,10 +30,10 @@ CLAUDE.md に「長時間処理は waitUntil パターン（25秒ごとに getPl
 
 ## Acceptance Criteria
 
-- [ ] `waitUntil` ヘルパーが実装されている
-- [ ] 長時間処理（一括ステータス更新等）で keepalive が有効になっている
-- [ ] 処理完了後に keepalive interval が適切にクリアされている
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] `waitUntil` ヘルパーが実装されている
+- [x] 長時間処理（一括ステータス更新等）で keepalive が有効になっている
+- [x] 処理完了後に keepalive interval が適切にクリアされている
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
