@@ -1,7 +1,7 @@
 ---
 id: "005"
 title: "Options ページにデバイス表示設定 UI を追加する"
-status: "todo"
+status: "done"
 priority: "medium"
 phase: 3
 depends_on: ["001"]
@@ -32,12 +32,12 @@ updated: "2026-03-03"
 
 ## Acceptance Criteria
 
-- [ ] Options ページにデバイス一覧が表示される（認証済み時）
-- [ ] 各デバイスの表示/非表示を切り替えられる
-- [ ] デバイスの並び順を変更できる
-- [ ] 設定が `chrome.storage.local` に保存される
-- [ ] 未認証時に適切なフォールバック表示がある
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] Options ページにデバイス一覧が表示される（認証済み時）
+- [x] 各デバイスの表示/非表示を切り替えられる
+- [x] デバイスの並び順を変更できる
+- [x] 設定が `chrome.storage.local` に保存される
+- [x] 未認証時に適切なフォールバック表示がある
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
