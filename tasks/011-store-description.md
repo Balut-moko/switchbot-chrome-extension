@@ -1,7 +1,7 @@
 ---
 id: "011"
 title: "Chrome Web Store 掲載用説明文を作成する"
-status: "todo"
+status: "done"
 priority: "low"
 phase: 5
 depends_on: ["001"]
@@ -28,9 +28,9 @@ Chrome Web Store 公開には、拡張機能の概要説明文、詳細説明、
 
 ## Acceptance Criteria
 
-- [ ] 短い説明文（132文字以内）が作成されている
-- [ ] 詳細説明が機能・セキュリティ・対応デバイスを網羅している
-- [ ] Single Purpose ポリシーに準拠した記述になっている
+- [x] 短い説明文（132文字以内）が作成されている
+- [x] 詳細説明が機能・セキュリティ・対応デバイスを網羅している
+- [x] Single Purpose ポリシーに準拠した記述になっている
 
 ## Notes
 
