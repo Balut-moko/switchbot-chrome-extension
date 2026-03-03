@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import ApiKeyForm from '@/components/options/ApiKeyForm';
 import ConnectionTest from '@/components/options/ConnectionTest';
+import DeviceSettings from '@/components/options/DeviceSettings';
 import SecuritySettings from '@/components/options/SecuritySettings';
 import { sendMessage } from '@/lib/messaging';
 import type { SecurityMode } from '@/types/switchbot';
@@ -66,6 +67,12 @@ export default function App() {
       {isConfigured && (
         <div className="border rounded-lg p-4">
           <ConnectionTest />
+        </div>
+      )}
+
+      {isConfigured && (
+        <div className="border rounded-lg p-4">
+          <DeviceSettings />
         </div>
       )}
     </div>
