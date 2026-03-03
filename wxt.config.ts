@@ -6,7 +6,7 @@ export default defineConfig({
   manifest: {
     name: 'SwitchBot Controller (Unofficial)',
     description: 'Control your SwitchBot devices from the browser toolbar',
-    permissions: ['storage'],
+    permissions: ['storage', 'alarms'],
     host_permissions: ['https://api.switch-bot.com/*'],
   },
 });

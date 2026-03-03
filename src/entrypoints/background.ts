@@ -5,6 +5,7 @@ import {
   cachedDevicesItem,
   cacheTimestampItem,
   credentialsItem,
+  deviceStatusCacheItem,
   encryptedCredentialsItem,
   irDeviceStatesItem,
   securityModeItem,
@@ -187,6 +188,53 @@ export default defineBackground({
       if (mode === 'standard') return true;
       const session = await sessionCredentialsItem.getValue();
       return session !== null;
+    });
+
+    // --- Periodic Refresh ---
+
+    const ALARM_REFRESH_DEVICES = 'refreshDevices';
+    const REFRESH_INTERVAL_MINUTES = 5;
+
+    async function refreshAllDeviceStatuses(): Promise<void> {
+      let creds: StoredCredentials;
+      try {
+        creds = await getCredentials();
+      } catch {
+        return;
+      }
+
+      const cached = await cachedDevicesItem.getValue();
+      if (!cached || cached.length === 0) return;
+
+      const api = createAPI(creds);
+      const physicalDevices = cached.filter((d: Device) => !d.isIR);
+      const statusCache = await deviceStatusCacheItem.getValue();
+
+      for (const device of physicalDevices) {
+        try {
+          const status = await api.getDeviceStatus(device.deviceId);
+          statusCache[device.deviceId] = status;
+        } catch {
+          // Individual device failure - skip
+        }
+      }
+
+      await deviceStatusCacheItem.setValue(statusCache);
+      await cacheTimestampItem.setValue(Date.now());
+    }
+
+    chrome.alarms.onAlarm.addListener((alarm) => {
+      if (alarm.name !== ALARM_REFRESH_DEVICES) return;
+      refreshAllDeviceStatuses().catch((err) => console.warn('Periodic refresh failed:', err));
+    });
+
+    chrome.alarms.get(ALARM_REFRESH_DEVICES).then((existing) => {
+      if (!existing) {
+        chrome.alarms.create(ALARM_REFRESH_DEVICES, {
+          delayInMinutes: 1,
+          periodInMinutes: REFRESH_INTERVAL_MINUTES,
+        });
+      }
     });
 
     console.log('SwitchBot Controller background service worker started');
