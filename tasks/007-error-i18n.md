@@ -1,7 +1,7 @@
 ---
 id: "007"
 title: "エラーメッセージの日英対応を実装する"
-status: "todo"
+status: "done"
 priority: "medium"
 phase: 5
 depends_on: ["001"]
@@ -32,10 +32,10 @@ CHROME_EXTENSION_MIGRATION_PLAN.md Phase 5 に「エラーメッセージの日�
 
 ## Acceptance Criteria
 
-- [ ] 日本語ブラウザでエラーメッセージが日本語で表示される
-- [ ] 英語ブラウザでエラーメッセージが英語で表示される
-- [ ] API エラー、認証エラー、ネットワークエラーが網羅されている
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] 日本語ブラウザでエラーメッセージが日本語で表示される
+- [x] 英語ブラウザでエラーメッセージが英語で表示される
+- [x] API エラー、認証エラー、ネットワークエラーが網羅されている
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
