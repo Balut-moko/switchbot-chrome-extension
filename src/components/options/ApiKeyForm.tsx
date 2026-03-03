@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { sendMessage } from '@/lib/messaging';
 import type { SecurityMode } from '@/types/switchbot';
+import { t } from '@/utils/i18n';
 
 interface Props {
   securityMode: SecurityMode;
@@ -21,15 +22,15 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
 
   const handleSave = async () => {
     if (!token.trim() || !secret.trim()) {
-      setError('Token and Secret are required');
+      setError('VALIDATION_TOKEN_SECRET_REQUIRED');
       return;
     }
     if (isHighSecurity && !password) {
-      setError('Master password is required for High Security mode');
+      setError('VALIDATION_MASTER_PASSWORD_REQUIRED');
       return;
     }
     if (isHighSecurity && password !== passwordConfirm) {
-      setError('Passwords do not match');
+      setError('VALIDATION_PASSWORDS_MISMATCH');
       return;
     }
 
@@ -43,7 +44,7 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
       });
       onSaved();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to save');
+      setError(err instanceof Error ? err.message : 'FAILED_TO_SAVE');
     } finally {
       setSaving(false);
     }
@@ -136,7 +137,7 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
         </>
       )}
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-red-600">{t(error)}</p>}
 
       <button
         type="button"

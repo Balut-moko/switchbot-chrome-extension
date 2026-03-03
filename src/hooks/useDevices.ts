@@ -14,7 +14,7 @@ export function useDevices() {
       const result = await sendMessage('getDevices', { forceRefresh });
       setDevices(result);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load devices');
+      setError(err instanceof Error ? err.message : 'FAILED_TO_LOAD_DEVICES');
     } finally {
       setLoading(false);
     }

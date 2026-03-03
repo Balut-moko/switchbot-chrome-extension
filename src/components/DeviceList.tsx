@@ -3,6 +3,7 @@ import DeviceSection from '@/components/DeviceSection';
 import SearchBar from '@/components/SearchBar';
 import { useDevices } from '@/hooks/useDevices';
 import { groupDevices } from '@/utils/device';
+import { t } from '@/utils/i18n';
 
 export default function DeviceList() {
   const { devices, loading, error, refresh } = useDevices();
@@ -58,7 +59,7 @@ export default function DeviceList() {
       <div className="flex-1 overflow-y-auto px-4 pb-3 space-y-3">
         {error && (
           <div className="p-3 bg-red-50 text-red-700 text-xs rounded-md border border-red-200">
-            {error}
+            {t(error)}
           </div>
         )}
 
