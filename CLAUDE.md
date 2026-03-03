@@ -35,6 +35,7 @@ SwitchBot デバイスをブラウザから操作する Chrome 拡張機能（Ma
 - 長時間処理は `waitUntil` パターン（25秒ごとに `getPlatformInfo` 呼び出し）
 
 ## Git Rules
+- コミットは `/commit-default` スキルを使用して作成する
 - コミットに `Co-Authored-By` 行を付与しない
 - タスク管理コミット: `task: complete|create|block {id}-{slug}`
 - 実装コミット: Conventional Commits（`feat:` / `fix:` / `chore:` 等）+ 日本語メッセージ
