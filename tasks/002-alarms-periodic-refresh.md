@@ -1,7 +1,7 @@
 ---
 id: "002"
 title: "chrome.alarms で定期ステータス更新を実装する"
-status: "todo"
+status: "done"
 priority: "high"
 phase: 2
 depends_on: ["001"]
@@ -32,11 +32,11 @@ CLAUDE.md のアーキテクチャに「chrome.alarms で定期ステータス�
 
 ## Acceptance Criteria
 
-- [ ] `wxt.config.ts` の permissions に `"alarms"` が含まれている
-- [ ] ビルド後の `manifest.json` に `"alarms"` パーミッションが出力される
-- [ ] 5分間隔でデバイスステータスが自動更新される
-- [ ] 認証情報がない場合にエラーにならない
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] `wxt.config.ts` の permissions に `"alarms"` が含まれている
+- [x] ビルド後の `manifest.json` に `"alarms"` パーミッションが出力される
+- [x] 5分間隔でデバイスステータスが自動更新される
+- [x] 認証情報がない場合にエラーにならない
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
