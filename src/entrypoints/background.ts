@@ -1,6 +1,7 @@
 import { SwitchBotAPI } from '@/lib/api';
 import { decryptCredentials, encryptCredentials } from '@/lib/crypto';
 import { onMessage } from '@/lib/messaging';
+import { fetchDeviceStatusesStaggered } from '@/lib/staggered-requests';
 import {
   cachedDevicesItem,
   cacheTimestampItem,
@@ -11,6 +12,7 @@ import {
   securityModeItem,
   sessionCredentialsItem,
 } from '@/lib/storage';
+import { waitUntil } from '@/lib/wait-until';
 import type { Device, StoredCredentials } from '@/types/switchbot';
 import { CACHE_TTL_MS, IR_COMMAND_DELAYS } from '@/utils/constants';
 import { toUnifiedDevice } from '@/utils/device';
@@ -207,15 +209,12 @@ export default defineBackground({
       if (!cached || cached.length === 0) return;
 
       const api = createAPI(creds);
-      const physicalDevices = cached.filter((d: Device) => !d.isIR);
-      const statusCache = await deviceStatusCacheItem.getValue();
+      const results = await waitUntil(fetchDeviceStatusesStaggered(api, cached));
 
-      for (const device of physicalDevices) {
-        try {
-          const status = await api.getDeviceStatus(device.deviceId);
-          statusCache[device.deviceId] = status;
-        } catch {
-          // Individual device failure - skip
+      const statusCache = await deviceStatusCacheItem.getValue();
+      for (const result of results) {
+        if (result.status) {
+          statusCache[result.deviceId] = result.status;
         }
       }
 
