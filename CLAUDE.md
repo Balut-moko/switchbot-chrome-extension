@@ -34,6 +34,12 @@ SwitchBot デバイスをブラウザから操作する Chrome 拡張機能（Ma
 - ステータスリクエストはスタガード（200ms+ 間隔）
 - 長時間処理は `waitUntil` パターン（25秒ごとに `getPlatformInfo` 呼び出し）
 
+## Versioning
+- ベータ期間中は `0.x.0` 体系（正式リリースで `1.0.0`）
+- `package.json` の `version`: `"0.x.0"`（Chrome manifest の version に反映）
+- `wxt.config.ts` の `manifest.version_name`: `"0.x.0-beta"`（ストア表示用）
+- 実装回（タスクグループ）ごとに minor をバンプし、git tag `v0.x.0-beta` を付与
+
 ## Git Rules
 - コミットは `/commit-default` スキルを使用して作成する
 - コミットに `Co-Authored-By` 行を付与しない
