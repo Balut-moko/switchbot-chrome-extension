@@ -44,3 +44,4 @@ export const AC_FAN_DISPLAY: Record<number, { icon: string; label: string }> = {
 
 export const PBKDF2_ITERATIONS = 600_000;
 export const CACHE_TTL_MS = 5 * 60 * 1000;
+export const STATUS_REQUEST_INTERVAL_MS = 200;
