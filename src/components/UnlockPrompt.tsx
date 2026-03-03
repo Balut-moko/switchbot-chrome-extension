@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { sendMessage } from '@/lib/messaging';
+import { t } from '@/utils/i18n';
 
 interface Props {
   onUnlock: () => void;
@@ -27,12 +28,12 @@ export default function UnlockPrompt({ onUnlock }: Props) {
       if (result.success) {
         onUnlock();
       } else {
-        setError('Incorrect password');
+        setError('WRONG_PASSWORD');
         setPassword('');
         inputRef.current?.focus();
       }
     } catch {
-      setError('Failed to unlock');
+      setError('FAILED_TO_UNLOCK');
     } finally {
       setLoading(false);
     }
@@ -55,7 +56,7 @@ export default function UnlockPrompt({ onUnlock }: Props) {
           placeholder="Master password"
           className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        {error && <p className="text-xs text-red-600">{error}</p>}
+        {error && <p className="text-xs text-red-600">{t(error)}</p>}
         <button
           type="submit"
           disabled={loading || !password}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { sendMessage } from '@/lib/messaging';
+import { t } from '@/utils/i18n';
 
 export default function ConnectionTest() {
   const [testing, setTesting] = useState(false);
@@ -18,7 +19,7 @@ export default function ConnectionTest() {
     } catch (err) {
       setResult({
         success: false,
-        error: err instanceof Error ? err.message : 'Connection failed',
+        error: err instanceof Error ? err.message : 'CONNECTION_FAILED',
       });
     } finally {
       setTesting(false);
@@ -46,7 +47,7 @@ export default function ConnectionTest() {
         >
           {result.success
             ? `Connected! ${result.deviceCount} device(s) found.`
-            : `Error: ${result.error}`}
+            : `Error: ${result.error ? t(result.error) : ''}`}
         </div>
       )}
     </div>
