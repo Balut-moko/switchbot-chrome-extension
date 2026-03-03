@@ -1,7 +1,7 @@
 ---
 id: "013"
 title: "Biome と lefthook で開発環境を整備する"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-03"
@@ -50,13 +50,13 @@ Biome（Rust 製の高速 linter + formatter）を導入し、lefthook で pre-c
 
 ## Acceptance Criteria
 
-- [ ] `bun run lint` がエラーなしで完了する
-- [ ] `bun run format` が全ファイルを整形できる
-- [ ] `bun run check` が lint + format 一括チェックを実行できる
-- [ ] `git commit` 時に lefthook が pre-commit hook を実行する
-- [ ] pre-commit hook が lint/format 違反を検出してコミットを阻止できる
-- [ ] `.editorconfig` が存在する
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] `bun run lint` がエラーなしで完了する
+- [x] `bun run format` が全ファイルを整形できる
+- [x] `bun run check` が lint + format 一括チェックを実行できる
+- [x] `git commit` 時に lefthook が pre-commit hook を実行する
+- [x] pre-commit hook が lint/format 違反を検出してコミットを阻止できる
+- [x] `.editorconfig` が存在する
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
