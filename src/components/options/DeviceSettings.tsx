@@ -114,8 +114,8 @@ export default function DeviceSettings() {
   if (loading || prefsLoading) {
     return (
       <div className="space-y-3">
-        <h2 className="text-sm font-semibold">Device Display Settings</h2>
-        <p className="text-sm text-gray-500">Loading devices...</p>
+        <h2 className="text-sm font-semibold dark:text-gray-200">Device Display Settings</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400">Loading devices...</p>
       </div>
     );
   }
@@ -123,8 +123,8 @@ export default function DeviceSettings() {
   if (error) {
     return (
       <div className="space-y-3">
-        <h2 className="text-sm font-semibold">Device Display Settings</h2>
-        <div className="p-3 bg-red-50 text-red-700 text-xs rounded-md border border-red-200">
+        <h2 className="text-sm font-semibold dark:text-gray-200">Device Display Settings</h2>
+        <div className="p-3 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs rounded-md border border-red-200 dark:border-red-800">
           {error}
         </div>
       </div>
@@ -134,8 +134,10 @@ export default function DeviceSettings() {
   if (devices.length === 0) {
     return (
       <div className="space-y-3">
-        <h2 className="text-sm font-semibold">Device Display Settings</h2>
-        <p className="text-sm text-gray-500">No devices found. Test your API connection first.</p>
+        <h2 className="text-sm font-semibold dark:text-gray-200">Device Display Settings</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          No devices found. Test your API connection first.
+        </p>
       </div>
     );
   }
@@ -144,10 +146,13 @@ export default function DeviceSettings() {
 
   return (
     <div className="space-y-3">
-      <h2 className="text-sm font-semibold">Device Display Settings</h2>
+      <h2 className="text-sm font-semibold dark:text-gray-200">Device Display Settings</h2>
       <div className="space-y-1">
         {sortedList.map((item, index) => (
-          <div key={item.device.deviceId} className="flex items-center gap-2 py-1">
+          <div
+            key={item.device.deviceId}
+            className="flex items-center gap-2 py-1 dark:text-gray-200"
+          >
             <input
               type="checkbox"
               checked={item.visible}
@@ -157,7 +162,9 @@ export default function DeviceSettings() {
             <span className="text-sm">{getDeviceIcon(item.device)}</span>
             <span className="text-sm flex-1 min-w-0 truncate">
               {item.device.deviceName}{' '}
-              <span className="text-xs text-gray-500">({item.device.deviceType})</span>
+              <span className="text-xs text-gray-500 dark:text-gray-400">
+                ({item.device.deviceType})
+              </span>
             </span>
             <button
               type="button"

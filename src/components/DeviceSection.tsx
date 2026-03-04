@@ -23,11 +23,11 @@ export default function DeviceSection({
       <button
         type="button"
         onClick={() => setCollapsed((c) => !c)}
-        className="flex items-center justify-between w-full py-1.5 px-1 text-xs font-semibold text-gray-500 uppercase tracking-wider hover:text-gray-700 transition-colors"
+        className="flex items-center justify-between w-full py-1.5 px-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
       >
         <span>
           {title}
-          <span className="ml-1.5 text-gray-400 font-normal normal-case tracking-normal">
+          <span className="ml-1.5 text-gray-400 dark:text-gray-500 font-normal normal-case tracking-normal">
             {devices.length}
           </span>
         </span>

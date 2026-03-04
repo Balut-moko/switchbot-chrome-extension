@@ -41,7 +41,7 @@ export default function CurtainControl({ device }: Props) {
         disabled={isPending}
         className="w-20 h-1.5 accent-blue-500"
       />
-      <span className="text-xs font-mono w-8 text-right">{position}%</span>
+      <span className="text-xs font-mono w-8 text-right dark:text-gray-400">{position}%</span>
     </div>
   );
 }

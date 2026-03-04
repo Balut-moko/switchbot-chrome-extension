@@ -33,7 +33,7 @@ function DeviceControl({ device }: Props) {
     case 'light':
       return <LightControl device={device} />;
     default:
-      return <span className="text-xs text-gray-400">{device.deviceType}</span>;
+      return <span className="text-xs text-gray-400 dark:text-gray-500">{device.deviceType}</span>;
   }
 }
 
@@ -42,7 +42,7 @@ export default function DeviceCard({ device, variant = 'controls' }: Props) {
 
   if (category === 'ac') {
     return (
-      <div className="rounded-lg shadow-sm border border-gray-100 hover:border-gray-200 overflow-hidden">
+      <div className="rounded-lg shadow-sm dark:shadow-gray-900/30 border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 overflow-hidden">
         <ACControl device={device} />
       </div>
     );
@@ -50,15 +50,15 @@ export default function DeviceCard({ device, variant = 'controls' }: Props) {
 
   return (
     <div
-      className={`flex items-center justify-between p-3 rounded-lg shadow-sm border transition-colors ${
+      className={`flex items-center justify-between p-3 rounded-lg shadow-sm dark:shadow-gray-900/30 border transition-colors ${
         variant === 'sensors'
-          ? 'bg-gray-50 border-gray-100'
-          : 'bg-white border-gray-100 hover:border-gray-200'
+          ? 'bg-gray-50 dark:bg-gray-800 border-gray-100 dark:border-gray-700'
+          : 'bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600'
       }`}
     >
       <div className="flex items-center gap-2 min-w-0">
         <span className="text-base flex-shrink-0">{getDeviceIcon(device)}</span>
-        <span className="text-sm font-medium truncate">{device.deviceName}</span>
+        <span className="text-sm font-medium truncate dark:text-gray-200">{device.deviceName}</span>
       </div>
       <div className="flex-shrink-0 ml-2">
         <DeviceControl device={device} />

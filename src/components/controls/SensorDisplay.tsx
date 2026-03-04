@@ -11,11 +11,11 @@ export default function SensorDisplay({ device }: Props) {
   const caps = getCapabilities(device.deviceType);
 
   if (loading) {
-    return <span className="text-xs text-gray-400">Loading...</span>;
+    return <span className="text-xs text-gray-400 dark:text-gray-500">Loading...</span>;
   }
 
   if (!status) {
-    return <span className="text-xs text-gray-400">--</span>;
+    return <span className="text-xs text-gray-400 dark:text-gray-500">--</span>;
   }
 
   const parts: string[] = [];
@@ -41,5 +41,9 @@ export default function SensorDisplay({ device }: Props) {
     parts.push(state === 'open' ? 'Open' : 'Closed');
   }
 
-  return <span className="text-xs text-gray-600 font-mono">{parts.join(' | ') || '--'}</span>;
+  return (
+    <span className="text-xs text-gray-600 dark:text-gray-400 font-mono">
+      {parts.join(' | ') || '--'}
+    </span>
+  );
 }

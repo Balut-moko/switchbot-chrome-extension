@@ -55,8 +55,8 @@ export default function LockControl({ device }: Props) {
         confirming
           ? 'bg-yellow-500 text-white'
           : isLocked
-            ? 'bg-red-100 text-red-700'
-            : 'bg-green-100 text-green-700'
+            ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300'
+            : 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
       }`}
     >
       {confirming ? 'Confirm?' : isLocked ? 'Locked' : 'Unlocked'}
