@@ -38,7 +38,7 @@ export default function TVControl({ device }: Props) {
         type="button"
         onClick={() => volume('down')}
         disabled={isPending}
-        className="w-6 h-6 flex items-center justify-center text-xs bg-gray-100 rounded hover:bg-gray-200 disabled:opacity-30"
+        className="w-6 h-6 flex items-center justify-center text-xs bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-30"
       >
         -
       </button>
@@ -47,7 +47,9 @@ export default function TVControl({ device }: Props) {
         onClick={togglePower}
         disabled={isPending}
         className={`px-2 py-0.5 rounded text-xs font-medium ${
-          isOn ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-600'
+          isOn
+            ? 'bg-green-500 text-white'
+            : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
         }`}
       >
         {isOn ? 'ON' : 'OFF'}
@@ -56,7 +58,7 @@ export default function TVControl({ device }: Props) {
         type="button"
         onClick={() => volume('up')}
         disabled={isPending}
-        className="w-6 h-6 flex items-center justify-center text-xs bg-gray-100 rounded hover:bg-gray-200 disabled:opacity-30"
+        className="w-6 h-6 flex items-center justify-center text-xs bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-30"
       >
         +
       </button>

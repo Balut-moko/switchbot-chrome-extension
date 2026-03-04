@@ -40,10 +40,10 @@ export default function UnlockPrompt({ onUnlock }: Props) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-6 h-full">
+    <div className="flex flex-col items-center justify-center p-6 h-full bg-white dark:bg-gray-900">
       <div className="text-4xl mb-4">{'\u{1F512}'}</div>
-      <h2 className="text-lg font-semibold mb-1">Locked</h2>
-      <p className="text-xs text-gray-500 mb-4 text-center">
+      <h2 className="text-lg font-semibold mb-1 dark:text-gray-200">Locked</h2>
+      <p className="text-xs text-gray-500 dark:text-gray-400 mb-4 text-center">
         Enter your master password to access devices.
       </p>
 
@@ -54,9 +54,9 @@ export default function UnlockPrompt({ onUnlock }: Props) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Master password"
-          className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        {error && <p className="text-xs text-red-600">{t(error)}</p>}
+        {error && <p className="text-xs text-red-600 dark:text-red-300">{t(error)}</p>}
         <button
           type="submit"
           disabled={loading || !password}

@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import DeviceList from '@/components/DeviceList';
 import UnlockPrompt from '@/components/UnlockPrompt';
+import { useTheme } from '@/hooks/useTheme';
 import { sendMessage } from '@/lib/messaging';
 
 type AppState = 'loading' | 'no-credentials' | 'locked' | 'ready';
 
 export default function App() {
+  useTheme();
   const [state, setState] = useState<AppState>('loading');
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export default function App() {
 
   if (state === 'loading') {
     return (
-      <div className="flex items-center justify-center h-full">
+      <div className="flex items-center justify-center h-full bg-white dark:bg-gray-900">
         <p className="text-sm text-gray-400">Loading...</p>
       </div>
     );
@@ -35,10 +37,10 @@ export default function App() {
 
   if (state === 'no-credentials') {
     return (
-      <div className="flex flex-col items-center justify-center p-6 h-full text-center">
+      <div className="flex flex-col items-center justify-center p-6 h-full text-center bg-white dark:bg-gray-900">
         <div className="text-4xl mb-4">{'\u{1F527}'}</div>
-        <h2 className="text-lg font-semibold mb-2">Setup Required</h2>
-        <p className="text-xs text-gray-500 mb-4">
+        <h2 className="text-lg font-semibold mb-2 dark:text-gray-200">Setup Required</h2>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">
           Configure your SwitchBot API credentials to get started.
         </p>
         <button

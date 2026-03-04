@@ -26,7 +26,7 @@ export default function SearchBar({ onSearch }: Props) {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="Search devices..."
-        className="w-full pl-8 pr-3 py-1.5 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400"
+        className="w-full pl-8 pr-3 py-1.5 text-sm border border-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-500 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400"
       />
     </div>
   );

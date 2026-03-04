@@ -46,3 +46,9 @@ export const deviceStatusCacheItem = storage.defineItem<Record<string, DeviceSta
   'local:deviceStatusCache',
   { fallback: {} },
 );
+
+export type ThemePreference = 'light' | 'dark' | 'system';
+
+export const themePreferenceItem = storage.defineItem<ThemePreference>('local:themePreference', {
+  fallback: 'system',
+});

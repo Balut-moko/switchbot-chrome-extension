@@ -39,7 +39,7 @@ export default function LightControl({ device }: Props) {
       disabled={isPending}
       className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${
         isPending ? 'opacity-50' : ''
-      } ${isOn ? 'bg-yellow-400' : 'bg-gray-300'}`}
+      } ${isOn ? 'bg-yellow-400' : 'bg-gray-300 dark:bg-gray-600'}`}
     >
       <span
         className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200 ${
