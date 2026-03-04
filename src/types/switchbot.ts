@@ -56,6 +56,13 @@ export interface MeterStatus extends BaseDeviceStatus {
   battery: number;
 }
 
+export interface MeterProCO2Status extends BaseDeviceStatus {
+  temperature: number;
+  humidity: number;
+  battery: number;
+  CO2: number;
+}
+
 export interface PlugStatus extends BaseDeviceStatus {
   power: 'on' | 'off';
   voltage: number;
@@ -105,6 +112,7 @@ export interface ContactSensorStatus extends BaseDeviceStatus {
 export type DeviceStatus =
   | BotStatus
   | MeterStatus
+  | MeterProCO2Status
   | PlugStatus
   | CurtainStatus
   | LockStatus

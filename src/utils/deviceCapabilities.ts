@@ -7,6 +7,7 @@ export interface DeviceCapability {
   hasBattery: boolean;
   hasBrightness: boolean;
   hasColor: boolean;
+  hasCO2: boolean;
   commands: string[];
 }
 
@@ -19,6 +20,7 @@ const defaults: DeviceCapability = {
   hasBattery: false,
   hasBrightness: false,
   hasColor: false,
+  hasCO2: false,
   commands: [],
 };
 
@@ -63,6 +65,8 @@ export const DEVICE_CAPABILITIES: Record<string, DeviceCapability> = {
   'Meter Plus': cap({ hasTemperature: true, hasHumidity: true, hasBattery: true }),
   MeterPlus: cap({ hasTemperature: true, hasHumidity: true, hasBattery: true }),
   WoIOSensor: cap({ hasTemperature: true, hasHumidity: true, hasBattery: true }),
+  MeterPro: cap({ hasTemperature: true, hasHumidity: true, hasBattery: true }),
+  'MeterPro(CO2)': cap({ hasTemperature: true, hasHumidity: true, hasBattery: true, hasCO2: true }),
   'Hub 2': cap({ hasTemperature: true, hasHumidity: true }),
   'Motion Sensor': cap({ hasBattery: true }),
   'Contact Sensor': cap({ hasBattery: true }),

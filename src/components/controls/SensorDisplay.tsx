@@ -26,6 +26,9 @@ export default function SensorDisplay({ device }: Props) {
   if (caps.hasHumidity && 'humidity' in status) {
     parts.push(`${(status as { humidity: number }).humidity}%`);
   }
+  if (caps.hasCO2 && 'CO2' in status) {
+    parts.push(`CO\u2082 ${(status as { CO2: number }).CO2} ppm`);
+  }
   if (caps.hasBattery && 'battery' in status) {
     parts.push(`\u{1F50B} ${(status as { battery: number }).battery}%`);
   }
