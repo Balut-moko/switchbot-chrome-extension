@@ -1,7 +1,7 @@
 ---
 id: "014"
 title: "Bot の deviceMode に応じた UI 自動切替"
-status: "todo"
+status: "done"
 priority: "medium"
 phase: 2
 depends_on: []
@@ -40,11 +40,11 @@ Bot の `deviceMode` をステータスから取得し、モードに応じた�
 
 ## Acceptance Criteria
 
-- [ ] Bot デバイスが `pressMode` のとき「押す」ボタンが表示される
-- [ ] Bot デバイスが `switchMode` のとき ON/OFF トグルが表示される
-- [ ] `deviceMode` が不明な場合、トグル UI がフォールバック表示される
-- [ ] Plug デバイスは従来通り `SwitchControl` で動作する
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] Bot デバイスが `pressMode` のとき「押す」ボタンが表示される
+- [x] Bot デバイスが `switchMode` のとき ON/OFF トグルが表示される
+- [x] `deviceMode` が不明な場合、トグル UI がフォールバック表示される
+- [x] Plug デバイスは従来通り `SwitchControl` で動作する
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
