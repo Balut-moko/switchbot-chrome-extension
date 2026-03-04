@@ -1,6 +1,7 @@
 import type { Device, SwitchBotDevice, SwitchBotIRDevice } from '@/types/switchbot';
 
 export type DeviceCategory =
+  | 'bot'
   | 'switch'
   | 'sensor'
   | 'ac'
@@ -10,7 +11,8 @@ export type DeviceCategory =
   | 'light'
   | 'other';
 
-const SWITCH_TYPES = new Set(['Bot', 'Plug', 'Plug Mini (US)', 'Plug Mini (JP)']);
+const BOT_TYPES = new Set(['Bot']);
+const SWITCH_TYPES = new Set(['Plug', 'Plug Mini (US)', 'Plug Mini (JP)']);
 
 const LIGHT_TYPES = new Set(['Color Bulb', 'Strip Light', 'Ceiling Light', 'Ceiling Light Pro']);
 
@@ -55,6 +57,7 @@ export function toUnifiedDevice(device: SwitchBotDevice | SwitchBotIRDevice): De
 
 export function getDeviceCategory(device: Device): DeviceCategory {
   const type = device.deviceType;
+  if (BOT_TYPES.has(type)) return 'bot';
   if (SWITCH_TYPES.has(type)) return 'switch';
   if (LIGHT_TYPES.has(type)) return 'light';
   if (SENSOR_TYPES.has(type)) return 'sensor';
@@ -112,6 +115,7 @@ export function getDeviceGroup(device: Device): DeviceGroup {
 }
 
 const CATEGORY_SORT_ORDER: Record<DeviceCategory, number> = {
+  bot: 0,
   switch: 0,
   light: 1,
   curtain: 2,

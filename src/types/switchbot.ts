@@ -47,7 +47,7 @@ export interface BaseDeviceStatus {
 export interface BotStatus extends BaseDeviceStatus {
   power: 'on' | 'off';
   battery: number;
-  deviceMode: string;
+  deviceMode: 'pressMode' | 'switchMode' | 'customizeMode';
 }
 
 export interface MeterStatus extends BaseDeviceStatus {

@@ -1,4 +1,5 @@
 import ACControl from '@/components/controls/ACControl';
+import BotControl from '@/components/controls/BotControl';
 import CurtainControl from '@/components/controls/CurtainControl';
 import LightControl from '@/components/controls/LightControl';
 import LockControl from '@/components/controls/LockControl';
@@ -17,6 +18,8 @@ function DeviceControl({ device }: Props) {
   const category = getDeviceCategory(device);
 
   switch (category) {
+    case 'bot':
+      return <BotControl device={device} />;
     case 'switch':
       return <SwitchControl device={device} />;
     case 'sensor':
