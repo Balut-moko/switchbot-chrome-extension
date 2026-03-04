@@ -1,7 +1,7 @@
 ---
 id: "015"
 title: "MeterPro / MeterPro(CO2) のセンサー表示を対応する"
-status: "todo"
+status: "done"
 priority: "medium"
 phase: 2
 depends_on: []
@@ -32,9 +32,9 @@ SwitchBot MeterPro および MeterPro(CO2) が `SENSOR_TYPES` と `DEVICE_CAPABI
 
 ## Acceptance Criteria
 
-- [ ] MeterPro がセンサーカテゴリに分類され、温度・湿度・バッテリーが表示される
-- [ ] MeterPro(CO2) がセンサーカテゴリに分類され、温度・湿度・CO2・バッテリーが表示される
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] MeterPro がセンサーカテゴリに分類され、温度・湿度・バッテリーが表示される
+- [x] MeterPro(CO2) がセンサーカテゴリに分類され、温度・湿度・CO2・バッテリーが表示される
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
