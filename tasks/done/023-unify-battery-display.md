@@ -1,7 +1,7 @@
 ---
 id: "023"
 title: "バッテリー残量表示をすべてのデバイスカードで統一する"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-07"
@@ -33,9 +33,9 @@ updated: "2026-03-07"
 
 ## Acceptance Criteria
 
-- [ ] Bot デバイスカードにバッテリー残量がバッジとして表示される
-- [ ] Curtain/Curtain3/Blind Tilt/Roller Shade デバイスカードにバッテリー残量が表示される
-- [ ] Smart Lock/Smart Lock Pro デバイスカードにバッテリー残量が表示される
-- [ ] センサー系デバイスのバッテリー表示が従来通り動作する
-- [ ] バッテリー情報がない場合にバッジが表示されない
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] Bot デバイスカードにバッテリー残量がバッジとして表示される
+- [x] Curtain/Curtain3/Blind Tilt/Roller Shade デバイスカードにバッテリー残量が表示される
+- [x] Smart Lock/Smart Lock Pro デバイスカードにバッテリー残量が表示される
+- [x] センサー系デバイスのバッテリー表示が従来通り動作する
+- [x] バッテリー情報がない場合にバッジが表示されない
+- [x] `bun run build` が TypeScript エラーなしで成功する
