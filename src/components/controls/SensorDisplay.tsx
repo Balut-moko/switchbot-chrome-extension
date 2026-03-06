@@ -1,6 +1,7 @@
 import { useDeviceStatus } from '@/hooks/useDeviceStatus';
 import type { Device } from '@/types/switchbot';
 import { getCapabilities } from '@/utils/deviceCapabilities';
+import { t } from '@/utils/i18n';
 
 interface Props {
   device: Device;
@@ -11,7 +12,7 @@ export default function SensorDisplay({ device }: Props) {
   const caps = getCapabilities(device.deviceType);
 
   if (loading) {
-    return <span className="text-xs text-gray-400 dark:text-gray-500">Loading...</span>;
+    return <span className="text-xs text-gray-400 dark:text-gray-500">{t('LOADING')}</span>;
   }
 
   if (!status) {
@@ -34,11 +35,13 @@ export default function SensorDisplay({ device }: Props) {
   }
 
   if ('moveDetected' in status) {
-    parts.push((status as { moveDetected: boolean }).moveDetected ? 'Motion!' : 'Clear');
+    parts.push(
+      (status as { moveDetected: boolean }).moveDetected ? t('MOTION_DETECTED') : t('MOTION_CLEAR'),
+    );
   }
   if ('openState' in status) {
     const state = (status as { openState: string }).openState;
-    parts.push(state === 'open' ? 'Open' : 'Closed');
+    parts.push(state === 'open' ? t('CONTACT_OPEN') : t('CONTACT_CLOSED'));
   }
 
   return (

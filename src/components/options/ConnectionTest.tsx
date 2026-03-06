@@ -34,7 +34,7 @@ export default function ConnectionTest() {
         disabled={testing}
         className="w-full py-2 px-4 bg-green-600 text-white rounded-md text-sm font-medium hover:bg-green-700 disabled:opacity-50"
       >
-        {testing ? 'Testing...' : 'Test Connection'}
+        {testing ? t('TESTING') : t('TEST_CONNECTION')}
       </button>
 
       {result && (
@@ -46,7 +46,7 @@ export default function ConnectionTest() {
           }`}
         >
           {result.success
-            ? `Connected! ${result.deviceCount} device(s) found.`
+            ? t('CONNECTION_SUCCESS', { count: result.deviceCount ?? 0 })
             : `Error: ${result.error ? t(result.error) : ''}`}
         </div>
       )}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDeviceCommand } from '@/hooks/useDeviceCommand';
 import { useDeviceStatus } from '@/hooks/useDeviceStatus';
 import type { Device } from '@/types/switchbot';
+import { t } from '@/utils/i18n';
 
 interface Props {
   device: Device;
@@ -59,7 +60,7 @@ export default function LockControl({ device }: Props) {
             : 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
       }`}
     >
-      {confirming ? 'Confirm?' : isLocked ? 'Locked' : 'Unlocked'}
+      {confirming ? t('CONFIRM') : isLocked ? t('LOCK_LOCKED') : t('LOCK_UNLOCKED')}
     </button>
   );
 }

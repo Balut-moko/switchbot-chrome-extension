@@ -3,6 +3,7 @@ import { useDevices } from '@/hooks/useDevices';
 import { devicePreferencesItem } from '@/lib/storage';
 import type { Device } from '@/types/switchbot';
 import { getDeviceIcon } from '@/utils/device';
+import { t } from '@/utils/i18n';
 
 type DevicePreferences = Record<string, { visible: boolean; order: number }>;
 
@@ -114,8 +115,8 @@ export default function DeviceSettings() {
   if (loading || prefsLoading) {
     return (
       <div className="space-y-3">
-        <h2 className="text-sm font-semibold dark:text-gray-200">Device Display Settings</h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400">Loading devices...</p>
+        <h2 className="text-sm font-semibold dark:text-gray-200">{t('DEVICE_DISPLAY_SETTINGS')}</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400">{t('LOADING_DEVICES')}</p>
       </div>
     );
   }
@@ -123,7 +124,7 @@ export default function DeviceSettings() {
   if (error) {
     return (
       <div className="space-y-3">
-        <h2 className="text-sm font-semibold dark:text-gray-200">Device Display Settings</h2>
+        <h2 className="text-sm font-semibold dark:text-gray-200">{t('DEVICE_DISPLAY_SETTINGS')}</h2>
         <div className="p-3 bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 text-xs rounded-md border border-red-200 dark:border-red-800">
           {error}
         </div>
@@ -134,10 +135,8 @@ export default function DeviceSettings() {
   if (devices.length === 0) {
     return (
       <div className="space-y-3">
-        <h2 className="text-sm font-semibold dark:text-gray-200">Device Display Settings</h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          No devices found. Test your API connection first.
-        </p>
+        <h2 className="text-sm font-semibold dark:text-gray-200">{t('DEVICE_DISPLAY_SETTINGS')}</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400">{t('NO_DEVICES_FOUND')}</p>
       </div>
     );
   }
@@ -146,7 +145,7 @@ export default function DeviceSettings() {
 
   return (
     <div className="space-y-3">
-      <h2 className="text-sm font-semibold dark:text-gray-200">Device Display Settings</h2>
+      <h2 className="text-sm font-semibold dark:text-gray-200">{t('DEVICE_DISPLAY_SETTINGS')}</h2>
       <div className="space-y-1">
         {sortedList.map((item, index) => (
           <div

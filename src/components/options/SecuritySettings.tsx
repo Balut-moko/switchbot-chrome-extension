@@ -1,4 +1,5 @@
 import type { SecurityMode } from '@/types/switchbot';
+import { t } from '@/utils/i18n';
 
 interface Props {
   mode: SecurityMode;
@@ -8,7 +9,7 @@ interface Props {
 export default function SecuritySettings({ mode, onChange }: Props) {
   return (
     <div className="space-y-3">
-      <h2 className="text-lg font-semibold dark:text-gray-200">Security Mode</h2>
+      <h2 className="text-lg font-semibold dark:text-gray-200">{t('SECURITY_MODE')}</h2>
 
       <label className="flex items-start gap-3 p-3 border dark:border-gray-700 rounded-md cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700">
         <input
@@ -20,9 +21,9 @@ export default function SecuritySettings({ mode, onChange }: Props) {
           className="mt-1"
         />
         <div>
-          <p className="font-medium text-sm dark:text-gray-200">Standard (Recommended)</p>
+          <p className="font-medium text-sm dark:text-gray-200">{t('STANDARD_MODE')}</p>
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-            Credentials are stored in the browser. Quick access to your devices.
+            {t('STANDARD_DESCRIPTION')}
           </p>
         </div>
       </label>
@@ -37,9 +38,9 @@ export default function SecuritySettings({ mode, onChange }: Props) {
           className="mt-1"
         />
         <div>
-          <p className="font-medium text-sm dark:text-gray-200">High Security</p>
+          <p className="font-medium text-sm dark:text-gray-200">{t('HIGH_SECURITY_MODE')}</p>
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-            Encrypted with a master password. You'll need to enter it once per browser session.
+            {t('HIGH_SECURITY_DESCRIPTION')}
           </p>
         </div>
       </label>

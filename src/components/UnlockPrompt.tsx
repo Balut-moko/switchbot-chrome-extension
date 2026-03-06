@@ -42,9 +42,9 @@ export default function UnlockPrompt({ onUnlock }: Props) {
   return (
     <div className="flex flex-col items-center justify-center p-6 h-full bg-white dark:bg-gray-900">
       <div className="text-4xl mb-4">{'\u{1F512}'}</div>
-      <h2 className="text-lg font-semibold mb-1 dark:text-gray-200">Locked</h2>
+      <h2 className="text-lg font-semibold mb-1 dark:text-gray-200">{t('UI_LOCKED')}</h2>
       <p className="text-xs text-gray-500 dark:text-gray-400 mb-4 text-center">
-        Enter your master password to access devices.
+        {t('UNLOCK_DESCRIPTION')}
       </p>
 
       <form onSubmit={handleSubmit} className="w-full max-w-xs space-y-3">
@@ -53,7 +53,7 @@ export default function UnlockPrompt({ onUnlock }: Props) {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Master password"
+          placeholder={t('MASTER_PASSWORD_PLACEHOLDER')}
           className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         {error && <p className="text-xs text-red-600 dark:text-red-300">{t(error)}</p>}
@@ -62,7 +62,7 @@ export default function UnlockPrompt({ onUnlock }: Props) {
           disabled={loading || !password}
           className="w-full py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
         >
-          {loading ? 'Unlocking...' : 'Unlock'}
+          {loading ? t('UNLOCKING') : t('UNLOCK')}
         </button>
       </form>
     </div>

@@ -52,14 +52,14 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold dark:text-gray-200">API Credentials</h2>
+      <h2 className="text-lg font-semibold dark:text-gray-200">{t('API_CREDENTIALS')}</h2>
 
       <div>
         <label
           htmlFor="api-token"
           className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
         >
-          API Token
+          {t('API_TOKEN')}
         </label>
         <div className="relative">
           <input
@@ -68,14 +68,14 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
             value={token}
             onChange={(e) => setToken(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter your SwitchBot API Token"
+            placeholder={t('API_TOKEN_PLACEHOLDER')}
           />
           <button
             type="button"
             onClick={() => setShowToken(!showToken)}
             className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
           >
-            {showToken ? 'Hide' : 'Show'}
+            {showToken ? t('HIDE') : t('SHOW')}
           </button>
         </div>
       </div>
@@ -85,7 +85,7 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
           htmlFor="api-secret"
           className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
         >
-          API Secret
+          {t('API_SECRET')}
         </label>
         <div className="relative">
           <input
@@ -94,14 +94,14 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
             value={secret}
             onChange={(e) => setSecret(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Enter your SwitchBot API Secret"
+            placeholder={t('API_SECRET_PLACEHOLDER')}
           />
           <button
             type="button"
             onClick={() => setShowSecret(!showSecret)}
             className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
           >
-            {showSecret ? 'Hide' : 'Show'}
+            {showSecret ? t('HIDE') : t('SHOW')}
           </button>
         </div>
       </div>
@@ -113,7 +113,7 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
               htmlFor="master-password"
               className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
             >
-              Master Password
+              {t('MASTER_PASSWORD_LABEL')}
             </label>
             <input
               id="master-password"
@@ -121,7 +121,7 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Create a master password"
+              placeholder={t('MASTER_PASSWORD_CREATE')}
             />
           </div>
           <div>
@@ -129,7 +129,7 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
               htmlFor="confirm-password"
               className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
             >
-              Confirm Password
+              {t('CONFIRM_PASSWORD')}
             </label>
             <input
               id="confirm-password"
@@ -137,7 +137,7 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
               value={passwordConfirm}
               onChange={(e) => setPasswordConfirm(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Confirm master password"
+              placeholder={t('CONFIRM_PASSWORD_PLACEHOLDER')}
             />
           </div>
         </>
@@ -151,7 +151,7 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
         disabled={saving}
         className="w-full py-2 px-4 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
       >
-        {saving ? 'Saving...' : 'Save Credentials'}
+        {saving ? t('SAVING') : t('SAVE_CREDENTIALS')}
       </button>
     </div>
   );
