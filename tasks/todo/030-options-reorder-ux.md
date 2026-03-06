@@ -1,7 +1,7 @@
 ---
 id: "030"
 title: "設定画面のデバイス並び替え UX を改善する"
-status: "todo"
+status: "in_progress"
 priority: "medium"
 depends_on: []
 created: "2026-03-07"
