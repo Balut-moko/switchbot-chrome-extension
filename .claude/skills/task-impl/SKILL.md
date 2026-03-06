@@ -112,6 +112,11 @@ grep -l 'status: "todo"' tasks/[0-9]*.md
    git merge {branch} --no-edit
    ```
 3. マージ競合が発生した場合はユーザーに報告して手動解決を依頼する
+4. マージ成功したブランチの worktree とブランチを削除する:
+   ```bash
+   git worktree remove .claude/worktrees/agent-{id}
+   git branch -d worktree-agent-{id}
+   ```
 
 ---
 
