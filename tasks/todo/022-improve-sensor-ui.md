@@ -1,11 +1,11 @@
 ---
 id: "022"
 title: "センサー類のUIをリッチなカードレイアウトに改善する"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-06"
-updated: "2026-03-06"
+updated: "2026-03-07"
 ---
 
 # センサー類のUIをリッチなカードレイアウトに改善する
@@ -32,10 +32,10 @@ updated: "2026-03-06"
 
 ## Acceptance Criteria
 
-- [ ] 温度・湿度がアイコン付き青バッジで表示される
-- [ ] CO2・バッテリーがグレーバッジで表示される
-- [ ] Motion Sensor / Contact Sensor の状態が適切なバッジで表示される
-- [ ] ダークモードで正しく表示される
-- [ ] Loading 時にスケルトンバッジが表示される
-- [ ] コントロール系デバイスのレイアウトに影響がない
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] 温度・湿度がアイコン付き青バッジで表示される
+- [x] CO2・バッテリーがグレーバッジで表示される
+- [x] Motion Sensor / Contact Sensor の状態が適切なバッジで表示される
+- [x] ダークモードで正しく表示される
+- [x] Loading 時にスケルトンバッジが表示される
+- [x] コントロール系デバイスのレイアウトに影響がない
+- [x] `bun run build` が TypeScript エラーなしで成功する
