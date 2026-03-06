@@ -62,12 +62,6 @@ export default function App() {
 
       {isConfigured && (
         <div className="border dark:border-gray-700 rounded-lg p-4">
-          <ConnectionTest />
-        </div>
-      )}
-
-      {isConfigured && (
-        <div className="border dark:border-gray-700 rounded-lg p-4">
           <DeviceSettings />
         </div>
       )}
@@ -115,6 +109,8 @@ export default function App() {
               <SecuritySettings mode={securityMode} onChange={setSecurityMode} />
               <hr className="dark:border-gray-700" />
               <ApiKeyForm securityMode={securityMode} onSaved={handleSaved} />
+              <hr className="dark:border-gray-700" />
+              <ConnectionTest />
             </div>
           </div>
         </div>
