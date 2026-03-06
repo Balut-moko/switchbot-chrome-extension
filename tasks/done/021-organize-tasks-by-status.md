@@ -1,7 +1,7 @@
 ---
 id: "021"
 title: "タスクをステータス別にフォルダ分けする"
-status: "in_progress"
+status: "done"
 priority: "low"
 depends_on: []
 created: "2026-03-06"
@@ -37,12 +37,12 @@ updated: "2026-03-07"
 
 ## Acceptance Criteria
 
-- [ ] 完了済みタスクが `tasks/done/` に移動されている
-- [ ] 未着手タスクが `tasks/todo/` に配置されている
-- [ ] `tasks/GUIDE.md` がフォルダ構造に合わせて更新されている
-- [ ] CLAUDE.md の Quick Reference が更新されている
-- [ ] タスク関連スキルのパスが正しく更新されている
-- [ ] `in_progress` のタスクは `tasks/todo/` に置く（作業中は todo 扱い）
+- [x] 完了済みタスクが `tasks/done/` に移動されている
+- [x] 未着手タスクが `tasks/todo/` に配置されている
+- [x] `tasks/GUIDE.md` がフォルダ構造に合わせて更新されている
+- [x] CLAUDE.md の Quick Reference が更新されている
+- [x] タスク関連スキルのパスが正しく更新されている
+- [x] `in_progress` のタスクは `tasks/todo/` に置く（作業中は todo 扱い）
 
 ## Notes
 
