@@ -52,3 +52,10 @@ export type ThemePreference = 'light' | 'dark' | 'system';
 export const themePreferenceItem = storage.defineItem<ThemePreference>('local:themePreference', {
   fallback: 'system',
 });
+
+export type LanguagePreference = 'auto' | 'ja' | 'en';
+
+export const languagePreferenceItem = storage.defineItem<LanguagePreference>(
+  'local:languagePreference',
+  { fallback: 'auto' },
+);

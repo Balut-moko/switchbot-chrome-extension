@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import DeviceList from '@/components/DeviceList';
 import UnlockPrompt from '@/components/UnlockPrompt';
+import { useLocale } from '@/hooks/useLocale';
 import { useTheme } from '@/hooks/useTheme';
 import { sendMessage } from '@/lib/messaging';
 import { t } from '@/utils/i18n';
@@ -9,6 +10,7 @@ type AppState = 'loading' | 'no-credentials' | 'locked' | 'ready';
 
 export default function App() {
   useTheme();
+  useLocale();
   const [state, setState] = useState<AppState>('loading');
 
   useEffect(() => {
