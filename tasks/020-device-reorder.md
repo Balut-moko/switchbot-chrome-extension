@@ -1,7 +1,7 @@
 ---
 id: "020"
 title: "デバイスを並び替え可能にする"
-status: "in_progress"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-06"
@@ -42,16 +42,16 @@ updated: "2026-03-07"
 
 ## Acceptance Criteria
 
-- [ ] Options ページで設定した並び順が Popup に反映される
-- [ ] `visible: false` のデバイスが Popup に表示されない
-- [ ] 並び替えボタンを押すと並び替えモードに入り、ドラッグ＆ドロップが有効になる
-- [ ] 並び替えモード中はデバイス操作が無効化される
-- [ ] 並び替えモードを終了すると通常操作に戻る
-- [ ] 並び替え結果が `local:devicePreferences` に永続化される
-- [ ] Options ページと Popup で並び順が同期している
-- [ ] ドラッグ中に視覚フィードバックがある
-- [ ] ダークモードで正しく表示される
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] Options ページで設定した並び順が Popup に反映される
+- [x] `visible: false` のデバイスが Popup に表示されない
+- [x] 並び替えボタンを押すと並び替えモードに入り、ドラッグ＆ドロップが有効になる
+- [x] 並び替えモード中はデバイス操作が無効化される
+- [x] 並び替えモードを終了すると通常操作に戻る
+- [x] 並び替え結果が `local:devicePreferences` に永続化される
+- [x] Options ページと Popup で並び順が同期している
+- [x] ドラッグ中に視覚フィードバックがある
+- [x] ダークモードで正しく表示される
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
