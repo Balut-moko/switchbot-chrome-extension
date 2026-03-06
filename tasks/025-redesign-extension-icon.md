@@ -1,7 +1,7 @@
 ---
 id: "025"
 title: "拡張機能アイコンをリデザインする"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-07"
@@ -36,10 +36,10 @@ SwitchBot らしさやアプリとしての洗練さに欠ける。Chrome ツー
 
 ## Acceptance Criteria
 
-- [ ] 新しい `icon.svg` が作成されている
-- [ ] `bun run generate:icons` で全サイズの PNG が正常に生成される
-- [ ] 16px サイズでも識別可能なデザインである
-- [ ] `bun run build` が成功する
+- [x] 新しい `icon.svg` が作成されている
+- [x] `bun run generate:icons` で全サイズの PNG が正常に生成される
+- [x] 16px サイズでも識別可能なデザインである
+- [x] `bun run build` が成功する
 
 ## Notes
 
