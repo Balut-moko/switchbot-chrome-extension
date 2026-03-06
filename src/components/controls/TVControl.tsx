@@ -5,9 +5,10 @@ import { t } from '@/utils/i18n';
 
 interface Props {
   device: Device;
+  disabled?: boolean;
 }
 
-export default function TVControl({ device }: Props) {
+export default function TVControl({ device, disabled = false }: Props) {
   const [isOn, setIsOn] = useState(false);
   const { sendCommand, isPending } = useDeviceCommand(device.deviceId);
 
@@ -38,7 +39,7 @@ export default function TVControl({ device }: Props) {
       <button
         type="button"
         onClick={() => volume('down')}
-        disabled={isPending}
+        disabled={isPending || disabled}
         className="w-6 h-6 flex items-center justify-center text-xs bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-30"
       >
         -
@@ -46,7 +47,7 @@ export default function TVControl({ device }: Props) {
       <button
         type="button"
         onClick={togglePower}
-        disabled={isPending}
+        disabled={isPending || disabled}
         className={`px-2 py-0.5 rounded text-xs font-medium ${
           isOn
             ? 'bg-green-500 text-white'
@@ -58,7 +59,7 @@ export default function TVControl({ device }: Props) {
       <button
         type="button"
         onClick={() => volume('up')}
-        disabled={isPending}
+        disabled={isPending || disabled}
         className="w-6 h-6 flex items-center justify-center text-xs bg-gray-100 dark:bg-gray-700 dark:text-gray-300 rounded hover:bg-gray-200 dark:hover:bg-gray-600 disabled:opacity-30"
       >
         +

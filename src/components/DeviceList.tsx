@@ -12,7 +12,7 @@ export default function DeviceList() {
   const { theme, setTheme } = useTheme();
   const [query, setQuery] = useState('');
   const [preferences, setPreferences] = useState<
-    Record<string, { visible: boolean; order: number }>
+    Record<string, { visible: boolean; order: number; disabled?: boolean }>
   >({});
 
   useEffect(() => {
@@ -43,6 +43,14 @@ export default function DeviceList() {
   const filtered = query
     ? visibleDevices.filter((d) => d.deviceName.toLowerCase().includes(query))
     : visibleDevices;
+
+  const disabledDeviceIds = useMemo(() => {
+    const ids = new Set<string>();
+    for (const [id, pref] of Object.entries(preferences)) {
+      if (pref.disabled) ids.add(id);
+    }
+    return ids;
+  }, [preferences]);
 
   const grouped = useMemo(() => groupDevices(filtered), [filtered]);
   const isSearching = query.length > 0;
@@ -114,6 +122,7 @@ export default function DeviceList() {
             devices={grouped.controls}
             forceExpand={isSearching}
             variant="controls"
+            disabledDeviceIds={disabledDeviceIds}
           />
         )}
 
@@ -123,6 +132,7 @@ export default function DeviceList() {
             devices={grouped.sensors}
             forceExpand={isSearching}
             variant="sensors"
+            disabledDeviceIds={disabledDeviceIds}
           />
         )}
 

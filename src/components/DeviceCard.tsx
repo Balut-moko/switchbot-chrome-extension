@@ -12,38 +12,43 @@ import { getDeviceCategory, getDeviceIcon } from '@/utils/device';
 interface Props {
   device: Device;
   variant?: 'controls' | 'sensors';
+  disabled?: boolean;
 }
 
-function DeviceControl({ device }: Props) {
+function DeviceControl({ device, disabled = false }: { device: Device; disabled?: boolean }) {
   const category = getDeviceCategory(device);
 
   switch (category) {
     case 'bot':
-      return <BotControl device={device} />;
+      return <BotControl device={device} disabled={disabled} />;
     case 'switch':
-      return <SwitchControl device={device} />;
+      return <SwitchControl device={device} disabled={disabled} />;
     case 'sensor':
       return <SensorDisplay device={device} />;
     case 'curtain':
-      return <CurtainControl device={device} />;
+      return <CurtainControl device={device} disabled={disabled} />;
     case 'tv':
-      return <TVControl device={device} />;
+      return <TVControl device={device} disabled={disabled} />;
     case 'lock':
-      return <LockControl device={device} />;
+      return <LockControl device={device} disabled={disabled} />;
     case 'light':
-      return <LightControl device={device} />;
+      return <LightControl device={device} disabled={disabled} />;
     default:
       return <span className="text-xs text-gray-400 dark:text-gray-500">{device.deviceType}</span>;
   }
 }
 
-export default function DeviceCard({ device, variant = 'controls' }: Props) {
+export default function DeviceCard({ device, variant = 'controls', disabled = false }: Props) {
   const category = getDeviceCategory(device);
+
+  const disabledClass = disabled ? 'opacity-50 pointer-events-none' : '';
 
   if (category === 'ac') {
     return (
-      <div className="rounded-lg shadow-sm dark:shadow-gray-900/30 border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 overflow-hidden">
-        <ACControl device={device} />
+      <div
+        className={`rounded-lg shadow-sm dark:shadow-gray-900/30 border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 overflow-hidden ${disabledClass}`}
+      >
+        <ACControl device={device} disabled={disabled} />
       </div>
     );
   }
@@ -57,7 +62,7 @@ export default function DeviceCard({ device, variant = 'controls' }: Props) {
             {device.deviceName}
           </span>
         </div>
-        <DeviceControl device={device} />
+        <DeviceControl device={device} disabled={disabled} />
       </div>
     );
   }
@@ -68,8 +73,8 @@ export default function DeviceCard({ device, variant = 'controls' }: Props) {
         <span className="text-base flex-shrink-0">{getDeviceIcon(device)}</span>
         <span className="text-sm font-medium truncate dark:text-gray-200">{device.deviceName}</span>
       </div>
-      <div className="flex-shrink-0 ml-2">
-        <DeviceControl device={device} />
+      <div className={`flex-shrink-0 ml-2 ${disabledClass}`}>
+        <DeviceControl device={device} disabled={disabled} />
       </div>
     </div>
   );

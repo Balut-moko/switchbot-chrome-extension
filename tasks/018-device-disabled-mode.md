@@ -1,12 +1,12 @@
 ---
 id: "018"
 title: "デバイスの操作不可モードを追加する"
-status: "todo"
+status: "done"
 priority: "medium"
 phase: 3
 depends_on: ["006"]
 created: "2026-03-04"
-updated: "2026-03-04"
+updated: "2026-03-07"
 ---
 
 # デバイスの操作不可モードを追加する
@@ -44,11 +44,11 @@ updated: "2026-03-04"
 
 ## Acceptance Criteria
 
-- [ ] Options で各デバイスの操作不可を切り替えられる
-- [ ] 操作不可に設定したデバイスが Popup で表示されるが操作ボタンが無効化される
-- [ ] 非表示設定のデバイスは操作不可の設定が無効になる
-- [ ] 既存の `devicePreferences` データ（`disabled` 未定義）で正常動作する
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] Options で各デバイスの操作不可を切り替えられる
+- [x] 操作不可に設定したデバイスが Popup で表示されるが操作ボタンが無効化される
+- [x] 非表示設定のデバイスは操作不可の設定が無効になる
+- [x] 既存の `devicePreferences` データ（`disabled` 未定義）で正常動作する
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 

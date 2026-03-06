@@ -5,12 +5,13 @@ import type { Device } from '@/types/switchbot';
 import { getDeviceIcon } from '@/utils/device';
 import { t } from '@/utils/i18n';
 
-type DevicePreferences = Record<string, { visible: boolean; order: number }>;
+type DevicePreferences = Record<string, { visible: boolean; order: number; disabled?: boolean }>;
 
 interface DeviceWithPrefs {
   device: Device;
   visible: boolean;
   order: number;
+  disabled: boolean;
 }
 
 function ensurePreferences(devices: Device[], prefs: DevicePreferences): DevicePreferences {
@@ -36,7 +37,7 @@ function buildSortedList(devices: Device[], prefs: DevicePreferences): DeviceWit
   return devices
     .map((device) => {
       const p = prefs[device.deviceId] ?? { visible: true, order: 999999 };
-      return { device, visible: p.visible, order: p.order };
+      return { device, visible: p.visible, order: p.order, disabled: p.disabled ?? false };
     })
     .sort((a, b) => a.order - b.order);
 }
@@ -75,6 +76,15 @@ export default function DeviceSettings() {
     savePrefs({
       ...prefs,
       [deviceId]: { ...current, visible: !current.visible },
+    });
+  };
+
+  const toggleDisabled = (deviceId: string) => {
+    const current = prefs[deviceId];
+    if (!current) return;
+    savePrefs({
+      ...prefs,
+      [deviceId]: { ...current, disabled: !(current.disabled ?? false) },
     });
   };
 
@@ -165,6 +175,22 @@ export default function DeviceSettings() {
                 ({item.device.deviceType})
               </span>
             </span>
+            <label
+              className={`flex items-center gap-1 text-xs ${
+                !item.visible
+                  ? 'opacity-30 pointer-events-none'
+                  : 'text-gray-500 dark:text-gray-400'
+              }`}
+            >
+              <input
+                type="checkbox"
+                checked={item.disabled}
+                onChange={() => toggleDisabled(item.device.deviceId)}
+                disabled={!item.visible}
+                className="rounded"
+              />
+              {t('DEVICE_DISABLED_LABEL')}
+            </label>
             <button
               type="button"
               onClick={() => moveUp(index, sortedList)}

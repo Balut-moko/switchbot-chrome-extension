@@ -7,6 +7,7 @@ interface Props {
   devices: Device[];
   forceExpand?: boolean;
   variant?: 'controls' | 'sensors';
+  disabledDeviceIds?: Set<string>;
 }
 
 export default function DeviceSection({
@@ -14,6 +15,7 @@ export default function DeviceSection({
   devices,
   forceExpand = false,
   variant = 'controls',
+  disabledDeviceIds,
 }: Props) {
   const [collapsed, setCollapsed] = useState(false);
   const isExpanded = forceExpand || !collapsed;
@@ -43,7 +45,12 @@ export default function DeviceSection({
       {isExpanded && (
         <div className="space-y-2">
           {devices.map((device) => (
-            <DeviceCard key={device.deviceId} device={device} variant={variant} />
+            <DeviceCard
+              key={device.deviceId}
+              device={device}
+              variant={variant}
+              disabled={disabledDeviceIds?.has(device.deviceId) ?? false}
+            />
           ))}
         </div>
       )}

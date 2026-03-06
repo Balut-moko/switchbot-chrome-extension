@@ -5,9 +5,10 @@ import type { Device } from '@/types/switchbot';
 
 interface Props {
   device: Device;
+  disabled?: boolean;
 }
 
-export default function SwitchControl({ device }: Props) {
+export default function SwitchControl({ device, disabled = false }: Props) {
   const [isOn, setIsOn] = useState(false);
   const { sendCommand, isPending } = useDeviceCommand(device.deviceId);
   const { status } = useDeviceStatus(device.deviceId, !device.isIR);
@@ -35,9 +36,9 @@ export default function SwitchControl({ device }: Props) {
     <button
       type="button"
       onClick={toggle}
-      disabled={isPending}
+      disabled={isPending || disabled}
       className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${
-        isPending ? 'opacity-50' : ''
+        isPending || disabled ? 'opacity-50' : ''
       } ${isOn ? 'bg-green-500' : 'bg-gray-300 dark:bg-gray-600'}`}
     >
       <span

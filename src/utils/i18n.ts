@@ -169,6 +169,7 @@ const UI_MESSAGES: Record<string, Record<Locale, string>> = {
 
   // DeviceSettings
   DEVICE_DISPLAY_SETTINGS: { ja: 'デバイス表示設定', en: 'Device Display Settings' },
+  DEVICE_DISABLED_LABEL: { ja: '操作不可', en: 'Disable control' },
   NO_DEVICES_FOUND: {
     ja: 'デバイスが見つかりません。先に API 接続をテストしてください。',
     en: 'No devices found. Test your API connection first.',
