@@ -1,8 +1,15 @@
 import { defineConfig } from 'wxt';
 
+const isMockMode = process.env.MOCK_MODE === 'true';
+
 export default defineConfig({
   srcDir: 'src',
   modules: ['@wxt-dev/module-react'],
+  vite: () => ({
+    define: {
+      __MOCK_MODE__: JSON.stringify(isMockMode),
+    },
+  }),
   manifest: {
     name: 'SwitchBot Controller (Unofficial)',
     version_name: '0.8.0-beta',

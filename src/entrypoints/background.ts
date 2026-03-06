@@ -13,9 +13,19 @@ import {
   sessionCredentialsItem,
 } from '@/lib/storage';
 import { waitUntil } from '@/lib/wait-until';
-import type { Device, StoredCredentials } from '@/types/switchbot';
+import type { Device, DeviceStatus, StoredCredentials } from '@/types/switchbot';
 import { CACHE_TTL_MS, IR_COMMAND_DELAYS } from '@/utils/constants';
 import { toUnifiedDevice } from '@/utils/device';
+
+/**
+ * モックデータを動的 import で取得する。
+ * __MOCK_MODE__ が false の場合は呼ばれないため、
+ * 本番ビルドでは tree-shaking により除外される。
+ */
+async function loadMockData() {
+  const { MOCK_DEVICES, MOCK_STATUSES } = await import('@/lib/mock-data');
+  return { devices: MOCK_DEVICES, statuses: MOCK_STATUSES };
+}
 
 export default defineBackground({
   type: 'module',
@@ -56,6 +66,11 @@ export default defineBackground({
     // --- Message Handlers ---
 
     onMessage('getDevices', async ({ data }) => {
+      if (__MOCK_MODE__) {
+        const mock = await loadMockData();
+        return mock.devices;
+      }
+
       const creds = await getCredentials();
       const forceRefresh = data?.forceRefresh ?? false;
 
@@ -82,12 +97,26 @@ export default defineBackground({
     });
 
     onMessage('getDeviceStatus', async ({ data }) => {
+      if (__MOCK_MODE__) {
+        const mock = await loadMockData();
+        return (mock.statuses[data.deviceId] ?? {
+          deviceId: data.deviceId,
+          deviceType: 'Unknown',
+          hubDeviceId: '',
+        }) as DeviceStatus;
+      }
+
       const creds = await getCredentials();
       const api = createAPI(creds);
       return api.getDeviceStatus(data.deviceId);
     });
 
     onMessage('sendCommand', async ({ data }) => {
+      if (__MOCK_MODE__) {
+        console.log('[MockMode] sendCommand:', data.deviceId, data.command);
+        return { success: true };
+      }
+
       const creds = await getCredentials();
       const api = createAPI(creds);
 
@@ -159,6 +188,8 @@ export default defineBackground({
     });
 
     onMessage('isAuthenticated', async () => {
+      if (__MOCK_MODE__) return true;
+
       const mode = await securityModeItem.getValue();
       if (mode === 'standard') {
         const creds = await credentialsItem.getValue();
@@ -186,10 +217,16 @@ export default defineBackground({
     });
 
     onMessage('isUnlocked', async () => {
+      if (__MOCK_MODE__) return true;
+
       const mode = await securityModeItem.getValue();
       if (mode === 'standard') return true;
       const session = await sessionCredentialsItem.getValue();
       return session !== null;
+    });
+
+    onMessage('isMockMode', async () => {
+      return __MOCK_MODE__;
     });
 
     // --- Periodic Refresh ---
@@ -236,6 +273,9 @@ export default defineBackground({
       }
     });
 
+    if (__MOCK_MODE__) {
+      console.log('[MockMode] SwitchBot Controller running in demo mode');
+    }
     console.log('SwitchBot Controller background service worker started');
   },
 });

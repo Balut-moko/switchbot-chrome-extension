@@ -1,7 +1,7 @@
 ---
 id: "029"
 title: "UI 開発用のモック/デモモードを実装する"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-07"
@@ -48,13 +48,13 @@ updated: "2026-03-07"
 
 ## Acceptance Criteria
 
-- [ ] `MOCK_MODE=true` で起動すると API キーなしでデバイス一覧が表示される
-- [ ] 全カテゴリ（bot, switch, light, sensor, curtain, lock, ac, tv）のサンプルデバイスが表示される
-- [ ] 各デバイスのステータスが正しくモック表示される
-- [ ] コマンド送信がエラーなく（ログ出力のみで）成功する
-- [ ] Popup に「Demo Mode」バッジが表示される
-- [ ] `bun run build`（本番）ではモックモードが無効でビルド成功する
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] `MOCK_MODE=true` で起動すると API キーなしでデバイス一覧が表示される
+- [x] 全カテゴリ（bot, switch, light, sensor, curtain, lock, ac, tv）のサンプルデバイスが表示される
+- [x] 各デバイスのステータスが正しくモック表示される
+- [x] コマンド送信がエラーなく（ログ出力のみで）成功する
+- [x] Popup に「Demo Mode」バッジが表示される
+- [x] `bun run build`（本番）ではモックモードが無効でビルド成功する
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
