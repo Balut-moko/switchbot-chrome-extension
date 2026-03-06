@@ -114,7 +114,11 @@ export default function App() {
             <div className="px-4 pb-4 space-y-6">
               <SecuritySettings mode={securityMode} onChange={setSecurityMode} />
               <hr className="dark:border-gray-700" />
-              <ApiKeyForm securityMode={securityMode} onSaved={handleSaved} />
+              <ApiKeyForm
+                securityMode={securityMode}
+                isConfigured={isConfigured}
+                onSaved={handleSaved}
+              />
             </div>
           </div>
         </div>

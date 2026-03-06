@@ -148,6 +148,10 @@ const UI_MESSAGES: Record<string, Record<Locale, string>> = {
     ja: 'マスターパスワードを再入力',
     en: 'Confirm master password',
   },
+  CREDENTIALS_ALREADY_SAVED_HINT: {
+    ja: '認証情報は設定済みです。変更する場合のみ新しい値を入力してください。',
+    en: 'Credentials are already configured. Enter new values only if you want to change them.',
+  },
   SAVING: { ja: '保存中...', en: 'Saving...' },
   SAVE_CREDENTIALS: { ja: '認証情報を保存', en: 'Save Credentials' },
 

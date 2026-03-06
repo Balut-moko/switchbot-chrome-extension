@@ -5,10 +5,11 @@ import { t } from '@/utils/i18n';
 
 interface Props {
   securityMode: SecurityMode;
+  isConfigured: boolean;
   onSaved: () => void;
 }
 
-export default function ApiKeyForm({ securityMode, onSaved }: Props) {
+export default function ApiKeyForm({ securityMode, isConfigured, onSaved }: Props) {
   const [token, setToken] = useState('');
   const [secret, setSecret] = useState('');
   const [password, setPassword] = useState('');
@@ -20,8 +21,20 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
 
   const isHighSecurity = securityMode === 'high';
 
+  const hasTokenInput = token.trim().length > 0;
+  const hasSecretInput = secret.trim().length > 0;
+
   const handleSave = async () => {
-    if (!token.trim() || !secret.trim()) {
+    // 保存済みで両方空の場合は何もしない（既存の値を維持）
+    if (isConfigured && !hasTokenInput && !hasSecretInput) {
+      return;
+    }
+    // 新規設定時、または片方だけ入力された場合は両方必須
+    if (!isConfigured && (!hasTokenInput || !hasSecretInput)) {
+      setError('VALIDATION_TOKEN_SECRET_REQUIRED');
+      return;
+    }
+    if (hasTokenInput !== hasSecretInput) {
       setError('VALIDATION_TOKEN_SECRET_REQUIRED');
       return;
     }
@@ -68,7 +81,7 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
             value={token}
             onChange={(e) => setToken(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder={t('API_TOKEN_PLACEHOLDER')}
+            placeholder={isConfigured ? '••••••••••••' : t('API_TOKEN_PLACEHOLDER')}
           />
           <button
             type="button"
@@ -94,7 +107,7 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
             value={secret}
             onChange={(e) => setSecret(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder={t('API_SECRET_PLACEHOLDER')}
+            placeholder={isConfigured ? '••••••••••••' : t('API_SECRET_PLACEHOLDER')}
           />
           <button
             type="button"
@@ -105,6 +118,12 @@ export default function ApiKeyForm({ securityMode, onSaved }: Props) {
           </button>
         </div>
       </div>
+
+      {isConfigured && !hasTokenInput && !hasSecretInput && (
+        <p className="text-xs text-gray-500 dark:text-gray-400">
+          {t('CREDENTIALS_ALREADY_SAVED_HINT')}
+        </p>
+      )}
 
       {isHighSecurity && (
         <>
