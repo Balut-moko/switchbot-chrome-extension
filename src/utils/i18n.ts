@@ -97,6 +97,11 @@ const UI_MESSAGES: Record<string, Record<Locale, string>> = {
     en: 'Enter your SwitchBot API credentials to get started. You can find them in the SwitchBot app under Settings > Developer Options.',
   },
 
+  // Collapsible API Settings
+  API_SETTINGS: { ja: 'API 設定', en: 'API Settings' },
+  API_CONFIGURED: { ja: '設定済み', en: 'Configured' },
+  API_NOT_CONFIGURED: { ja: '未設定', en: 'Not configured' },
+
   // DeviceList
   REFRESH: { ja: '更新', en: 'Refresh' },
   SETTINGS: { ja: '設定', en: 'Settings' },
