@@ -1,7 +1,7 @@
 ---
 id: "006"
 title: "Popup でデバイス表示設定を適用する"
-status: "todo"
+status: "done"
 priority: "medium"
 phase: 4
 depends_on: ["005"]
@@ -30,11 +30,11 @@ Popup の DeviceList でその設定を読み取り、表示に反映する必�
 
 ## Acceptance Criteria
 
-- [ ] Options で非表示にしたデバイスが Popup に表示されない
-- [ ] Options で設定した並び順が Popup に反映される
-- [ ] 設定がないデバイスはデフォルト順で表示される
-- [ ] 検索フィルタと表示設定フィルタが共存する
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] Options で非表示にしたデバイスが Popup に表示されない
+- [x] Options で設定した並び順が Popup に反映される
+- [x] 設定がないデバイスはデフォルト順で表示される
+- [x] 検索フィルタと表示設定フィルタが共存する
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
