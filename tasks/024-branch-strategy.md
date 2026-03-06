@@ -1,7 +1,7 @@
 ---
 id: "024"
 title: "ブランチ戦略を策定してドキュメント化する"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-07"
@@ -35,10 +35,10 @@ updated: "2026-03-07"
 
 ## Acceptance Criteria
 
-- [ ] ブランチ戦略が CLAUDE.md に文書化されている
-- [ ] フィーチャーブランチの命名規則が定義されている
-- [ ] worktree を使った並列作業との整合性が説明されている
-- [ ] 既存の Git Rules と矛盾しない
+- [x] ブランチ戦略が CLAUDE.md に文書化されている
+- [x] フィーチャーブランチの命名規則が定義されている
+- [x] worktree を使った並列作業との整合性が説明されている
+- [x] 既存の Git Rules と矛盾しない
 
 ## Notes
 
