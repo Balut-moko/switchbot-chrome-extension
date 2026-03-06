@@ -51,9 +51,9 @@ SwitchBot デバイスをブラウザから操作する Chrome 拡張機能（Ma
 `tasks/` ディレクトリで markdown ベースのタスク管理を運用。詳細は `tasks/GUIDE.md` を参照。
 
 ### Quick Reference
-- **タスク検索**: `grep -l 'status: "todo"' tasks/[0-9]*.md` → `depends_on` チェック
+- **タスク検索**: Grep ツールで `status: "todo"` を `tasks/[0-9]*.md` から検索 → `depends_on` チェック
 - **完了**: `status: "done"` + Acceptance Criteria チェック → コミット
-- **新規作成**: 最大IDの次の連番 + `tasks/GUIDE.md` のテンプレート使用
+- **新規作成**: Glob ツールで `tasks/[0-9]*.md` を取得し最大IDの次の連番 + `tasks/GUIDE.md` のテンプレート使用
 - **並列作業**: Agent tool の `isolation: "worktree"` で並列実行
 
 ## Reference Docs
