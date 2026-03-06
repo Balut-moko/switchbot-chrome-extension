@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDeviceCommand } from '@/hooks/useDeviceCommand';
 import type { Device } from '@/types/switchbot';
+import { t } from '@/utils/i18n';
 
 interface Props {
   device: Device;
@@ -52,7 +53,7 @@ export default function TVControl({ device }: Props) {
             : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
         }`}
       >
-        {isOn ? 'ON' : 'OFF'}
+        {isOn ? t('TV_ON') : t('TV_OFF')}
       </button>
       <button
         type="button"

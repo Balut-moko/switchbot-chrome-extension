@@ -10,6 +10,7 @@ import {
   AC_TEMP_MIN,
 } from '@/utils/constants';
 import { getDeviceIcon } from '@/utils/device';
+import { t } from '@/utils/i18n';
 
 interface Props {
   device: Device;
@@ -87,7 +88,7 @@ export default function ACControl({ device }: Props) {
           onClick={togglePower}
           disabled={isPending}
           aria-pressed={isOn}
-          aria-label={isOn ? 'Turn off' : 'Turn on'}
+          aria-label={isOn ? t('TURN_OFF') : t('TURN_ON')}
           className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 flex-shrink-0 ${
             isOn
               ? 'bg-blue-500 text-white shadow-md shadow-blue-200 dark:shadow-blue-900/30'
@@ -117,7 +118,7 @@ export default function ACControl({ device }: Props) {
           type="button"
           onClick={() => adjustTemp(-1)}
           disabled={controlsDisabled || state.temperature <= AC_TEMP_MIN}
-          aria-label="Decrease temperature"
+          aria-label={t('DECREASE_TEMP')}
           className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl font-bold hover:bg-blue-100 dark:hover:bg-blue-900/50 active:bg-blue-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
         >
           -
@@ -132,7 +133,7 @@ export default function ACControl({ device }: Props) {
           type="button"
           onClick={() => adjustTemp(1)}
           disabled={controlsDisabled || state.temperature >= AC_TEMP_MAX}
-          aria-label="Increase temperature"
+          aria-label={t('INCREASE_TEMP')}
           className="w-10 h-10 rounded-full bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-xl font-bold hover:bg-red-100 dark:hover:bg-red-900/50 active:bg-red-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
         >
           +
@@ -142,9 +143,9 @@ export default function ACControl({ device }: Props) {
       {/* Mode selector */}
       <div className={`px-3 pb-2 transition-opacity ${!isOn ? 'opacity-40' : ''}`}>
         <div className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 font-medium mb-1.5">
-          Mode
+          {t('AC_MODE')}
         </div>
-        <div className="grid grid-cols-5 gap-1" role="radiogroup" aria-label="AC mode">
+        <div className="grid grid-cols-5 gap-1" role="radiogroup" aria-label={t('AC_MODE_LABEL')}>
           {AC_MODES.map((m) => (
             /* biome-ignore lint/a11y/useSemanticElements: custom radio UI with buttons */
             <button
@@ -170,9 +171,9 @@ export default function ACControl({ device }: Props) {
       {/* Fan speed selector */}
       <div className={`px-3 pb-3 transition-opacity ${!isOn ? 'opacity-40' : ''}`}>
         <div className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 font-medium mb-1.5">
-          Fan
+          {t('FAN')}
         </div>
-        <div className="grid grid-cols-4 gap-1" role="radiogroup" aria-label="Fan speed">
+        <div className="grid grid-cols-4 gap-1" role="radiogroup" aria-label={t('FAN_SPEED')}>
           {AC_FAN_SPEEDS.map((f) => (
             /* biome-ignore lint/a11y/useSemanticElements: custom radio UI with buttons */
             <button

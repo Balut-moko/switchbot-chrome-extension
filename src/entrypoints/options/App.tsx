@@ -6,6 +6,7 @@ import SecuritySettings from '@/components/options/SecuritySettings';
 import { useTheme } from '@/hooks/useTheme';
 import { sendMessage } from '@/lib/messaging';
 import type { SecurityMode } from '@/types/switchbot';
+import { t } from '@/utils/i18n';
 
 export default function App() {
   useTheme();
@@ -32,14 +33,14 @@ export default function App() {
 
   const handleSaved = () => {
     setIsConfigured(true);
-    setSavedMessage('Credentials saved successfully!');
+    setSavedMessage(t('CREDENTIALS_SAVED'));
     setTimeout(() => setSavedMessage(null), 3000);
   };
 
   if (loading) {
     return (
       <div className="max-w-xl mx-auto p-6 min-h-screen bg-white dark:bg-gray-900">
-        <p className="text-sm text-gray-500 dark:text-gray-400">Loading...</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400">{t('LOADING')}</p>
       </div>
     );
   }
@@ -47,11 +48,8 @@ export default function App() {
   return (
     <div className="max-w-xl mx-auto p-6 space-y-6 min-h-screen bg-white dark:bg-gray-900">
       <div>
-        <h1 className="text-xl font-bold dark:text-gray-200">SwitchBot Controller Settings</h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-          Enter your SwitchBot API credentials to get started. You can find them in the SwitchBot
-          app under Settings &gt; Developer Options.
-        </p>
+        <h1 className="text-xl font-bold dark:text-gray-200">{t('SETTINGS_TITLE')}</h1>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t('SETTINGS_DESCRIPTION')}</p>
       </div>
 
       {savedMessage && (

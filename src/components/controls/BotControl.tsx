@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDeviceCommand } from '@/hooks/useDeviceCommand';
 import { useDeviceStatus } from '@/hooks/useDeviceStatus';
 import type { BotStatus, Device } from '@/types/switchbot';
+import { t } from '@/utils/i18n';
 
 interface Props {
   device: Device;
@@ -38,7 +39,7 @@ export default function BotControl({ device }: Props) {
             : 'bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700'
         }`}
       >
-        {isPending ? '...' : 'Press'}
+        {isPending ? '...' : t('PRESS')}
       </button>
     );
   }

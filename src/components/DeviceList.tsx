@@ -74,7 +74,7 @@ export default function DeviceList() {
             onClick={refresh}
             disabled={loading}
             className={`text-lg hover:opacity-70 ${loading ? 'animate-spin' : ''}`}
-            title="Refresh"
+            title={t('REFRESH')}
           >
             {'\u{1F504}'}
           </button>
@@ -82,7 +82,7 @@ export default function DeviceList() {
             type="button"
             onClick={openSettings}
             className="text-lg hover:opacity-70"
-            title="Settings"
+            title={t('SETTINGS')}
           >
             {'\u2699\uFE0F'}
           </button>
@@ -104,13 +104,13 @@ export default function DeviceList() {
 
         {!loading && filtered.length === 0 && !error && (
           <div className="text-center py-8 text-sm text-gray-400">
-            {query ? 'No devices match your search.' : 'No devices found.'}
+            {query ? t('NO_SEARCH_RESULTS') : t('NO_DEVICES')}
           </div>
         )}
 
         {grouped.controls.length > 0 && (
           <DeviceSection
-            title="Controls"
+            title={t('SECTION_CONTROLS')}
             devices={grouped.controls}
             forceExpand={isSearching}
             variant="controls"
@@ -119,7 +119,7 @@ export default function DeviceList() {
 
         {grouped.sensors.length > 0 && (
           <DeviceSection
-            title="Sensors"
+            title={t('SECTION_SENSORS')}
             devices={grouped.sensors}
             forceExpand={isSearching}
             variant="sensors"
@@ -127,7 +127,7 @@ export default function DeviceList() {
         )}
 
         {loading && devices.length === 0 && (
-          <div className="text-center py-8 text-sm text-gray-400">Loading devices...</div>
+          <div className="text-center py-8 text-sm text-gray-400">{t('LOADING_DEVICES')}</div>
         )}
       </div>
     </div>
