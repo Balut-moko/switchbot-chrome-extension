@@ -33,6 +33,8 @@ interface ProtocolMap {
   };
   getSecurityMode(data?: undefined): SecurityMode;
   isUnlocked(data?: undefined): boolean;
+
+  isMockMode(data?: undefined): boolean;
 }
 
 export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>();

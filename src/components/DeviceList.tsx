@@ -13,6 +13,7 @@ import DeviceSection from '@/components/DeviceSection';
 import SearchBar from '@/components/SearchBar';
 import { useDevices } from '@/hooks/useDevices';
 import { useTheme } from '@/hooks/useTheme';
+import { sendMessage } from '@/lib/messaging';
 import { devicePreferencesItem } from '@/lib/storage';
 import type { Device } from '@/types/switchbot';
 import { type GroupedDevices, getDeviceGroup, groupDevices } from '@/utils/device';
@@ -23,12 +24,16 @@ export default function DeviceList() {
   const { theme, setTheme } = useTheme();
   const [query, setQuery] = useState('');
   const [reorderMode, setReorderMode] = useState(false);
+  const [mockMode, setMockMode] = useState(false);
   const [preferences, setPreferences] = useState<
     Record<string, { visible: boolean; order: number; disabled?: boolean }>
   >({});
 
   useEffect(() => {
     devicePreferencesItem.getValue().then(setPreferences);
+    sendMessage('isMockMode', undefined)
+      .then(setMockMode)
+      .catch(() => {});
   }, []);
 
   const handleSearch = useCallback((q: string) => {
@@ -164,7 +169,14 @@ export default function DeviceList() {
     <div className="flex flex-col h-full bg-white dark:bg-gray-900">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-gray-700">
-        <h1 className="text-base font-bold dark:text-gray-200">SwitchBot</h1>
+        <div className="flex items-center gap-2">
+          <h1 className="text-base font-bold dark:text-gray-200">SwitchBot</h1>
+          {mockMode && (
+            <span className="px-1.5 py-0.5 text-[10px] font-semibold leading-none rounded bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300 border border-amber-300 dark:border-amber-700">
+              Demo Mode
+            </span>
+          )}
+        </div>
         <div className="flex items-center gap-2">
           {!reorderMode && (
             <>
