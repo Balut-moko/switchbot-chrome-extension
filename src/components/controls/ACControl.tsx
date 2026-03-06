@@ -123,11 +123,13 @@ export default function ACControl({ device }: Props) {
         >
           -
         </button>
-        <div className="text-center select-none">
+        <div className="relative text-center select-none">
           <span className="text-4xl font-bold tabular-nums tracking-tight dark:text-gray-200">
             {state.temperature}
           </span>
-          <span className="text-lg text-gray-400 dark:text-gray-500 ml-0.5">&deg;C</span>
+          <span className="absolute text-lg text-gray-400 dark:text-gray-500 ml-0.5 top-1">
+            &deg;C
+          </span>
         </div>
         <button
           type="button"
