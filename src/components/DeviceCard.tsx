@@ -8,8 +8,10 @@ import LockControl from '@/components/controls/LockControl';
 import SensorDisplay from '@/components/controls/SensorDisplay';
 import SwitchControl from '@/components/controls/SwitchControl';
 import TVControl from '@/components/controls/TVControl';
+import { useDeviceStatus } from '@/hooks/useDeviceStatus';
 import type { Device } from '@/types/switchbot';
 import { getDeviceCategory, getDeviceIcon } from '@/utils/device';
+import { getCapabilities } from '@/utils/deviceCapabilities';
 
 interface Props {
   device: Device;
@@ -76,6 +78,22 @@ function DragHandle({
   );
 }
 
+function BatteryBadge({ device }: { device: Device }) {
+  const caps = getCapabilities(device.deviceType);
+  const { status } = useDeviceStatus(device.deviceId);
+
+  if (!caps.hasBattery || !status || !('battery' in status)) {
+    return null;
+  }
+
+  return (
+    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400">
+      <span>{'\u{1F50B}'}</span>
+      <span>{`${(status as { battery: number }).battery}%`}</span>
+    </span>
+  );
+}
+
 export default function DeviceCard({
   device,
   variant = 'controls',
@@ -137,7 +155,10 @@ export default function DeviceCard({
         <span className="text-base flex-shrink-0">{getDeviceIcon(device)}</span>
         <span className="text-sm font-medium truncate dark:text-gray-200">{device.deviceName}</span>
       </div>
-      <div className={`flex-shrink-0 ml-2 ${disabledClass} ${reorderDisabledClass}`}>
+      <div
+        className={`flex items-center gap-2 flex-shrink-0 ml-2 ${disabledClass} ${reorderDisabledClass}`}
+      >
+        <BatteryBadge device={device} />
         <DeviceControl device={device} disabled={disabled} />
       </div>
     </div>
