@@ -1,11 +1,11 @@
 ---
 id: "019"
 title: "設定画面で API 設定セクションを折りたたみ可能にする"
-status: "todo"
+status: "in_progress"
 priority: "medium"
 depends_on: []
 created: "2026-03-06"
-updated: "2026-03-06"
+updated: "2026-03-07"
 ---
 
 # 設定画面で API 設定セクションを折りたたみ可能にする
