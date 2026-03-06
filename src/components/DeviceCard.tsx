@@ -48,14 +48,22 @@ export default function DeviceCard({ device, variant = 'controls' }: Props) {
     );
   }
 
+  if (variant === 'sensors') {
+    return (
+      <div className="p-3 rounded-lg shadow-sm dark:shadow-gray-900/30 border transition-colors bg-gray-50 dark:bg-gray-800 border-gray-100 dark:border-gray-700">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="text-base flex-shrink-0">{getDeviceIcon(device)}</span>
+          <span className="text-sm font-medium truncate dark:text-gray-200">
+            {device.deviceName}
+          </span>
+        </div>
+        <DeviceControl device={device} />
+      </div>
+    );
+  }
+
   return (
-    <div
-      className={`flex items-center justify-between p-3 rounded-lg shadow-sm dark:shadow-gray-900/30 border transition-colors ${
-        variant === 'sensors'
-          ? 'bg-gray-50 dark:bg-gray-800 border-gray-100 dark:border-gray-700'
-          : 'bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600'
-      }`}
-    >
+    <div className="flex items-center justify-between p-3 rounded-lg shadow-sm dark:shadow-gray-900/30 border transition-colors bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600">
       <div className="flex items-center gap-2 min-w-0">
         <span className="text-base flex-shrink-0">{getDeviceIcon(device)}</span>
         <span className="text-sm font-medium truncate dark:text-gray-200">{device.deviceName}</span>
