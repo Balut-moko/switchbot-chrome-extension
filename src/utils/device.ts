@@ -360,3 +360,49 @@ export function groupDevices(
     sensors: sortDevicesByCategory(sensors),
   };
 }
+
+export type OptionsDeviceGroup = 'controls' | 'sensors' | 'ir';
+
+export interface OptionsGroupedDevices {
+  controls: Device[];
+  sensors: Device[];
+  ir: Device[];
+}
+
+export function getOptionsDeviceGroup(device: Device): OptionsDeviceGroup {
+  if (device.isIR) return 'ir';
+  const category = getDeviceCategory(device);
+  if (category === 'sensor') return 'sensors';
+  if (category === 'hub') return 'sensors';
+  return 'controls';
+}
+
+export function groupDevicesForOptions(
+  devices: Device[],
+  options?: { preserveOrder?: boolean },
+): OptionsGroupedDevices {
+  const controls: Device[] = [];
+  const sensors: Device[] = [];
+  const ir: Device[] = [];
+
+  for (const device of devices) {
+    const group = getOptionsDeviceGroup(device);
+    if (group === 'sensors') {
+      sensors.push(device);
+    } else if (group === 'ir') {
+      ir.push(device);
+    } else {
+      controls.push(device);
+    }
+  }
+
+  if (options?.preserveOrder) {
+    return { controls, sensors, ir };
+  }
+
+  return {
+    controls: sortDevicesByCategory(controls),
+    sensors: sortDevicesByCategory(sensors),
+    ir: sortDevicesByCategory(ir),
+  };
+}

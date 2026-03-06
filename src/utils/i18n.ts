@@ -112,6 +112,7 @@ const UI_MESSAGES: Record<string, Record<Locale, string>> = {
   NO_DEVICES: { ja: 'デバイスが見つかりません。', en: 'No devices found.' },
   SECTION_CONTROLS: { ja: '操作デバイス', en: 'Controls' },
   SECTION_SENSORS: { ja: 'センサー', en: 'Sensors' },
+  SECTION_IR_DEVICES: { ja: 'IR デバイス', en: 'IR Devices' },
   LOADING_DEVICES: { ja: 'デバイスを読み込み中...', en: 'Loading devices...' },
 
   // SearchBar
@@ -178,6 +179,10 @@ const UI_MESSAGES: Record<string, Record<Locale, string>> = {
 
   // DeviceSettings
   DEVICE_DISPLAY_SETTINGS: { ja: 'デバイス表示設定', en: 'Device Display Settings' },
+  DEVICE_DISPLAY_HINT: {
+    ja: 'ドラッグ＆ドロップでデバイスの並び順を変更できます。',
+    en: 'Drag and drop to reorder devices.',
+  },
   DEVICE_DISABLED_LABEL: { ja: '操作不可', en: 'Disable control' },
   NO_DEVICES_FOUND: {
     ja: 'デバイスが見つかりません。先に API 接続をテストしてください。',
