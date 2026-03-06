@@ -5,9 +5,10 @@ import type { Device } from '@/types/switchbot';
 
 interface Props {
   device: Device;
+  disabled?: boolean;
 }
 
-export default function CurtainControl({ device }: Props) {
+export default function CurtainControl({ device, disabled = false }: Props) {
   const [position, setPosition] = useState(0);
   const { sendCommand, isPending } = useDeviceCommand(device.deviceId);
   const { status } = useDeviceStatus(device.deviceId);
@@ -38,7 +39,7 @@ export default function CurtainControl({ device }: Props) {
         max={100}
         value={position}
         onChange={(e) => handleChange(Number(e.target.value))}
-        disabled={isPending}
+        disabled={isPending || disabled}
         className="w-20 h-1.5 accent-blue-500"
       />
       <span className="text-xs font-mono w-8 text-right dark:text-gray-400">{position}%</span>

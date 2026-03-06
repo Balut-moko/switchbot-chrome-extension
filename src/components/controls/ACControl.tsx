@@ -14,6 +14,7 @@ import { t } from '@/utils/i18n';
 
 interface Props {
   device: Device;
+  disabled?: boolean;
 }
 
 function PowerIcon() {
@@ -33,7 +34,7 @@ function PowerIcon() {
   );
 }
 
-export default function ACControl({ device }: Props) {
+export default function ACControl({ device, disabled = false }: Props) {
   const [state, setState] = useState<ACState>({
     temperature: 24,
     mode: 1,
@@ -43,7 +44,7 @@ export default function ACControl({ device }: Props) {
   const { sendCommand, isPending } = useDeviceCommand(device.deviceId);
 
   const isOn = state.power === 'on';
-  const controlsDisabled = isPending || !isOn;
+  const controlsDisabled = isPending || !isOn || disabled;
 
   const sendSetAll = async (newState: ACState) => {
     setState(newState);
@@ -86,7 +87,7 @@ export default function ACControl({ device }: Props) {
         <button
           type="button"
           onClick={togglePower}
-          disabled={isPending}
+          disabled={isPending || disabled}
           aria-pressed={isOn}
           aria-label={isOn ? t('TURN_OFF') : t('TURN_ON')}
           className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 flex-shrink-0 ${

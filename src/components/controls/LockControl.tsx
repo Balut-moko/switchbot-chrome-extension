@@ -6,9 +6,10 @@ import { t } from '@/utils/i18n';
 
 interface Props {
   device: Device;
+  disabled?: boolean;
 }
 
-export default function LockControl({ device }: Props) {
+export default function LockControl({ device, disabled = false }: Props) {
   const [lockState, setLockState] = useState<'locked' | 'unlocked'>('locked');
   const [confirming, setConfirming] = useState(false);
   const { sendCommand, isPending } = useDeviceCommand(device.deviceId);
@@ -51,7 +52,7 @@ export default function LockControl({ device }: Props) {
     <button
       type="button"
       onClick={isLocked ? handleUnlock : handleLock}
-      disabled={isPending}
+      disabled={isPending || disabled}
       className={`px-2 py-0.5 rounded text-xs font-medium ${
         confirming
           ? 'bg-yellow-500 text-white'
