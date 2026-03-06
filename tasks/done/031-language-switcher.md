@@ -1,7 +1,7 @@
 ---
 id: "031"
 title: "言語切り替え機能を追加する"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-07"
@@ -38,13 +38,13 @@ Options ページに言語選択 UI を追加し、選択結果を `chrome.stora
 
 ## Acceptance Criteria
 
-- [ ] Options ページで言語を「自動 / 日本語 / English」から選択できる
-- [ ] 選択した言語が `chrome.storage.local` に保存される
-- [ ] Popup の UI テキストが選択言語で表示される
-- [ ] Options ページの UI テキストが選択言語で表示される
-- [ ] 「自動」選択時はブラウザ言語設定に従う
-- [ ] ダークモードで正しく表示される
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] Options ページで言語を「自動 / 日本語 / English」から選択できる
+- [x] 選択した言語が `chrome.storage.local` に保存される
+- [x] Popup の UI テキストが選択言語で表示される
+- [x] Options ページの UI テキストが選択言語で表示される
+- [x] 「自動」選択時はブラウザ言語設定に従う
+- [x] ダークモードで正しく表示される
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 

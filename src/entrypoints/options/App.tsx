@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import ApiKeyForm from '@/components/options/ApiKeyForm';
 import ConnectionTest from '@/components/options/ConnectionTest';
 import DeviceSettings from '@/components/options/DeviceSettings';
+import LanguageSettings from '@/components/options/LanguageSettings';
 import SecuritySettings from '@/components/options/SecuritySettings';
+import { useLocale } from '@/hooks/useLocale';
 import { useTheme } from '@/hooks/useTheme';
 import { sendMessage } from '@/lib/messaging';
 import type { SecurityMode } from '@/types/switchbot';
@@ -10,6 +12,7 @@ import { t } from '@/utils/i18n';
 
 export default function App() {
   useTheme();
+  const { locale, preference, setPreference } = useLocale();
   const [securityMode, setSecurityMode] = useState<SecurityMode>('standard');
   const [isConfigured, setIsConfigured] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -48,7 +51,10 @@ export default function App() {
   }
 
   return (
-    <div className="max-w-xl mx-auto p-6 space-y-6 min-h-screen bg-white dark:bg-gray-900">
+    <div
+      key={locale}
+      className="max-w-xl mx-auto p-6 space-y-6 min-h-screen bg-white dark:bg-gray-900"
+    >
       <div>
         <h1 className="text-xl font-bold dark:text-gray-200">{t('SETTINGS_TITLE')}</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t('SETTINGS_DESCRIPTION')}</p>
@@ -65,6 +71,10 @@ export default function App() {
           <DeviceSettings />
         </div>
       )}
+
+      <div className="border dark:border-gray-700 rounded-lg p-4">
+        <LanguageSettings preference={preference} onChange={setPreference} />
+      </div>
 
       <div className="border dark:border-gray-700 rounded-lg">
         <button

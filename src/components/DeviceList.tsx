@@ -12,6 +12,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import DeviceSection from '@/components/DeviceSection';
 import SearchBar from '@/components/SearchBar';
 import { useDevices } from '@/hooks/useDevices';
+import { useLocale } from '@/hooks/useLocale';
 import { useTheme } from '@/hooks/useTheme';
 import { sendMessage } from '@/lib/messaging';
 import { devicePreferencesItem } from '@/lib/storage';
@@ -22,6 +23,8 @@ import { t } from '@/utils/i18n';
 export default function DeviceList() {
   const { devices, loading, error, refresh } = useDevices();
   const { theme, setTheme } = useTheme();
+  // useLocale() を呼ぶことで言語変更時の再レンダリングをトリガーする
+  useLocale();
   const [query, setQuery] = useState('');
   const [reorderMode, setReorderMode] = useState(false);
   const [mockMode, setMockMode] = useState(false);
