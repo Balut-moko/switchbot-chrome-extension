@@ -1,7 +1,7 @@
 ---
 id: "030"
 title: "設定画面のデバイス並び替え UX を改善する"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-07"
@@ -35,12 +35,12 @@ Options ページの DeviceSettings では ▲/▼ ボタンでデバイスの�
 
 ## Acceptance Criteria
 
-- [ ] ドラッグ＆ドロップでデバイスの並び順を変更できる
-- [ ] ▲/▼ ボタンが削除されている
-- [ ] デバイスがカテゴリ別にグループ表示されている
-- [ ] 並び替え結果が Popup に正しく反映される
-- [ ] ダークモードで正しく表示される
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] ドラッグ＆ドロップでデバイスの並び順を変更できる
+- [x] ▲/▼ ボタンが削除されている
+- [x] デバイスがカテゴリ別にグループ表示されている
+- [x] 並び替え結果が Popup に正しく反映される
+- [x] ダークモードで正しく表示される
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
