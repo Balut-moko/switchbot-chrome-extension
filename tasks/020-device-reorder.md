@@ -1,11 +1,11 @@
 ---
 id: "020"
 title: "デバイスを並び替え可能にする"
-status: "todo"
+status: "in_progress"
 priority: "medium"
 depends_on: []
 created: "2026-03-06"
-updated: "2026-03-06"
+updated: "2026-03-07"
 ---
 
 # デバイスを並び替え可能にする
