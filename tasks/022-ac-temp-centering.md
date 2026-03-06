@@ -1,11 +1,11 @@
 ---
 id: "022"
 title: "エアコン UI の温度表示をボタン間の中央に配置する"
-status: "todo"
+status: "done"
 priority: "low"
 depends_on: []
 created: "2026-03-06"
-updated: "2026-03-06"
+updated: "2026-03-07"
 ---
 
 # エアコン UI の温度表示をボタン間の中央に配置する
@@ -26,10 +26,10 @@ updated: "2026-03-06"
 
 ## Acceptance Criteria
 
-- [ ] 温度の数値がマイナス・プラスボタンの中央に見える
-- [ ] `°C` の表示が維持される
-- [ ] ダークモードで正しく表示される
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] 温度の数値がマイナス・プラスボタンの中央に見える
+- [x] `°C` の表示が維持される
+- [x] ダークモードで正しく表示される
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
