@@ -1,7 +1,7 @@
 ---
 id: "032"
 title: "接続テストを API 設定セクション内に移動する"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-07"
@@ -36,8 +36,8 @@ updated: "2026-03-07"
 
 ## Acceptance Criteria
 
-- [ ] 接続テストが API 設定の折りたたみセクション内に表示される
-- [ ] 認証情報フォームの下に接続テストが配置されている
-- [ ] API 設定を折りたたむと接続テストも隠れる
-- [ ] ダークモードで正しく表示される
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] 接続テストが API 設定の折りたたみセクション内に表示される
+- [x] 認証情報フォームの下に接続テストが配置されている
+- [x] API 設定を折りたたむと接続テストも隠れる
+- [x] ダークモードで正しく表示される
+- [x] `bun run build` が TypeScript エラーなしで成功する
