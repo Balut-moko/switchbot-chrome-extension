@@ -205,6 +205,10 @@ const UI_MESSAGES: Record<string, Record<Locale, string>> = {
   TV_ON: { ja: 'ON', en: 'ON' },
   TV_OFF: { ja: 'OFF', en: 'OFF' },
 
+  // Reorder Mode
+  REORDER_MODE: { ja: '並び替え', en: 'Reorder' },
+  REORDER_MODE_DONE: { ja: '完了', en: 'Done' },
+
   // BotControl
   PRESS: { ja: '押す', en: 'Press' },
 };

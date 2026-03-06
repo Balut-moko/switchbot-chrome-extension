@@ -144,7 +144,10 @@ export interface GroupedDevices {
   sensors: Device[];
 }
 
-export function groupDevices(devices: Device[]): GroupedDevices {
+export function groupDevices(
+  devices: Device[],
+  options?: { preserveOrder?: boolean },
+): GroupedDevices {
   const controls: Device[] = [];
   const sensors: Device[] = [];
 
@@ -154,6 +157,10 @@ export function groupDevices(devices: Device[]): GroupedDevices {
     } else {
       controls.push(device);
     }
+  }
+
+  if (options?.preserveOrder) {
+    return { controls, sensors };
   }
 
   return {
