@@ -1,8 +1,9 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import DeviceSection from '@/components/DeviceSection';
 import SearchBar from '@/components/SearchBar';
 import { useDevices } from '@/hooks/useDevices';
 import { useTheme } from '@/hooks/useTheme';
+import { devicePreferencesItem } from '@/lib/storage';
 import { groupDevices } from '@/utils/device';
 import { t } from '@/utils/i18n';
 
@@ -10,6 +11,13 @@ export default function DeviceList() {
   const { devices, loading, error, refresh } = useDevices();
   const { theme, setTheme } = useTheme();
   const [query, setQuery] = useState('');
+  const [preferences, setPreferences] = useState<
+    Record<string, { visible: boolean; order: number }>
+  >({});
+
+  useEffect(() => {
+    devicePreferencesItem.getValue().then(setPreferences);
+  }, []);
 
   const handleSearch = useCallback((q: string) => {
     setQuery(q.toLowerCase());
@@ -19,9 +27,22 @@ export default function DeviceList() {
     browser.runtime.openOptionsPage();
   };
 
+  const visibleDevices = useMemo(() => {
+    const hasPrefs = Object.keys(preferences).length > 0;
+    if (!hasPrefs) return devices;
+
+    return devices
+      .filter((d) => preferences[d.deviceId]?.visible !== false)
+      .sort((a, b) => {
+        const orderA = preferences[a.deviceId]?.order ?? Number.MAX_SAFE_INTEGER;
+        const orderB = preferences[b.deviceId]?.order ?? Number.MAX_SAFE_INTEGER;
+        return orderA - orderB;
+      });
+  }, [devices, preferences]);
+
   const filtered = query
-    ? devices.filter((d) => d.deviceName.toLowerCase().includes(query))
-    : devices;
+    ? visibleDevices.filter((d) => d.deviceName.toLowerCase().includes(query))
+    : visibleDevices;
 
   const grouped = useMemo(() => groupDevices(filtered), [filtered]);
   const isSearching = query.length > 0;
