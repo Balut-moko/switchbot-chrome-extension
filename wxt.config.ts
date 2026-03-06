@@ -5,7 +5,7 @@ export default defineConfig({
   modules: ['@wxt-dev/module-react'],
   manifest: {
     name: 'SwitchBot Controller (Unofficial)',
-    version_name: '0.5.0-beta',
+    version_name: '0.6.0-beta',
     description: 'Control your SwitchBot devices from the browser toolbar',
     permissions: ['storage', 'alarms'],
     host_permissions: ['https://api.switch-bot.com/*'],
