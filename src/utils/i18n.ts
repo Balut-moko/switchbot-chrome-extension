@@ -211,6 +211,10 @@ const UI_MESSAGES: Record<string, Record<Locale, string>> = {
 
   // BotControl
   PRESS: { ja: '押す', en: 'Press' },
+
+  // IR Remote (generic)
+  IR_POWER_ON: { ja: 'ON', en: 'ON' },
+  IR_POWER_OFF: { ja: 'OFF', en: 'OFF' },
 };
 
 export function t(key: string, params?: Record<string, string | number>): string {
