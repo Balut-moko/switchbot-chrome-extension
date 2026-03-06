@@ -46,6 +46,37 @@ SwitchBot デバイスをブラウザから操作する Chrome 拡張機能（Ma
 - タスク管理コミット: `task: complete|create|block {id}-{slug}`
 - 実装コミット: Conventional Commits（`feat:` / `fix:` / `chore:` 等）+ 日本語メッセージ
 
+### Branch Strategy
+
+GitHub Flow ベースの軽量ブランチ戦略を採用する。
+
+#### 基本方針
+- **`main` ブランチ**: 常にリリース可能な状態を維持する安定ブランチ
+- **フィーチャーブランチ**: 機能実装・バグ修正は `main` から分岐したブランチで作業し、完了後にマージする
+- **タスク管理コミット**（`task: create|complete|block`）は `main` への直接コミットを許可する
+
+#### フィーチャーブランチ命名規則
+- `feat/{task-id}-{slug}` — 機能追加（例: `feat/025-redesign-extension-icon`）
+- `fix/{task-id}-{slug}` — バグ修正（例: `fix/022-ac-temp-centering`）
+- `chore/{task-id}-{slug}` — 設定・メンテナンス（例: `chore/024-branch-strategy`）
+- タスクに紐づかない場合: `feat/{short-description}`、`fix/{short-description}` 等
+
+#### ワークフロー
+1. `main` から新しいブランチを作成する
+2. フィーチャーブランチで実装・コミットを行う
+3. 完了後、`main` にマージする（個人開発のため PR は任意）
+4. マージ後、不要になったブランチを削除する
+
+#### Worktree との整合性
+- Claude Code の Agent tool が `isolation: "worktree"` で作成するブランチ（`worktree-agent-{hash}`）は自動生成名を使用する
+- worktree ブランチは作業完了後に `main` へマージし、マージ後にブランチと worktree ディレクトリを削除する
+- 手動でフィーチャーブランチを使う場合も `git worktree add` で並列作業が可能（例: `git worktree add .claude/worktrees/my-feature feat/025-redesign-icon`）
+
+#### 将来のリリースフロー（Chrome Web Store 公開後）
+- リリース時に `main` から git tag `v0.x.0-beta`（または `v1.x.0`）を付与する
+- ホットフィックスが必要な場合は `fix/` ブランチで対応し、速やかに `main` へマージする
+- 正式リリース（v1.0.0）以降、必要に応じて `release/` ブランチの導入を検討する
+
 ## Task Management
 
 `tasks/` ディレクトリで markdown ベースのタスク管理を運用。詳細は `tasks/GUIDE.md` を参照。
