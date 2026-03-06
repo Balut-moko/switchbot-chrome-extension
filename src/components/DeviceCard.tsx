@@ -2,6 +2,7 @@ import type { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import ACControl from '@/components/controls/ACControl';
 import BotControl from '@/components/controls/BotControl';
 import CurtainControl from '@/components/controls/CurtainControl';
+import FallbackControl from '@/components/controls/FallbackControl';
 import LightControl from '@/components/controls/LightControl';
 import LockControl from '@/components/controls/LockControl';
 import SensorDisplay from '@/components/controls/SensorDisplay';
@@ -37,8 +38,15 @@ function DeviceControl({ device, disabled = false }: { device: Device; disabled?
       return <LockControl device={device} disabled={disabled} />;
     case 'light':
       return <LightControl device={device} disabled={disabled} />;
+    case 'climate':
+    case 'fan':
+      return <SwitchControl device={device} disabled={disabled} />;
+    case 'vacuum':
+    case 'camera':
+    case 'hub':
+      return <FallbackControl device={device} disabled={disabled} />;
     default:
-      return <span className="text-xs text-gray-400 dark:text-gray-500">{device.deviceType}</span>;
+      return <FallbackControl device={device} disabled={disabled} />;
   }
 }
 

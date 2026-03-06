@@ -109,6 +109,28 @@ export interface ContactSensorStatus extends BaseDeviceStatus {
   battery: number;
 }
 
+export interface HumidifierStatus extends BaseDeviceStatus {
+  power: 'on' | 'off';
+  humidity: number;
+  temperature: number;
+  nebulizationEfficiency: number;
+  auto: boolean;
+  childLock: boolean;
+  sound: boolean;
+  lackWater: boolean;
+}
+
+export interface RobotVacuumStatus extends BaseDeviceStatus {
+  workingStatus: string;
+  onlineStatus: string;
+  battery: number;
+}
+
+export interface WaterDetectorStatus extends BaseDeviceStatus {
+  status: number;
+  battery: number;
+}
+
 export type DeviceStatus =
   | BotStatus
   | MeterStatus
@@ -120,6 +142,9 @@ export type DeviceStatus =
   | StripLightStatus
   | MotionSensorStatus
   | ContactSensorStatus
+  | HumidifierStatus
+  | RobotVacuumStatus
+  | WaterDetectorStatus
   | BaseDeviceStatus;
 
 // --- Device Command ---
