@@ -32,12 +32,12 @@ disable-model-invocation: true
 指定がない場合は自動選定:
 
 ```bash
-grep -l 'status: "todo"' tasks/[0-9]*.md
+ls tasks/todo/[0-9]*.md
 ```
 
 ### 1-2. 依存チェック
 
-各候補タスクの `depends_on` 配列を確認する。依存先タスクがすべて `status: "done"` でなければ候補から除外する。
+各候補タスクの `depends_on` 配列を確認する。依存先タスクのファイルがすべて `tasks/done/` に存在しなければ候補から除外する。
 
 除外したタスクがあればユーザーに報告する。
 

@@ -1,8 +1,26 @@
 # Task Management Guide
 
-このディレクトリはプロジェクトのタスクトラッカー。各 `.md` ファイル（この GUIDE.md を除く）が1つのタスクを表す。
+このディレクトリはプロジェクトのタスクトラッカー。
 
-## 構造
+## フォルダ構造
+
+```
+tasks/
+├── GUIDE.md          # 本ガイド（ルートに配置）
+├── todo/             # 未着手・作業中タスク（in_progress 含む）
+│   ├── 010-store-listing-assets.md
+│   └── ...
+├── done/             # 完了済みタスク
+│   ├── 001-initial-commit.md
+│   └── ...
+└── blocked/          # ブロック中タスク（該当があれば作成）
+```
+
+- `in_progress` は一時的な状態のため `todo/` に置く
+- `blocked/` ディレクトリは該当タスクが発生したときに作成する
+- GUIDE.md はルート（`tasks/`）に残す
+
+## タスクファイル構造
 
 各タスクファイルは YAML frontmatter + markdown 本体:
 
@@ -41,8 +59,8 @@
 
 ### タスクを探す
 
-1. todo タスクを一覧: `grep -l 'status: "todo"' tasks/[0-9]*.md`
-2. 各タスクの `depends_on` のIDがすべて `status: "done"` か確認
+1. todo タスクを一覧: `ls tasks/todo/`
+2. 各タスクの `depends_on` のIDがすべて `tasks/done/` に存在するか確認
 3. 対象の中で priority が最も高い（high > medium > low）、同優先度ならIDが最小のものを選択
 
 ### タスクを完了する
@@ -51,19 +69,22 @@
 2. `status` → `"done"` に変更
 3. Acceptance Criteria のチェックボックスをすべて `- [x]` に変更
 4. `updated` を更新
-5. コミット: `task: complete {id}-{slug}`
+5. ファイルを `tasks/todo/` から `tasks/done/` に移動: `git mv tasks/todo/{id}-{slug}.md tasks/done/`
+6. コミット: `task: complete {id}-{slug}`
 
 ### タスクを新規作成する
 
-1. `tasks/` 内の最大IDを確認して +1
-2. 下記テンプレートでファイル作成
+1. `tasks/todo/` と `tasks/done/` 内の最大IDを確認して +1
+2. 下記テンプレートで `tasks/todo/` にファイル作成
 3. コミット: `task: create {id}-{slug}`
 
 ### タスクをブロックする
 
 1. `status` → `"blocked"` に変更
 2. Notes セクションにブロック理由を追記
-3. コミット: `task: block {id}-{slug}`
+3. ファイルを `tasks/todo/` から `tasks/blocked/` に移動: `git mv tasks/todo/{id}-{slug}.md tasks/blocked/`
+   - `tasks/blocked/` ディレクトリがなければ作成: `mkdir -p tasks/blocked`
+4. コミット: `task: block {id}-{slug}`
 
 ## テンプレート
 

@@ -1,18 +1,18 @@
 ---
 name: task-create
-description: tasks/ ディレクトリに新しいタスクファイルを作成する
+description: tasks/todo/ ディレクトリに新しいタスクファイルを作成する
 disable-model-invocation: true
 ---
 
 # タスク作成スキル
 
-`tasks/` ディレクトリに新しいタスクファイルを作成する。
+`tasks/todo/` ディレクトリに新しいタスクファイルを作成する。
 
 ## 手順
 
-1. `tasks/` 内の既存タスクファイルの最大IDを取得する:
+1. `tasks/todo/` と `tasks/done/` 内の既存タスクファイルの最大IDを取得する:
    ```bash
-   ls tasks/[0-9]*.md 2>/dev/null | sed 's|tasks/||;s|-.*||' | sort -n | tail -1
+   ls tasks/todo/[0-9]*.md tasks/done/[0-9]*.md 2>/dev/null | sed 's|.*/||;s|-.*||' | sort -n | tail -1
    ```
    ファイルがない場合は `000` とする。
 2. 最大ID + 1 を新しいIDとする（ゼロ埋め3桁）

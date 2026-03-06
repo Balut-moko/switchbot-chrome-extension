@@ -82,9 +82,9 @@ GitHub Flow ベースの軽量ブランチ戦略を採用する。
 `tasks/` ディレクトリで markdown ベースのタスク管理を運用。詳細は `tasks/GUIDE.md` を参照。
 
 ### Quick Reference
-- **タスク検索**: Grep ツールで `status: "todo"` を `tasks/[0-9]*.md` から検索 → `depends_on` チェック
-- **完了**: `status: "done"` + Acceptance Criteria チェック → コミット
-- **新規作成**: Glob ツールで `tasks/[0-9]*.md` を取得し最大IDの次の連番 + `tasks/GUIDE.md` のテンプレート使用
+- **タスク検索**: `tasks/todo/` 内のファイルを Glob ツールで一覧 → `depends_on` の依存先が `tasks/done/` に存在するかチェック
+- **完了**: `status: "done"` + Acceptance Criteria チェック → `git mv tasks/todo/{file} tasks/done/` → コミット
+- **新規作成**: `tasks/todo/` と `tasks/done/` の Glob で最大IDの次の連番 → `tasks/todo/` に作成 + `tasks/GUIDE.md` のテンプレート使用
 - **並列作業**: Agent tool の `isolation: "worktree"` で並列実行
 
 ## Reference Docs
