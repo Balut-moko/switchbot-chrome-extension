@@ -1,7 +1,7 @@
 ---
 id: "028"
 title: "API レスポンスの全デバイスタイプを正しく表示する"
-status: "todo"
+status: "done"
 priority: "high"
 depends_on: []
 created: "2026-03-07"
@@ -53,13 +53,13 @@ SwitchBot API v1.1 は 40 種以上の物理デバイスと 15 種以上の IR �
 
 ## Acceptance Criteria
 
-- [ ] API リファレンスに記載されている全物理デバイスタイプが適切なカテゴリに分類される
-- [ ] 全デバイスタイプに対応するアイコンが `DEVICE_ICONS` に定義されている
-- [ ] `Plug Mini (EU)` がスイッチとして正しく表示される
-- [ ] `Smart Lock Ultra`, `Lock Lite` がロックとして正しく表示される
-- [ ] 未知のデバイスタイプでもステータス情報がある場合は表示される
-- [ ] 未対応 IR デバイスに汎用リモコン UI（電源ボタン）が表示される
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] API リファレンスに記載されている全物理デバイスタイプが適切なカテゴリに分類される
+- [x] 全デバイスタイプに対応するアイコンが `DEVICE_ICONS` に定義されている
+- [x] `Plug Mini (EU)` がスイッチとして正しく表示される
+- [x] `Smart Lock Ultra`, `Lock Lite` がロックとして正しく表示される
+- [x] 未知のデバイスタイプでもステータス情報がある場合は表示される
+- [x] 未対応 IR デバイスに汎用リモコン UI（電源ボタン）が表示される
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
