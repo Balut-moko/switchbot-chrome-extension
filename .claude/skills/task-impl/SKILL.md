@@ -125,7 +125,9 @@ grep -l 'status: "todo"' tasks/[0-9]*.md
 1. 現在の `package.json` の `version` から minor バージョンを +1 する（例: `0.5.0` → `0.6.0`）
 2. `wxt.config.ts` の `manifest.version_name` を同期する（例: `0.6.0-beta`）
 3. コミット: `chore: バージョンを v{新バージョン}-beta にバンプ`
-4. git tag を付与: `v{新バージョン}-beta`（例: `v0.6.0-beta`）
+4. `bun install && bun run build` を実行してビルドが成功することを確認する
+   - 失敗した場合は修正してコミットする
+5. git tag を付与: `v{新バージョン}-beta`（例: `v0.6.0-beta`）
 
 ---
 
