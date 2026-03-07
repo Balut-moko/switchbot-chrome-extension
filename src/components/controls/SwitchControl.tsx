@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useDeviceCommand } from '@/hooks/useDeviceCommand';
-import { useDeviceStatus } from '@/hooks/useDeviceStatus';
+import { useDeviceToggle } from '@/hooks/useDeviceToggle';
 import type { Device } from '@/types/switchbot';
 
 interface Props {
@@ -13,28 +11,10 @@ interface Props {
  * カラー: green=ON, gray=OFF
  */
 export default function SwitchControl({ device, disabled = false }: Props) {
-  const [isOn, setIsOn] = useState(false);
-  const { sendCommand, isPending } = useDeviceCommand(device.deviceId);
-  const { status } = useDeviceStatus(device.deviceId, !device.isIR);
-
-  useEffect(() => {
-    if (status && 'power' in status) {
-      setIsOn(status.power === 'on');
-    }
-  }, [status]);
-
-  const toggle = async () => {
-    const newState = !isOn;
-    setIsOn(newState);
-    try {
-      await sendCommand({
-        command: newState ? 'turnOn' : 'turnOff',
-        parameter: 'default',
-      });
-    } catch {
-      setIsOn(!newState);
-    }
-  };
+  const { isOn, isPending, toggle } = useDeviceToggle({
+    deviceId: device.deviceId,
+    enableStatus: !device.isIR,
+  });
 
   return (
     <button

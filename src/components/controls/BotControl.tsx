@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useDeviceCommand } from '@/hooks/useDeviceCommand';
-import { useDeviceStatus } from '@/hooks/useDeviceStatus';
-import type { BotStatus, Device } from '@/types/switchbot';
+import { useCallback } from 'react';
+import { useDeviceToggle } from '@/hooks/useDeviceToggle';
+import type { BotStatus, Device, DeviceStatus } from '@/types/switchbot';
 import { t } from '@/utils/i18n';
 
 interface Props {
@@ -9,30 +8,29 @@ interface Props {
   disabled?: boolean;
 }
 
+const extractBotPower = (status: DeviceStatus): boolean => {
+  return 'power' in status && (status as BotStatus).power === 'on';
+};
+
 /**
  * Bot デバイスコントロール
  * カラー: green=ON(switchMode), gray=OFF, blue=Press ボタン
  */
 export default function BotControl({ device, disabled = false }: Props) {
-  const [isOn, setIsOn] = useState(false);
-  const { sendCommand, isPending } = useDeviceCommand(device.deviceId);
-  const { status } = useDeviceStatus(device.deviceId);
+  const { isOn, isPending, status, toggle, sendCommand } = useDeviceToggle({
+    deviceId: device.deviceId,
+    extractPower: extractBotPower,
+  });
 
   const botStatus = status as BotStatus | null;
   const deviceMode = botStatus?.deviceMode ?? 'switchMode';
   const isPress = deviceMode === 'pressMode' || deviceMode === 'customizeMode';
 
-  useEffect(() => {
-    if (botStatus) {
-      setIsOn(botStatus.power === 'on');
-    }
-  }, [botStatus]);
+  const handlePress = useCallback(async () => {
+    await sendCommand({ command: 'press', parameter: 'default' });
+  }, [sendCommand]);
 
   if (isPress) {
-    const handlePress = async () => {
-      await sendCommand({ command: 'press', parameter: 'default' });
-    };
-
     return (
       <button
         type="button"
@@ -48,19 +46,6 @@ export default function BotControl({ device, disabled = false }: Props) {
       </button>
     );
   }
-
-  const toggle = async () => {
-    const newState = !isOn;
-    setIsOn(newState);
-    try {
-      await sendCommand({
-        command: newState ? 'turnOn' : 'turnOff',
-        parameter: 'default',
-      });
-    } catch {
-      setIsOn(!newState);
-    }
-  };
 
   return (
     <button

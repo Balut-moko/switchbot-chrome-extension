@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useDeviceCommand } from '@/hooks/useDeviceCommand';
-import { useDeviceStatus } from '@/hooks/useDeviceStatus';
+import { useMemo } from 'react';
+import { useDeviceToggle } from '@/hooks/useDeviceToggle';
 import type { Device } from '@/types/switchbot';
 
 interface Props {
@@ -13,29 +12,16 @@ interface Props {
  * カラー: yellow=ON（照明のセマンティクス）, gray=OFF
  */
 export default function LightControl({ device, disabled = false }: Props) {
-  const [isOn, setIsOn] = useState(false);
-  const { sendCommand, isPending } = useDeviceCommand(device.deviceId);
-  const { status } = useDeviceStatus(device.deviceId, !device.isIR);
+  const commandOptions = useMemo(
+    () => (device.isIR ? { commandType: 'command' } : undefined),
+    [device.isIR],
+  );
 
-  useEffect(() => {
-    if (status && 'power' in status) {
-      setIsOn(status.power === 'on');
-    }
-  }, [status]);
-
-  const toggle = async () => {
-    const newState = !isOn;
-    setIsOn(newState);
-    try {
-      await sendCommand({
-        command: newState ? 'turnOn' : 'turnOff',
-        parameter: 'default',
-        commandType: device.isIR ? 'command' : undefined,
-      });
-    } catch {
-      setIsOn(!newState);
-    }
-  };
+  const { isOn, isPending, toggle } = useDeviceToggle({
+    deviceId: device.deviceId,
+    enableStatus: !device.isIR,
+    commandOptions,
+  });
 
   return (
     <button
