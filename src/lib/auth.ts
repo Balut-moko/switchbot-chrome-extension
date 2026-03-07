@@ -19,6 +19,6 @@ export async function createAuthHeaders(token: string, secret: string): Promise<
     sign,
     t,
     nonce,
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json; charset=utf8',
   });
 }

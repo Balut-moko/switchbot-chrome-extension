@@ -83,6 +83,7 @@ export interface LockStatus extends BaseDeviceStatus {
   lockState: 'locked' | 'unlocked' | 'jammed';
   doorState: 'closed' | 'opened';
   battery: number;
+  calibrate: boolean;
 }
 
 export interface ColorBulbStatus extends BaseDeviceStatus {
@@ -100,12 +101,14 @@ export interface StripLightStatus extends BaseDeviceStatus {
 
 export interface MotionSensorStatus extends BaseDeviceStatus {
   moveDetected: boolean;
+  brightness: 'bright' | 'dim';
   battery: number;
 }
 
 export interface ContactSensorStatus extends BaseDeviceStatus {
   moveDetected: boolean;
   openState: 'open' | 'close' | 'timeOutNotClose';
+  brightness: 'bright' | 'dim';
   battery: number;
 }
 

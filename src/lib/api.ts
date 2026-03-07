@@ -30,7 +30,7 @@ export class SwitchBotAPI {
     const json: SwitchBotApiResponse<T> = await response.json();
 
     if (json.statusCode === 190) {
-      throw new Error('DEVICE_ERROR');
+      throw new Error('SYSTEM_ERROR');
     }
     if (json.statusCode !== 100) {
       throw new Error(json.message || `API_ERROR_CODE_${json.statusCode}`);

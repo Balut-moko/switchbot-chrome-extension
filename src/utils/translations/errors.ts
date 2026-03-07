@@ -14,9 +14,9 @@ export const ERROR_MESSAGES: Record<string, Record<Locale, string>> = {
     ja: 'API リクエスト制限に達しました。しばらく待ってから再試行してください。',
     en: 'API rate limit reached. Please wait and try again.',
   },
-  DEVICE_ERROR: {
-    ja: 'デバイスエラーが発生しました。',
-    en: 'A device error occurred.',
+  SYSTEM_ERROR: {
+    ja: 'システムエラー: デバイス状態の同期失敗またはコマンド形式エラーです。',
+    en: 'System error: device state sync failure or invalid command format.',
   },
 
   // 認証エラー
