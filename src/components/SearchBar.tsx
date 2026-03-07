@@ -1,3 +1,4 @@
+import { Search } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { t } from '@/utils/i18n';
 
@@ -19,9 +20,7 @@ export default function SearchBar({ onSearch }: Props) {
 
   return (
     <div className="relative">
-      <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
-        {'\u{1F50D}'}
-      </span>
+      <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
       <input
         type="text"
         value={value}

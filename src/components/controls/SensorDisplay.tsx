@@ -1,3 +1,14 @@
+import type { LucideIcon } from 'lucide-react';
+import {
+  AlertTriangle,
+  Battery,
+  CheckCircle,
+  Droplets,
+  Lock,
+  LockOpen,
+  Thermometer,
+  Wind,
+} from 'lucide-react';
 import { useDeviceStatus } from '@/hooks/useDeviceStatus';
 import type { Device } from '@/types/switchbot';
 import { getCapabilities } from '@/utils/deviceCapabilities';
@@ -6,7 +17,7 @@ import { t } from '@/utils/i18n';
 type BadgeVariant = 'primary' | 'secondary' | 'alert';
 
 interface BadgeData {
-  icon: string;
+  icon: LucideIcon;
   label?: string;
   value?: string;
   variant: BadgeVariant;
@@ -21,10 +32,10 @@ const VARIANT_CLASSES: Record<BadgeVariant, string> = {
     'inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
 };
 
-function SensorBadge({ icon, label, value, variant }: BadgeData) {
+function SensorBadge({ icon: Icon, label, value, variant }: BadgeData) {
   return (
     <span className={VARIANT_CLASSES[variant]}>
-      <span>{icon}</span>
+      <Icon className="w-3.5 h-3.5" />
       {label && <span>{label}</span>}
       {value && <span>{value}</span>}
     </span>
@@ -38,31 +49,31 @@ function buildBadges(
   const badges: BadgeData[] = [];
 
   if (caps.hasTemperature && 'temperature' in status) {
-    badges.push({ icon: '🌡', value: `${status.temperature}°C`, variant: 'primary' });
+    badges.push({ icon: Thermometer, value: `${status.temperature}°C`, variant: 'primary' });
   }
   if (caps.hasHumidity && 'humidity' in status) {
-    badges.push({ icon: '💧', value: `${status.humidity}%`, variant: 'primary' });
+    badges.push({ icon: Droplets, value: `${status.humidity}%`, variant: 'primary' });
   }
   if (caps.hasCO2 && 'CO2' in status) {
-    badges.push({ icon: '🌫️', label: 'CO₂', value: `${status.CO2} ppm`, variant: 'secondary' });
+    badges.push({ icon: Wind, label: 'CO₂', value: `${status.CO2} ppm`, variant: 'secondary' });
   }
   if (caps.hasBattery && 'battery' in status) {
-    badges.push({ icon: '🔋', value: `${status.battery}%`, variant: 'secondary' });
+    badges.push({ icon: Battery, value: `${status.battery}%`, variant: 'secondary' });
   }
 
   if ('moveDetected' in status) {
     badges.push(
       (status as { moveDetected: boolean }).moveDetected
-        ? { icon: '⚠️', label: t('MOTION_DETECTED'), variant: 'alert' }
-        : { icon: '✅', label: t('MOTION_CLEAR'), variant: 'secondary' },
+        ? { icon: AlertTriangle, label: t('MOTION_DETECTED'), variant: 'alert' }
+        : { icon: CheckCircle, label: t('MOTION_CLEAR'), variant: 'secondary' },
     );
   }
   if ('openState' in status) {
     const state = (status as { openState: string }).openState;
     badges.push(
       state === 'open'
-        ? { icon: '🔓', label: t('CONTACT_OPEN'), variant: 'alert' }
-        : { icon: '🔒', label: t('CONTACT_CLOSED'), variant: 'secondary' },
+        ? { icon: LockOpen, label: t('CONTACT_OPEN'), variant: 'alert' }
+        : { icon: Lock, label: t('CONTACT_CLOSED'), variant: 'secondary' },
     );
   }
 
@@ -111,7 +122,10 @@ export default function SensorDisplay({ device }: Props) {
   return (
     <div className="flex flex-wrap gap-1 mt-1">
       {badges.map((badge) => (
-        <SensorBadge key={`${badge.icon}${badge.label ?? ''}${badge.value ?? ''}`} {...badge} />
+        <SensorBadge
+          key={`${badge.icon.displayName ?? badge.icon.name}${badge.label ?? ''}${badge.value ?? ''}`}
+          {...badge}
+        />
       ))}
     </div>
   );

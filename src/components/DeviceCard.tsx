@@ -1,4 +1,5 @@
 import type { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
+import { Battery } from 'lucide-react';
 import ACControl from '@/components/controls/ACControl';
 import BotControl from '@/components/controls/BotControl';
 import CurtainControl from '@/components/controls/CurtainControl';
@@ -12,6 +13,11 @@ import { useDeviceStatus } from '@/hooks/useDeviceStatus';
 import type { Device } from '@/types/switchbot';
 import { getDeviceCategory, getDeviceIcon } from '@/utils/device';
 import { getCapabilities } from '@/utils/deviceCapabilities';
+
+function DeviceIconDisplay({ device }: { device: Device }) {
+  const Icon = getDeviceIcon(device);
+  return <Icon className="w-5 h-5 flex-shrink-0 text-gray-600 dark:text-gray-400" />;
+}
 
 interface Props {
   device: Device;
@@ -88,7 +94,7 @@ function BatteryBadge({ device }: { device: Device }) {
 
   return (
     <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400">
-      <span>{'\u{1F50B}'}</span>
+      <Battery className="w-3.5 h-3.5" />
       <span>{`${(status as { battery: number }).battery}%`}</span>
     </span>
   );
@@ -134,7 +140,7 @@ export default function DeviceCard({
           {reorderMode && (
             <DragHandle listeners={dragHandleListeners} attributes={dragHandleAttributes} />
           )}
-          <span className="text-base flex-shrink-0">{getDeviceIcon(device)}</span>
+          <DeviceIconDisplay device={device} />
           <span className="text-sm font-medium truncate dark:text-gray-200">
             {device.deviceName}
           </span>
@@ -152,7 +158,7 @@ export default function DeviceCard({
         {reorderMode && (
           <DragHandle listeners={dragHandleListeners} attributes={dragHandleAttributes} />
         )}
-        <span className="text-base flex-shrink-0">{getDeviceIcon(device)}</span>
+        <DeviceIconDisplay device={device} />
         <span className="text-sm font-medium truncate dark:text-gray-200">{device.deviceName}</span>
       </div>
       <div

@@ -1,3 +1,4 @@
+import { Wrench } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import DeviceList from '@/components/DeviceList';
 import UnlockPrompt from '@/components/UnlockPrompt';
@@ -41,7 +42,9 @@ export default function App() {
   if (state === 'no-credentials') {
     return (
       <div className="flex flex-col items-center justify-center p-6 h-full text-center bg-white dark:bg-gray-900">
-        <div className="text-4xl mb-4">{'\u{1F527}'}</div>
+        <div className="mb-4">
+          <Wrench className="w-10 h-10 text-gray-400 dark:text-gray-500" />
+        </div>
         <h2 className="text-lg font-semibold mb-2 dark:text-gray-200">{t('SETUP_REQUIRED')}</h2>
         <p className="text-xs text-gray-500 dark:text-gray-400 mb-4">{t('SETUP_DESCRIPTION')}</p>
         <button

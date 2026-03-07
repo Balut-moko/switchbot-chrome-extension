@@ -26,6 +26,11 @@ import {
 } from '@/utils/device';
 import { t } from '@/utils/i18n';
 
+function DeviceIconDisplay({ device }: { device: Device }) {
+  const Icon = getDeviceIcon(device);
+  return <Icon className="w-5 h-5 flex-shrink-0 text-gray-600 dark:text-gray-400" />;
+}
+
 type DevicePreferences = Record<string, { visible: boolean; order: number; disabled?: boolean }>;
 
 interface DeviceWithPrefs {
@@ -134,7 +139,7 @@ function SortableDeviceRow({
       />
 
       {/* Device icon */}
-      <span className="text-base flex-shrink-0">{getDeviceIcon(item.device)}</span>
+      <DeviceIconDisplay device={item.device} />
 
       {/* Device name */}
       <span className="text-sm font-medium flex-1 min-w-0 truncate dark:text-gray-200">

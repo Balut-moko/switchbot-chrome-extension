@@ -12,6 +12,11 @@ import {
 import { getDeviceIcon } from '@/utils/device';
 import { t } from '@/utils/i18n';
 
+function DeviceIconDisplay({ device }: { device: Device }) {
+  const Icon = getDeviceIcon(device);
+  return <Icon className="w-5 h-5 flex-shrink-0 text-gray-600 dark:text-gray-400" />;
+}
+
 interface Props {
   device: Device;
   disabled?: boolean;
@@ -79,7 +84,7 @@ export default function ACControl({ device, disabled = false }: Props) {
       {/* Header + Power */}
       <div className="flex items-center justify-between p-3 pb-1">
         <div className="flex items-center gap-2 min-w-0">
-          <span className="text-base flex-shrink-0">{getDeviceIcon(device)}</span>
+          <DeviceIconDisplay device={device} />
           <span className="text-sm font-medium truncate dark:text-gray-200">
             {device.deviceName}
           </span>
@@ -164,7 +169,10 @@ export default function ACControl({ device, disabled = false }: Props) {
                   : 'bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600'
               }`}
             >
-              <span className="text-sm">{AC_MODE_DISPLAY[m.value].icon}</span>
+              {(() => {
+                const ModeIcon = AC_MODE_DISPLAY[m.value].icon;
+                return <ModeIcon className="w-4 h-4" />;
+              })()}
               <span className="text-[10px] leading-tight">{m.label}</span>
             </button>
           ))}
@@ -192,7 +200,10 @@ export default function ACControl({ device, disabled = false }: Props) {
                   : 'bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600'
               }`}
             >
-              <span className="text-sm">{AC_FAN_DISPLAY[f.value].icon}</span>
+              {(() => {
+                const FanIcon = AC_FAN_DISPLAY[f.value].icon;
+                return <FanIcon className="w-4 h-4" />;
+              })()}
               <span className="text-[10px] leading-tight">{f.label}</span>
             </button>
           ))}

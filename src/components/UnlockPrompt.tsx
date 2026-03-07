@@ -1,3 +1,4 @@
+import { Lock } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { sendMessage } from '@/lib/messaging';
 import { t } from '@/utils/i18n';
@@ -41,7 +42,9 @@ export default function UnlockPrompt({ onUnlock }: Props) {
 
   return (
     <div className="flex flex-col items-center justify-center p-6 h-full bg-white dark:bg-gray-900">
-      <div className="text-4xl mb-4">{'\u{1F512}'}</div>
+      <div className="mb-4">
+        <Lock className="w-10 h-10 text-gray-400 dark:text-gray-500" />
+      </div>
       <h2 className="text-lg font-semibold mb-1 dark:text-gray-200">{t('UI_LOCKED')}</h2>
       <p className="text-xs text-gray-500 dark:text-gray-400 mb-4 text-center">
         {t('UNLOCK_DESCRIPTION')}

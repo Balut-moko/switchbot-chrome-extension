@@ -8,6 +8,7 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+import { Monitor, Moon, RefreshCw, Settings, Sun } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import DeviceSection from '@/components/DeviceSection';
 import SearchBar from '@/components/SearchBar';
@@ -84,8 +85,7 @@ export default function DeviceList() {
     setTheme(next);
   };
 
-  const themeIcon =
-    theme === 'light' ? '\u2600\uFE0F' : theme === 'dark' ? '\uD83C\uDF19' : '\uD83D\uDCBB';
+  const ThemeIcon = theme === 'light' ? Sun : theme === 'dark' ? Moon : Monitor;
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -186,19 +186,19 @@ export default function DeviceList() {
               <button
                 type="button"
                 onClick={cycleTheme}
-                className="text-lg hover:opacity-70"
+                className="p-1 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                 title={`Theme: ${theme}`}
               >
-                {themeIcon}
+                <ThemeIcon className="w-4.5 h-4.5" />
               </button>
               <button
                 type="button"
                 onClick={refresh}
                 disabled={loading}
-                className={`text-lg hover:opacity-70 ${loading ? 'animate-spin' : ''}`}
+                className={`p-1 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${loading ? 'animate-spin' : ''}`}
                 title={t('REFRESH')}
               >
-                {'\u{1F504}'}
+                <RefreshCw className="w-4.5 h-4.5" />
               </button>
             </>
           )}
@@ -218,10 +218,10 @@ export default function DeviceList() {
             <button
               type="button"
               onClick={openSettings}
-              className="text-lg hover:opacity-70"
+              className="p-1 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
               title={t('SETTINGS')}
             >
-              {'\u2699\uFE0F'}
+              <Settings className="w-4.5 h-4.5" />
             </button>
           )}
         </div>

@@ -1,3 +1,5 @@
+import type { LucideIcon } from 'lucide-react';
+import { Battery, Droplets, Thermometer } from 'lucide-react';
 import { useDeviceStatus } from '@/hooks/useDeviceStatus';
 import type { Device } from '@/types/switchbot';
 import IRRemoteControl from './IRRemoteControl';
@@ -7,10 +9,10 @@ interface Props {
   disabled?: boolean;
 }
 
-function StatusBadge({ label, value }: { label: string; value: string }) {
+function StatusBadge({ icon: Icon, value }: { icon?: LucideIcon; value: string }) {
   return (
     <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400">
-      <span>{label}</span>
+      {Icon && <Icon className="w-3.5 h-3.5" />}
       <span>{value}</span>
     </span>
   );
@@ -30,22 +32,22 @@ function FallbackStatusDisplay({ device }: { device: Device }) {
   }
 
   const s = status as Record<string, unknown>;
-  const badges: Array<{ label: string; value: string }> = [];
+  const badges: Array<{ icon?: LucideIcon; value: string }> = [];
 
   if ('power' in s) {
-    badges.push({ label: '', value: s.power === 'on' ? 'ON' : 'OFF' });
+    badges.push({ value: s.power === 'on' ? 'ON' : 'OFF' });
   }
   if ('temperature' in s && typeof s.temperature === 'number') {
-    badges.push({ label: '\u{1F321}\uFE0F', value: `${s.temperature}\u00B0C` });
+    badges.push({ icon: Thermometer, value: `${s.temperature}\u00B0C` });
   }
   if ('humidity' in s && typeof s.humidity === 'number') {
-    badges.push({ label: '\u{1F4A7}', value: `${s.humidity}%` });
+    badges.push({ icon: Droplets, value: `${s.humidity}%` });
   }
   if ('battery' in s && typeof s.battery === 'number') {
-    badges.push({ label: '\u{1F50B}', value: `${s.battery}%` });
+    badges.push({ icon: Battery, value: `${s.battery}%` });
   }
   if ('workingStatus' in s && typeof s.workingStatus === 'string') {
-    badges.push({ label: '', value: s.workingStatus });
+    badges.push({ value: s.workingStatus });
   }
 
   if (badges.length === 0) {
@@ -55,7 +57,7 @@ function FallbackStatusDisplay({ device }: { device: Device }) {
   return (
     <div className="flex flex-wrap gap-1">
       {badges.map((b) => (
-        <StatusBadge key={`${b.label}${b.value}`} label={b.label} value={b.value} />
+        <StatusBadge key={`${b.icon?.name ?? ''}${b.value}`} icon={b.icon} value={b.value} />
       ))}
     </div>
   );
