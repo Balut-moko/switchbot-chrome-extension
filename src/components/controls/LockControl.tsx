@@ -53,12 +53,12 @@ export default function LockControl({ device, disabled = false }: Props) {
       type="button"
       onClick={isLocked ? handleUnlock : handleLock}
       disabled={isPending || disabled}
-      className={`px-2 py-0.5 rounded text-xs font-medium ${
+      className={`px-2 py-0.5 rounded text-xs font-medium transition-colors ${
         confirming
-          ? 'bg-yellow-500 text-white'
+          ? 'bg-yellow-500 text-white hover:bg-yellow-600'
           : isLocked
-            ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300'
-            : 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
+            ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-900/50'
+            : 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-900/50'
       }`}
     >
       {confirming ? t('CONFIRM') : isLocked ? t('LOCK_LOCKED') : t('LOCK_UNLOCKED')}

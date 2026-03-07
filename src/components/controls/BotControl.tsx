@@ -9,6 +9,10 @@ interface Props {
   disabled?: boolean;
 }
 
+/**
+ * Bot デバイスコントロール
+ * カラー: green=ON(switchMode), gray=OFF, blue=Press ボタン
+ */
 export default function BotControl({ device, disabled = false }: Props) {
   const [isOn, setIsOn] = useState(false);
   const { sendCommand, isPending } = useDeviceCommand(device.deviceId);
@@ -65,7 +69,7 @@ export default function BotControl({ device, disabled = false }: Props) {
       disabled={isPending || disabled}
       className={`relative w-12 h-6 rounded-full transition-colors duration-200 ${
         isPending || disabled ? 'opacity-50' : ''
-      } ${isOn ? 'bg-green-500' : 'bg-gray-300'}`}
+      } ${isOn ? 'bg-green-500' : 'bg-gray-300 dark:bg-gray-600'}`}
     >
       <span
         className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200 ${

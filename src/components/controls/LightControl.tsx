@@ -8,6 +8,10 @@ interface Props {
   disabled?: boolean;
 }
 
+/**
+ * 照明系デバイスコントロール
+ * カラー: yellow=ON（照明のセマンティクス）, gray=OFF
+ */
 export default function LightControl({ device, disabled = false }: Props) {
   const [isOn, setIsOn] = useState(false);
   const { sendCommand, isPending } = useDeviceCommand(device.deviceId);

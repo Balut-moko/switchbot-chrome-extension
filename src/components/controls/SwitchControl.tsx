@@ -8,6 +8,10 @@ interface Props {
   disabled?: boolean;
 }
 
+/**
+ * スイッチ系デバイスコントロール（Plug, Fan, Climate 等にも使用）
+ * カラー: green=ON, gray=OFF
+ */
 export default function SwitchControl({ device, disabled = false }: Props) {
   const [isOn, setIsOn] = useState(false);
   const { sendCommand, isPending } = useDeviceCommand(device.deviceId);

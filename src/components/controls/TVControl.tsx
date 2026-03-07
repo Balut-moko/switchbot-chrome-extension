@@ -8,6 +8,10 @@ interface Props {
   disabled?: boolean;
 }
 
+/**
+ * TV / IR リモコン系デバイスコントロール
+ * カラー: green=ON, gray=OFF, gray(light)=音量ボタン
+ */
 export default function TVControl({ device, disabled = false }: Props) {
   const [isOn, setIsOn] = useState(false);
   const { sendCommand, isPending } = useDeviceCommand(device.deviceId);
@@ -48,10 +52,10 @@ export default function TVControl({ device, disabled = false }: Props) {
         type="button"
         onClick={togglePower}
         disabled={isPending || disabled}
-        className={`px-2 py-0.5 rounded text-xs font-medium ${
+        className={`px-2 py-0.5 rounded text-xs font-medium transition-colors ${
           isOn
-            ? 'bg-green-500 text-white'
-            : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
+            ? 'bg-green-500 text-white hover:bg-green-600'
+            : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-600'
         }`}
       >
         {isOn ? t('TV_ON') : t('TV_OFF')}
