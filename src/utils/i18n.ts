@@ -2,15 +2,6 @@ import { ERROR_MESSAGES } from '@/utils/translations/errors';
 import { UI_MESSAGES } from '@/utils/translations/ui';
 import { getLocale } from './locale';
 
-export type { Locale } from './locale';
-export {
-  getLocale,
-  getLocalePreference,
-  initLocale,
-  onLocaleChange,
-  setLocalePreference,
-} from './locale';
-
 export function t(key: string, params?: Record<string, string | number>): string {
   const locale = getLocale();
   if (key.startsWith('API_ERROR_')) {

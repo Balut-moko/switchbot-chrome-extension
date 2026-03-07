@@ -7,7 +7,7 @@ import {
   type Locale,
   onLocaleChange,
   setLocalePreference,
-} from '@/utils/i18n';
+} from '@/utils/locale';
 
 /**
  * 言語設定を管理する React hook。
