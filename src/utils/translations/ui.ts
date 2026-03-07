@@ -106,6 +106,14 @@ export const UI_MESSAGES: Record<string, Record<Locale, string>> = {
     en: 'Drag and drop to reorder devices.',
   },
   DEVICE_DISABLED_LABEL: { ja: '操作不可', en: 'Disable control' },
+  DEVICE_DISABLED_TOOLTIP: {
+    ja: '操作不可（クリックで解除）',
+    en: 'Control disabled (click to enable)',
+  },
+  DEVICE_ENABLED_TOOLTIP: {
+    ja: '操作可能（クリックで無効化）',
+    en: 'Control enabled (click to disable)',
+  },
   NO_DEVICES_FOUND: {
     ja: 'デバイスが見つかりません。先に API 接続をテストしてください。',
     en: 'No devices found. Test your API connection first.',

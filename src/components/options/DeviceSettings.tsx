@@ -151,21 +151,54 @@ function SortableDeviceRow({
         {item.device.deviceType}
       </span>
 
-      {/* Disable control checkbox */}
-      <label
-        className={`flex items-center gap-1.5 text-xs flex-shrink-0 ${
-          !item.visible ? 'opacity-30 pointer-events-none' : 'text-gray-500 dark:text-gray-400'
+      {/* Disable control toggle icon */}
+      <button
+        type="button"
+        onClick={() => onToggleDisabled(item.device.deviceId)}
+        disabled={!item.visible}
+        title={item.disabled ? t('DEVICE_DISABLED_TOOLTIP') : t('DEVICE_ENABLED_TOOLTIP')}
+        className={`p-1 rounded transition-colors flex-shrink-0 ${
+          !item.visible
+            ? 'opacity-30 pointer-events-none text-gray-400 dark:text-gray-600'
+            : item.disabled
+              ? 'text-amber-500 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20'
+              : 'text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
         }`}
       >
-        <input
-          type="checkbox"
-          checked={item.disabled}
-          onChange={() => onToggleDisabled(item.device.deviceId)}
-          disabled={!item.visible}
-          className="rounded border-gray-300 dark:border-gray-600 text-amber-500 focus:ring-amber-500 h-4 w-4"
-        />
-        {t('DEVICE_DISABLED_LABEL')}
-      </label>
+        {item.disabled ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+          </svg>
+        )}
+      </button>
     </div>
   );
 }
