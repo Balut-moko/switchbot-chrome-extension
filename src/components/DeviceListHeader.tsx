@@ -1,4 +1,4 @@
-import { Monitor, Moon, RefreshCw, Settings, Sun } from 'lucide-react';
+import { Monitor, Moon, RefreshCw, Search, Settings, Sun } from 'lucide-react';
 import type { ThemePreference } from '@/lib/storage';
 import { t } from '@/utils/i18n';
 
@@ -10,9 +10,11 @@ interface Props {
   mockMode: boolean;
   loading: boolean;
   reorderMode: boolean;
+  searchOpen: boolean;
   onCycleTheme: () => void;
   onRefresh: () => void;
   onToggleReorder: () => void;
+  onToggleSearch: () => void;
 }
 
 export default function DeviceListHeader({
@@ -20,9 +22,11 @@ export default function DeviceListHeader({
   mockMode,
   loading,
   reorderMode,
+  searchOpen,
   onCycleTheme,
   onRefresh,
   onToggleReorder,
+  onToggleSearch,
 }: Props) {
   const ThemeIcon = theme === 'light' ? Sun : theme === 'dark' ? Moon : Monitor;
 
@@ -55,6 +59,14 @@ export default function DeviceListHeader({
               title={t('REFRESH')}
             >
               <RefreshCw className="w-4.5 h-4.5" />
+            </button>
+            <button
+              type="button"
+              onClick={onToggleSearch}
+              className={`${iconBtnClass} ${searchOpen ? 'text-blue-500 dark:text-blue-400' : ''}`}
+              title={t('SEARCH')}
+            >
+              <Search className="w-4.5 h-4.5" />
             </button>
           </>
         )}

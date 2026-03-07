@@ -7,7 +7,7 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import DeviceListHeader from '@/components/DeviceListHeader';
 import DeviceSection from '@/components/DeviceSection';
 import SearchBar from '@/components/SearchBar';
@@ -23,6 +23,8 @@ export default function DeviceList() {
   const { theme, setTheme } = useTheme();
   useLocale();
   const [reorderMode, setReorderMode] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const searchKeyRef = useRef(0);
   const {
     query,
     setQuery,
@@ -52,6 +54,18 @@ export default function DeviceList() {
     setReorderMode((prev) => !prev);
     if (reorderMode) setQuery('');
   }, [reorderMode, setQuery]);
+  const toggleSearch = useCallback(() => {
+    setSearchOpen((prev) => {
+      if (prev) {
+        setQuery('');
+        searchKeyRef.current += 1;
+      }
+      return !prev;
+    });
+  }, [setQuery]);
+  const handleSearchBlur = useCallback(() => {
+    setSearchOpen(false);
+  }, []);
 
   return (
     <div className="flex flex-col h-full">
@@ -60,16 +74,27 @@ export default function DeviceList() {
         mockMode={mockMode}
         loading={loading}
         reorderMode={reorderMode}
+        searchOpen={searchOpen}
         onCycleTheme={cycleTheme}
         onRefresh={refresh}
         onToggleReorder={toggleReorderMode}
+        onToggleSearch={toggleSearch}
       />
 
-      {!reorderMode && (
+      <div
+        className={`overflow-hidden transition-all duration-200 ease-in-out ${
+          searchOpen && !reorderMode ? 'max-h-12 opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
         <div className="px-4 py-2">
-          <SearchBar onSearch={setQuery} />
+          <SearchBar
+            key={searchKeyRef.current}
+            onSearch={setQuery}
+            onBlur={handleSearchBlur}
+            autoFocus={searchOpen}
+          />
         </div>
-      )}
+      </div>
 
       <div className="flex-1 overflow-y-auto px-4 pb-3 space-y-3">
         {error && (

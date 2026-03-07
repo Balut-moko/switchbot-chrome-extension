@@ -37,6 +37,7 @@ export const UI_MESSAGES: Record<string, Record<Locale, string>> = {
   LOADING_DEVICES: { ja: 'デバイスを読み込み中...', en: 'Loading devices...' },
 
   // SearchBar
+  SEARCH: { ja: '検索', en: 'Search' },
   SEARCH_PLACEHOLDER: { ja: 'デバイスを検索...', en: 'Search devices...' },
 
   // UnlockPrompt
