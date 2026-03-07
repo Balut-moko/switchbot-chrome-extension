@@ -20,6 +20,19 @@ function DeviceIconDisplay({ device }: { device: Device }) {
   return <Icon className="w-5 h-5 flex-shrink-0 text-gray-600 dark:text-gray-400" />;
 }
 
+function DeviceNameWithType({ device }: { device: Device }) {
+  return (
+    <div className="min-w-0">
+      <span className="text-sm font-medium truncate block dark:text-gray-200">
+        {device.deviceName}
+      </span>
+      <span className="text-xs text-gray-400 dark:text-gray-500 truncate block">
+        {device.deviceType}
+      </span>
+    </div>
+  );
+}
+
 interface Props {
   device: Device;
   variant?: 'controls' | 'sensors';
@@ -120,11 +133,9 @@ export default function DeviceCard({
         className={`rounded-lg shadow-sm dark:shadow-gray-900/30 border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 overflow-hidden ${disabledClass}`}
       >
         {reorderMode && (
-          <div className="flex items-center px-3 pt-2">
+          <div className="flex items-center gap-2 px-3 pt-2">
             <DragHandle listeners={dragHandleListeners} attributes={dragHandleAttributes} />
-            <span className="text-sm font-medium truncate dark:text-gray-200">
-              {device.deviceName}
-            </span>
+            <DeviceNameWithType device={device} />
           </div>
         )}
         <div className={reorderDisabledClass}>
@@ -142,9 +153,7 @@ export default function DeviceCard({
             <DragHandle listeners={dragHandleListeners} attributes={dragHandleAttributes} />
           )}
           <DeviceIconDisplay device={device} />
-          <span className="text-sm font-medium truncate dark:text-gray-200">
-            {device.deviceName}
-          </span>
+          <DeviceNameWithType device={device} />
         </div>
         <div className={reorderDisabledClass}>
           <DeviceControl device={device} disabled={disabled} />
@@ -160,7 +169,7 @@ export default function DeviceCard({
           <DragHandle listeners={dragHandleListeners} attributes={dragHandleAttributes} />
         )}
         <DeviceIconDisplay device={device} />
-        <span className="text-sm font-medium truncate dark:text-gray-200">{device.deviceName}</span>
+        <DeviceNameWithType device={device} />
       </div>
       <div
         className={`flex items-center gap-2 flex-shrink-0 ml-2 ${disabledClass} ${reorderDisabledClass}`}

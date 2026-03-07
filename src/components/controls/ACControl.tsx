@@ -85,9 +85,14 @@ export default function ACControl({ device, disabled = false }: Props) {
       <div className="flex items-center justify-between p-3 pb-1">
         <div className="flex items-center gap-2 min-w-0">
           <DeviceIconDisplay device={device} />
-          <span className="text-sm font-medium truncate dark:text-gray-200">
-            {device.deviceName}
-          </span>
+          <div className="min-w-0">
+            <span className="text-sm font-medium truncate block dark:text-gray-200">
+              {device.deviceName}
+            </span>
+            <span className="text-xs text-gray-400 dark:text-gray-500 truncate block">
+              {device.deviceType}
+            </span>
+          </div>
         </div>
         <button
           type="button"
