@@ -1,11 +1,11 @@
 ---
 id: "040"
 title: "チェンジログ表示機能を追加する"
-status: "todo"
+status: "done"
 priority: "low"
 depends_on: []
 created: "2026-03-07"
-updated: "2026-03-07"
+updated: "2026-03-08"
 ---
 
 # チェンジログ表示機能を追加する
@@ -31,10 +31,10 @@ updated: "2026-03-07"
 
 ## Acceptance Criteria
 
-- [ ] チェンジログデータが管理可能な形式で保持されている
-- [ ] Options ページまたは Popup でチェンジログが閲覧できる
-- [ ] バージョン番号と変更内容が正しく表示される
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] チェンジログデータが管理可能な形式で保持されている
+- [x] Options ページまたは Popup でチェンジログが閲覧できる
+- [x] バージョン番号と変更内容が正しく表示される
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
