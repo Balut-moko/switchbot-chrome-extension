@@ -1,6 +1,6 @@
 {
   "name": "switchbot-chrome-extension",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "description": "Control and monitor SwitchBot smart home devices from the Chrome toolbar.",
   "private": true,
   "type": "module",
