@@ -17,10 +17,23 @@ import { BADGE_VARIANT_CLASSES } from '@/utils/styles';
 
 function DeviceIconDisplay({ device }: { device: Device }) {
   const Icon = getDeviceIcon(device);
-  return <Icon className="w-5 h-5 flex-shrink-0 text-gray-600 dark:text-gray-400" />;
+  return <Icon className="w-6 h-6 flex-shrink-0 text-gray-600 dark:text-gray-400" />;
 }
 
 function DeviceNameWithType({ device }: { device: Device }) {
+  return (
+    <div className="min-w-0 w-full">
+      <span className="text-sm font-medium truncate block dark:text-gray-200">
+        {device.deviceName}
+      </span>
+      <span className="text-[11px] text-gray-400 dark:text-gray-500 truncate block">
+        {device.deviceType}
+      </span>
+    </div>
+  );
+}
+
+function DeviceNameInline({ device }: { device: Device }) {
   return (
     <div className="min-w-0">
       <span className="text-sm font-medium truncate block dark:text-gray-200">
@@ -134,7 +147,7 @@ export default function DeviceCard({
         {reorderMode && (
           <div className="flex items-center gap-2 px-3 pt-2">
             <DragHandle listeners={dragHandleListeners} attributes={dragHandleAttributes} />
-            <DeviceNameWithType device={device} />
+            <DeviceNameInline device={device} />
           </div>
         )}
         <div className={reorderDisabledClass}>
@@ -146,7 +159,7 @@ export default function DeviceCard({
 
   if (isSensor) {
     return (
-      <div className="p-3 rounded-lg shadow-sm dark:shadow-gray-900/30 border transition-colors bg-gray-50 dark:bg-gray-800 border-gray-100 dark:border-gray-700">
+      <div className="p-3 rounded-lg shadow-sm dark:shadow-gray-900/30 border transition-colors bg-gray-50 dark:bg-gray-800 border-gray-100 dark:border-gray-700 flex flex-col h-full">
         <div className="flex items-center gap-2 min-w-0">
           {reorderMode && (
             <DragHandle listeners={dragHandleListeners} attributes={dragHandleAttributes} />
@@ -154,7 +167,7 @@ export default function DeviceCard({
           <DeviceIconDisplay device={device} />
           <DeviceNameWithType device={device} />
         </div>
-        <div className={reorderDisabledClass}>
+        <div className={`mt-auto pt-1 ${reorderDisabledClass}`}>
           <DeviceControl device={device} disabled={disabled} />
         </div>
       </div>
@@ -162,7 +175,7 @@ export default function DeviceCard({
   }
 
   return (
-    <div className="flex items-center justify-between p-3 rounded-lg shadow-sm dark:shadow-gray-900/30 border transition-colors bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600">
+    <div className="p-3 rounded-lg shadow-sm dark:shadow-gray-900/30 border transition-colors bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 flex flex-col h-full">
       <div className="flex items-center gap-2 min-w-0">
         {reorderMode && (
           <DragHandle listeners={dragHandleListeners} attributes={dragHandleAttributes} />
@@ -171,7 +184,7 @@ export default function DeviceCard({
         <DeviceNameWithType device={device} />
       </div>
       <div
-        className={`flex items-center gap-2 flex-shrink-0 ml-2 ${disabledClass} ${reorderDisabledClass}`}
+        className={`flex items-center gap-2 mt-auto pt-2 ${disabledClass} ${reorderDisabledClass}`}
       >
         <BatteryBadge device={device} />
         <DeviceControl device={device} disabled={disabled} />

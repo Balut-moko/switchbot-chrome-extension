@@ -7,10 +7,10 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import {
+  rectSortingStrategy,
   SortableContext,
   sortableKeyboardCoordinates,
   useSortable,
-  verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useCallback, useRef, useState } from 'react';
@@ -23,6 +23,7 @@ import { useDevices } from '@/hooks/useDevices';
 import { useLocale } from '@/hooks/useLocale';
 import { useTheme } from '@/hooks/useTheme';
 import type { Device } from '@/types/switchbot';
+import { getDeviceCategory } from '@/utils/device';
 import { t } from '@/utils/i18n';
 
 function SortableDeviceCard({
@@ -39,6 +40,8 @@ function SortableDeviceCard({
     disabled: !reorderMode,
   });
 
+  const isAC = getDeviceCategory(device) === 'ac';
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -48,7 +51,7 @@ function SortableDeviceCard({
   };
 
   return (
-    <div ref={setNodeRef} style={style}>
+    <div ref={setNodeRef} style={style} className={isAC ? 'col-span-2' : ''}>
       <DeviceCard
         device={device}
         disabled={disabled}
@@ -142,8 +145,8 @@ export default function DeviceList() {
           </div>
         )}
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-          <SortableContext items={deviceIds} strategy={verticalListSortingStrategy}>
-            <div className="space-y-2">
+          <SortableContext items={deviceIds} strategy={rectSortingStrategy}>
+            <div className="grid grid-cols-2 gap-2">
               {filtered.map((device) => (
                 <SortableDeviceCard
                   key={device.deviceId}
