@@ -1,7 +1,7 @@
 ---
 id: "036"
 title: "コンポーネントとロジックをリファクタリングする"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-07"
@@ -60,13 +60,13 @@ updated: "2026-03-07"
 
 ## Acceptance Criteria
 
-- [ ] コントロールコンポーネント間でトグルロジックの重複がない
-- [ ] DeviceList が 150 行以内に収まっている
-- [ ] background.ts が 100 行以内に収まっている
-- [ ] i18n.ts が 30 行以内に収まっている
-- [ ] 全機能が既存と同一の動作を維持する（振る舞いの変更なし）
-- [ ] `bun run build` が TypeScript エラーなしで成功する
-- [ ] `bun run check` が lint エラーなしで成功する
+- [x] コントロールコンポーネント間でトグルロジックの重複がない
+- [x] DeviceList が 150 行以内に収まっている
+- [x] background.ts が 100 行以内に収まっている
+- [x] i18n.ts が 30 行以内に収まっている
+- [x] 全機能が既存と同一の動作を維持する（振る舞いの変更なし）
+- [x] `bun run build` が TypeScript エラーなしで成功する
+- [x] `bun run check` が lint エラーなしで成功する
 
 ## Notes
 
