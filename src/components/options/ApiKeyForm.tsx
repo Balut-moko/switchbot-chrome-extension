@@ -6,14 +6,20 @@ import { t } from '@/utils/i18n';
 interface Props {
   securityMode: SecurityMode;
   isConfigured: boolean;
+  password: string;
+  passwordConfirm: string;
   onSaved: () => void;
 }
 
-export default function ApiKeyForm({ securityMode, isConfigured, onSaved }: Props) {
+export default function ApiKeyForm({
+  securityMode,
+  isConfigured,
+  password,
+  passwordConfirm,
+  onSaved,
+}: Props) {
   const [token, setToken] = useState('');
   const [secret, setSecret] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
   const [showToken, setShowToken] = useState(false);
   const [showSecret, setShowSecret] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -123,43 +129,6 @@ export default function ApiKeyForm({ securityMode, isConfigured, onSaved }: Prop
         <p className="text-xs text-gray-500 dark:text-gray-400">
           {t('CREDENTIALS_ALREADY_SAVED_HINT')}
         </p>
-      )}
-
-      {isHighSecurity && (
-        <>
-          <div>
-            <label
-              htmlFor="master-password"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-            >
-              {t('MASTER_PASSWORD_LABEL')}
-            </label>
-            <input
-              id="master-password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder={t('MASTER_PASSWORD_CREATE')}
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="confirm-password"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-            >
-              {t('CONFIRM_PASSWORD')}
-            </label>
-            <input
-              id="confirm-password"
-              type="password"
-              value={passwordConfirm}
-              onChange={(e) => setPasswordConfirm(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder={t('CONFIRM_PASSWORD_PLACEHOLDER')}
-            />
-          </div>
-        </>
       )}
 
       {error && <p className="text-sm text-red-600 dark:text-red-300">{t(error)}</p>}

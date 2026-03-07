@@ -18,6 +18,8 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [savedMessage, setSavedMessage] = useState<string | null>(null);
   const [apiOpen, setApiOpen] = useState(true);
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
 
   useEffect(() => {
     async function load() {
@@ -113,11 +115,20 @@ export default function App() {
         >
           <div className="overflow-hidden">
             <div className="px-4 pb-4 space-y-6">
-              <SecuritySettings mode={securityMode} onChange={setSecurityMode} />
+              <SecuritySettings
+                mode={securityMode}
+                onChange={setSecurityMode}
+                password={password}
+                passwordConfirm={passwordConfirm}
+                onPasswordChange={setPassword}
+                onPasswordConfirmChange={setPasswordConfirm}
+              />
               <hr className="dark:border-gray-700" />
               <ApiKeyForm
                 securityMode={securityMode}
                 isConfigured={isConfigured}
+                password={password}
+                passwordConfirm={passwordConfirm}
                 onSaved={handleSaved}
               />
               <hr className="dark:border-gray-700" />
