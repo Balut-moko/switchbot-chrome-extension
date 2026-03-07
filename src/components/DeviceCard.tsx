@@ -35,7 +35,6 @@ function DeviceNameWithType({ device }: { device: Device }) {
 
 interface Props {
   device: Device;
-  variant?: 'controls' | 'sensors';
   disabled?: boolean;
   reorderMode?: boolean;
   dragHandleListeners?: SyntheticListenerMap;
@@ -116,13 +115,13 @@ function BatteryBadge({ device }: { device: Device }) {
 
 export default function DeviceCard({
   device,
-  variant = 'controls',
   disabled = false,
   reorderMode = false,
   dragHandleListeners,
   dragHandleAttributes,
 }: Props) {
   const category = getDeviceCategory(device);
+  const isSensor = category === 'sensor' || category === 'hub';
 
   const disabledClass = disabled ? 'opacity-50 pointer-events-none' : '';
   const reorderDisabledClass = reorderMode ? 'pointer-events-none' : '';
@@ -145,7 +144,7 @@ export default function DeviceCard({
     );
   }
 
-  if (variant === 'sensors') {
+  if (isSensor) {
     return (
       <div className="p-3 rounded-lg shadow-sm dark:shadow-gray-900/30 border transition-colors bg-gray-50 dark:bg-gray-800 border-gray-100 dark:border-gray-700">
         <div className="flex items-center gap-2 min-w-0">
