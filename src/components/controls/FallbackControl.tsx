@@ -2,6 +2,7 @@ import type { LucideIcon } from 'lucide-react';
 import { Battery, Droplets, Thermometer } from 'lucide-react';
 import { useDeviceStatus } from '@/hooks/useDeviceStatus';
 import type { Device } from '@/types/switchbot';
+import { BADGE_VARIANT_CLASSES } from '@/utils/styles';
 import IRRemoteControl from './IRRemoteControl';
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
 
 function StatusBadge({ icon: Icon, value }: { icon?: LucideIcon; value: string }) {
   return (
-    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400">
+    <span className={BADGE_VARIANT_CLASSES.secondary}>
       {Icon && <Icon className="w-3.5 h-3.5" />}
       <span>{value}</span>
     </span>

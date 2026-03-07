@@ -13,8 +13,7 @@ import { useDeviceStatus } from '@/hooks/useDeviceStatus';
 import type { Device } from '@/types/switchbot';
 import { getCapabilities } from '@/utils/deviceCapabilities';
 import { t } from '@/utils/i18n';
-
-type BadgeVariant = 'primary' | 'secondary' | 'alert';
+import { BADGE_VARIANT_CLASSES, type BadgeVariant } from '@/utils/styles';
 
 interface BadgeData {
   icon: LucideIcon;
@@ -23,18 +22,9 @@ interface BadgeData {
   variant: BadgeVariant;
 }
 
-const VARIANT_CLASSES: Record<BadgeVariant, string> = {
-  primary:
-    'inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300',
-  secondary:
-    'inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400',
-  alert:
-    'inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
-};
-
 function SensorBadge({ icon: Icon, label, value, variant }: BadgeData) {
   return (
-    <span className={VARIANT_CLASSES[variant]}>
+    <span className={BADGE_VARIANT_CLASSES[variant]}>
       <Icon className="w-3.5 h-3.5" />
       {label && <span>{label}</span>}
       {value && <span>{value}</span>}

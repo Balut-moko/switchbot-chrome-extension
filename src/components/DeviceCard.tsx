@@ -13,6 +13,7 @@ import { useDeviceStatus } from '@/hooks/useDeviceStatus';
 import type { Device } from '@/types/switchbot';
 import { getDeviceCategory, getDeviceIcon } from '@/utils/device';
 import { getCapabilities } from '@/utils/deviceCapabilities';
+import { BADGE_VARIANT_CLASSES } from '@/utils/styles';
 
 function DeviceIconDisplay({ device }: { device: Device }) {
   const Icon = getDeviceIcon(device);
@@ -93,7 +94,7 @@ function BatteryBadge({ device }: { device: Device }) {
   }
 
   return (
-    <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs bg-gray-100 text-gray-500 dark:bg-gray-700 dark:text-gray-400">
+    <span className={BADGE_VARIANT_CLASSES.secondary}>
       <Battery className="w-3.5 h-3.5" />
       <span>{`${(status as { battery: number }).battery}%`}</span>
     </span>
