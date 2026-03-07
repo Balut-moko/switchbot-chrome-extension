@@ -1,11 +1,11 @@
 ---
 id: "038"
 title: "パスワード設定を SecuritySettings に統合する"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-07"
-updated: "2026-03-07"
+updated: "2026-03-08"
 ---
 
 # パスワード設定を SecuritySettings に統合する
@@ -32,9 +32,9 @@ updated: "2026-03-07"
 
 ## Acceptance Criteria
 
-- [ ] ハイセキュリティモード選択時、SecuritySettings セクション内にパスワード入力フィールドが表示される
-- [ ] スタンダードモード選択時はパスワードフィールドが非表示
-- [ ] ApiKeyForm にパスワード関連のフィールドが存在しない
-- [ ] パスワードの一致バリデーションが正常に動作する
-- [ ] ハイセキュリティモードでの認証情報保存・復号が正常に動作する
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] ハイセキュリティモード選択時、SecuritySettings セクション内にパスワード入力フィールドが表示される
+- [x] スタンダードモード選択時はパスワードフィールドが非表示
+- [x] ApiKeyForm にパスワード関連のフィールドが存在しない
+- [x] パスワードの一致バリデーションが正常に動作する
+- [x] ハイセキュリティモードでの認証情報保存・復号が正常に動作する
+- [x] `bun run build` が TypeScript エラーなしで成功する
