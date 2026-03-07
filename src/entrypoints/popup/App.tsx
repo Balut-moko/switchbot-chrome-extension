@@ -33,7 +33,7 @@ export default function App() {
 
   if (state === 'loading') {
     return (
-      <div className="flex items-center justify-center h-full bg-white dark:bg-gray-900">
+      <div className="flex items-center justify-center h-full">
         <p className="text-sm text-gray-400">{t('LOADING')}</p>
       </div>
     );
@@ -41,7 +41,7 @@ export default function App() {
 
   if (state === 'no-credentials') {
     return (
-      <div className="flex flex-col items-center justify-center p-6 h-full text-center bg-white dark:bg-gray-900">
+      <div className="flex flex-col items-center justify-center p-6 h-full text-center">
         <div className="mb-4">
           <Wrench className="w-10 h-10 text-gray-400 dark:text-gray-500" />
         </div>

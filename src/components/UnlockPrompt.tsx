@@ -41,7 +41,7 @@ export default function UnlockPrompt({ onUnlock }: Props) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-6 h-full bg-white dark:bg-gray-900">
+    <div className="flex flex-col items-center justify-center p-6 h-full">
       <div className="mb-4">
         <Lock className="w-10 h-10 text-gray-400 dark:text-gray-500" />
       </div>

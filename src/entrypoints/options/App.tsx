@@ -44,17 +44,14 @@ export default function App() {
 
   if (loading) {
     return (
-      <div className="max-w-xl mx-auto p-6 min-h-screen bg-white dark:bg-gray-900">
+      <div className="max-w-xl mx-auto p-6 min-h-screen">
         <p className="text-sm text-gray-500 dark:text-gray-400">{t('LOADING')}</p>
       </div>
     );
   }
 
   return (
-    <div
-      key={locale}
-      className="max-w-xl mx-auto p-6 space-y-6 min-h-screen bg-white dark:bg-gray-900"
-    >
+    <div key={locale} className="max-w-xl mx-auto p-6 space-y-6 min-h-screen">
       <div>
         <h1 className="text-xl font-bold dark:text-gray-200">{t('SETTINGS_TITLE')}</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t('SETTINGS_DESCRIPTION')}</p>
