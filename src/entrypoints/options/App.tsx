@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import ApiKeyForm from '@/components/options/ApiKeyForm';
+import Changelog from '@/components/options/Changelog';
 import ConnectionTest from '@/components/options/ConnectionTest';
 import DeviceSettings from '@/components/options/DeviceSettings';
 import LanguageSettings from '@/components/options/LanguageSettings';
@@ -137,6 +138,8 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      <Changelog />
     </div>
   );
 }

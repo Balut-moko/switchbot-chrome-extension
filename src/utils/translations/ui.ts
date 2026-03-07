@@ -155,6 +155,10 @@ export const UI_MESSAGES: Record<string, Record<Locale, string>> = {
   IR_POWER_ON: { ja: 'ON', en: 'ON' },
   IR_POWER_OFF: { ja: 'OFF', en: 'OFF' },
 
+  // Changelog
+  CHANGELOG_TITLE: { ja: '変更履歴', en: 'Changelog' },
+  CHANGELOG_LATEST: { ja: '最新', en: 'Latest' },
+
   // LanguageSettings
   LANGUAGE_SETTING: { ja: '言語設定', en: 'Language' },
   LANGUAGE_AUTO: { ja: '自動（ブラウザ設定に従う）', en: 'Auto (Follow browser settings)' },
