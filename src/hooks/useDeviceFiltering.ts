@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { sendMessage } from '@/lib/messaging';
 import { devicePreferencesItem } from '@/lib/storage';
 import type { Device } from '@/types/switchbot';
-import { type GroupedDevices, groupDevices } from '@/utils/device';
+import { sortDevicesByCategory } from '@/utils/device';
 
 type DevicePreferences = Record<string, { visible: boolean; order: number; disabled?: boolean }>;
 
@@ -10,9 +10,7 @@ interface UseDeviceFilteringResult {
   query: string;
   setQuery: (q: string) => void;
   filtered: Device[];
-  grouped: GroupedDevices;
   disabledDeviceIds: Set<string>;
-  isSearching: boolean;
   preferences: DevicePreferences;
   setPreferences: (prefs: DevicePreferences) => void;
   mockMode: boolean;
@@ -40,7 +38,7 @@ export function useDeviceFiltering(devices: Device[]): UseDeviceFilteringResult 
   const hasPrefs = Object.keys(preferences).length > 0;
 
   const visibleDevices = useMemo(() => {
-    if (!hasPrefs) return devices;
+    if (!hasPrefs) return sortDevicesByCategory(devices);
 
     return devices
       .filter((d) => preferences[d.deviceId]?.visible !== false)
@@ -63,20 +61,11 @@ export function useDeviceFiltering(devices: Device[]): UseDeviceFilteringResult 
     return ids;
   }, [preferences]);
 
-  const grouped = useMemo(
-    () => groupDevices(filtered, { preserveOrder: hasPrefs }),
-    [filtered, hasPrefs],
-  );
-
-  const isSearching = query.length > 0;
-
   return {
     query,
     setQuery: handleSearch,
     filtered,
-    grouped,
     disabledDeviceIds,
-    isSearching,
     preferences,
     setPreferences,
     mockMode,

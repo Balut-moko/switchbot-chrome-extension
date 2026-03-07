@@ -358,7 +358,7 @@ const CATEGORY_SORT_ORDER: Record<DeviceCategory, number> = {
   sensor: 12,
 };
 
-function sortDevicesByCategory(devices: Device[]): Device[] {
+export function sortDevicesByCategory(devices: Device[]): Device[] {
   return [...devices].sort((a, b) => {
     const orderDiff =
       CATEGORY_SORT_ORDER[getDeviceCategory(a)] - CATEGORY_SORT_ORDER[getDeviceCategory(b)];
