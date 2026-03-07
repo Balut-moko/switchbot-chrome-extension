@@ -1,7 +1,7 @@
 ---
 id: "027"
 title: "コンポーネント間の配色を統一・整理する"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-07"
@@ -44,12 +44,12 @@ updated: "2026-03-07"
 
 ## Acceptance Criteria
 
-- [ ] BotControl のトグルがダークモードで正しく表示される
-- [ ] 全コントロールコンポーネントのホバー効果が統一されている
-- [ ] ルート背景色が `tailwind.css` に一元化され、コンポーネントから重複が除去されている
-- [ ] バッジバリアントが `src/utils/styles.ts` に定義され、SensorDisplay から参照されている
-- [ ] ダークモード・ライトモード両方で視覚的に一貫性がある
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] BotControl のトグルがダークモードで正しく表示される
+- [x] 全コントロールコンポーネントのホバー効果が統一されている
+- [x] ルート背景色が `tailwind.css` に一元化され、コンポーネントから重複が除去されている
+- [x] バッジバリアントが `src/utils/styles.ts` に定義され、SensorDisplay から参照されている
+- [x] ダークモード・ライトモード両方で視覚的に一貫性がある
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
