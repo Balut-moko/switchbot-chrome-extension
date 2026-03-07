@@ -1,7 +1,7 @@
 ---
 id: "042"
 title: "カラーパレットを整理・簡素化する"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-08"
@@ -37,11 +37,11 @@ updated: "2026-03-08"
 
 ## Acceptance Criteria
 
-- [ ] ON 状態の色が green に統一されている（ライト含む）
-- [ ] cyan が使用されていない（blue 系に統合）
-- [ ] 使用するカラーが 5 色以内（blue, green, red, gray, amber）に収まっている
-- [ ] ダークモードで正しく表示される
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] ON 状態の色が green に統一されている（ライト含む）
+- [x] cyan が使用されていない（blue 系に統合）
+- [x] 使用するカラーが 5 色以内（blue, green, red, gray, amber）に収まっている
+- [x] ダークモードで正しく表示される
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
