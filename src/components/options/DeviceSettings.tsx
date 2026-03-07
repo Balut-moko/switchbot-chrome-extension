@@ -162,7 +162,7 @@ function SortableDeviceRow({
           checked={item.disabled}
           onChange={() => onToggleDisabled(item.device.deviceId)}
           disabled={!item.visible}
-          className="rounded border-gray-300 dark:border-gray-600 text-orange-500 focus:ring-orange-500 h-4 w-4"
+          className="rounded border-gray-300 dark:border-gray-600 text-amber-500 focus:ring-amber-500 h-4 w-4"
         />
         {t('DEVICE_DISABLED_LABEL')}
       </label>

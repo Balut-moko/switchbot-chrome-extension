@@ -88,7 +88,7 @@ export default function App() {
                 className={`text-xs font-medium px-2 py-0.5 rounded-full ${
                   isConfigured
                     ? 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300'
-                    : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300'
+                    : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300'
                 }`}
               >
                 {isConfigured ? t('API_CONFIGURED') : t('API_NOT_CONFIGURED')}
