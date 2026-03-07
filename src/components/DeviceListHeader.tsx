@@ -1,4 +1,4 @@
-import { Monitor, Moon, RefreshCw, Search, Settings, Sun } from 'lucide-react';
+import { ArrowUpDown, Monitor, Moon, RefreshCw, Search, Settings, Sun } from 'lucide-react';
 import type { ThemePreference } from '@/lib/storage';
 import { t } from '@/utils/i18n';
 
@@ -73,14 +73,10 @@ export default function DeviceListHeader({
         <button
           type="button"
           onClick={onToggleReorder}
-          className={`text-xs px-2 py-1 rounded-md font-medium transition-colors ${
-            reorderMode
-              ? 'bg-blue-500 text-white hover:bg-blue-600'
-              : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-          }`}
+          className={`${iconBtnClass} ${reorderMode ? 'text-blue-500 dark:text-blue-400' : ''}`}
           title={reorderMode ? t('REORDER_MODE_DONE') : t('REORDER_MODE')}
         >
-          {reorderMode ? t('REORDER_MODE_DONE') : t('REORDER_MODE')}
+          <ArrowUpDown className="w-4.5 h-4.5" />
         </button>
         {!reorderMode && (
           <button
