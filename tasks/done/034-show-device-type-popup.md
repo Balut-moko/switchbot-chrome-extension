@@ -1,7 +1,7 @@
 ---
 id: "034"
 title: "Popup のデバイスカードにデバイスタイプを表示する"
-status: "todo"
+status: "done"
 priority: "low"
 depends_on: []
 created: "2026-03-07"
@@ -34,9 +34,9 @@ Options ページの DeviceSettings ではデバイス名の横に `(deviceType)
 
 ## Acceptance Criteria
 
-- [ ] コントロール系デバイスカードにデバイスタイプが表示される
-- [ ] センサー系デバイスカードにデバイスタイプが表示される
-- [ ] AC/TV/Lock 系デバイスカードにデバイスタイプが表示される
-- [ ] ダークモードで正しく表示される
-- [ ] 長いデバイスタイプ名が truncate される
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] コントロール系デバイスカードにデバイスタイプが表示される
+- [x] センサー系デバイスカードにデバイスタイプが表示される
+- [x] AC/TV/Lock 系デバイスカードにデバイスタイプが表示される
+- [x] ダークモードで正しく表示される
+- [x] 長いデバイスタイプ名が truncate される
+- [x] `bun run build` が TypeScript エラーなしで成功する
