@@ -1,7 +1,7 @@
 ---
 id: "050"
 title: "バージョンアップ時のチェンジログ更新手順をドキュメント化する"
-status: "todo"
+status: "in_progress"
 priority: "low"
 depends_on: []
 created: "2026-03-09"
