@@ -36,6 +36,11 @@ export const UI_MESSAGES: Record<string, Record<Locale, string>> = {
   SECTION_IR_DEVICES: { ja: 'IR デバイス', en: 'IR Devices' },
   LOADING_DEVICES: { ja: 'デバイスを読み込み中...', en: 'Loading devices...' },
 
+  // Theme Selector
+  THEME_LIGHT: { ja: 'ライト', en: 'Light' },
+  THEME_DARK: { ja: 'ダーク', en: 'Dark' },
+  THEME_SYSTEM: { ja: 'システム', en: 'System' },
+
   // SearchBar
   SEARCH: { ja: '検索', en: 'Search' },
   SEARCH_PLACEHOLDER: { ja: 'デバイスを検索...', en: 'Search devices...' },
