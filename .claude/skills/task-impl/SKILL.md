@@ -124,10 +124,24 @@ ls tasks/todo/[0-9]*.md
 
 1. 現在の `package.json` の `version` から minor バージョンを +1 する（例: `0.5.0` → `0.6.0`）
 2. `wxt.config.ts` の `manifest.version_name` を同期する（例: `0.6.0-beta`）
-3. コミット: `chore: バージョンを v{新バージョン}-beta にバンプ`
-4. `bun install && bun run build` を実行してビルドが成功することを確認する
+3. `src/data/changelog.ts` の `changelog` 配列の**先頭**に新エントリを追加する:
+   - 今回マージしたタスクの変更内容を要約して `changes` に記載する
+   - `ChangelogEntry` のフォーマット（CLAUDE.md の「チェンジログエントリのフォーマット」参照）:
+     ```typescript
+     {
+       version: '0.x.0-beta',
+       date: 'YYYY-MM-DD',
+       changes: {
+         ja: ['変更点1', '変更点2'],
+         en: ['Change 1', 'Change 2'],
+       },
+     }
+     ```
+   - ja/en の両方を必ず記載し、項目数を同じにする
+4. コミット: `chore: バージョンを v{新バージョン}-beta にバンプ`
+5. `bun install && bun run build` を実行してビルドが成功することを確認する
    - 失敗した場合は修正してコミットする
-5. git tag を付与: `v{新バージョン}-beta`（例: `v0.6.0-beta`）
+6. git tag を付与: `v{新バージョン}-beta`（例: `v0.6.0-beta`）
 
 ---
 
