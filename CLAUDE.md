@@ -40,6 +40,29 @@ SwitchBot デバイスをブラウザから操作する Chrome 拡張機能（Ma
 - `wxt.config.ts` の `manifest.version_name`: `"0.x.0-beta"`（ストア表示用）
 - 実装回（タスクグループ）ごとに minor をバンプし、git tag `v0.x.0-beta` を付与
 
+### バージョンバンプ手順
+1. `package.json` の `version` を更新（例: `"0.15.0"` → `"0.16.0"`）
+2. `wxt.config.ts` の `manifest.version_name` を更新（例: `"0.16.0-beta"`）
+3. `src/data/changelog.ts` の `changelog` 配列の**先頭**に新エントリを追加する
+4. コミット: `chore: バージョンを v0.x.0-beta にバンプ`
+5. git tag を付与: `v0.x.0-beta`
+
+### チェンジログエントリのフォーマット
+`src/data/changelog.ts` の `ChangelogEntry` 型に準拠する:
+```typescript
+{
+  version: '0.x.0-beta',    // version_name と同じ文字列
+  date: 'YYYY-MM-DD',       // リリース日
+  changes: {
+    ja: ['変更点1（日本語）', '変更点2（日本語）'],
+    en: ['Change 1 (English)', 'Change 2 (English)'],
+  },
+}
+```
+- `changes` は `Record<Locale, string[]>` 型（`Locale = 'ja' | 'en'`）
+- ja/en の両方を必ず記載する（項目数は同じにする）
+- 新しいエントリほど配列の先頭に配置する（降順）
+
 ## Git Rules
 - コミットは `/commit-default` スキルを使用して作成する
 - コミットに `Co-Authored-By` 行を付与しない
