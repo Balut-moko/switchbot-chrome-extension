@@ -63,7 +63,11 @@ function SortableDeviceCard({
   );
 }
 
-export default function DeviceList() {
+interface Props {
+  onOpenSettings: () => void;
+}
+
+export default function DeviceList({ onOpenSettings }: Props) {
   const { devices, loading, error, refresh } = useDevices();
   const { theme, setTheme } = useTheme();
   useLocale();
@@ -114,6 +118,7 @@ export default function DeviceList() {
         onRefresh={refresh}
         onToggleReorder={toggleReorderMode}
         onToggleSearch={toggleSearch}
+        onOpenSettings={onOpenSettings}
       />
 
       <div

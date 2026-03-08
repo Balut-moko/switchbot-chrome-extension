@@ -22,6 +22,7 @@ interface Props {
   onRefresh: () => void;
   onToggleReorder: () => void;
   onToggleSearch: () => void;
+  onOpenSettings: () => void;
 }
 
 export default function DeviceListHeader({
@@ -34,6 +35,7 @@ export default function DeviceListHeader({
   onRefresh,
   onToggleReorder,
   onToggleSearch,
+  onOpenSettings,
 }: Props) {
   const ThemeIcon = theme === 'light' ? Sun : theme === 'dark' ? Moon : Monitor;
   const [themePopoverOpen, setThemePopoverOpen] = useState(false);
@@ -127,7 +129,7 @@ export default function DeviceListHeader({
         {!reorderMode && (
           <button
             type="button"
-            onClick={() => browser.runtime.openOptionsPage()}
+            onClick={onOpenSettings}
             className={iconBtnClass}
             title={t('SETTINGS')}
           >

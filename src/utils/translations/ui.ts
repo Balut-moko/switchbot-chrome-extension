@@ -9,6 +9,7 @@ export const UI_MESSAGES: Record<string, Record<Locale, string>> = {
     en: 'Configure your SwitchBot API credentials to get started.',
   },
   OPEN_SETTINGS: { ja: '設定を開く', en: 'Open Settings' },
+  BACK: { ja: '戻る', en: 'Back' },
 
   // Options App
   CREDENTIALS_SAVED: { ja: '認証情報を保存しました！', en: 'Credentials saved successfully!' },
