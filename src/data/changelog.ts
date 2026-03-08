@@ -8,6 +8,20 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.17.0-beta',
+    date: '2026-03-09',
+    changes: {
+      ja: [
+        'オプション画面をポップアップ内の画面切り替えで表示',
+        'バージョンバンプ時のチェンジログ更新手順をドキュメント化',
+      ],
+      en: [
+        'Show options page inline within popup via view switching',
+        'Documented changelog update procedure for version bumps',
+      ],
+    },
+  },
+  {
     version: '0.13.0-beta',
     date: '2026-03-08',
     changes: {
