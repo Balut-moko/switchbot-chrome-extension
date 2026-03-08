@@ -63,6 +63,7 @@ export default function DeviceListHeader({
             <button
               type="button"
               onClick={onToggleSearch}
+              data-search-toggle
               className={`${iconBtnClass} ${searchOpen ? 'text-blue-500 dark:text-blue-400' : ''}`}
               title={t('SEARCH')}
             >

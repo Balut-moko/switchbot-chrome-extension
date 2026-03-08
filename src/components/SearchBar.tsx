@@ -27,8 +27,10 @@ export default function SearchBar({ onSearch, onBlur, autoFocus }: Props) {
     };
   }, [value, onSearch]);
 
-  const handleBlur = () => {
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (!value && onBlur) {
+      const related = e.relatedTarget as HTMLElement | null;
+      if (related?.dataset.searchToggle) return;
       onBlur();
     }
   };
