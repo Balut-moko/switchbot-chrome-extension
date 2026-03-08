@@ -1,7 +1,7 @@
 ---
 id: "050"
 title: "バージョンアップ時のチェンジログ更新手順をドキュメント化する"
-status: "in_progress"
+status: "done"
 priority: "low"
 depends_on: []
 created: "2026-03-09"
@@ -29,6 +29,6 @@ updated: "2026-03-09"
 
 ## Acceptance Criteria
 
-- [ ] バージョンバンプ時にチェンジログを更新する手順が明文化されている
-- [ ] `ChangelogEntry` のフォーマット（version, date, ja/en changes）が記載されている
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] バージョンバンプ時にチェンジログを更新する手順が明文化されている
+- [x] `ChangelogEntry` のフォーマット（version, date, ja/en changes）が記載されている
+- [x] `bun run build` が TypeScript エラーなしで成功する
