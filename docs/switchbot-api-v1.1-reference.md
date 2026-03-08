@@ -233,13 +233,13 @@ async function generateAuthHeaders(token, secret) {
 |---------|-------------------|
 | `turnOn` | All |
 | `turnOff` | All |
-| `volumeAdd` / `volumeSub` | TV, Speaker |
-| `channelAdd` / `channelSub` | TV, Set Top Box |
-| `setChannel` (param: number) | TV |
-| `setMute` | TV, Speaker |
-| `play` / `pause` / `stop` | Streamer, DVD, Speaker |
-| `next` / `previous` | Streamer, DVD, Speaker |
-| `fastForward` / `rewind` | Streamer, DVD |
+| `SetChannel` (param: number) | TV, IPTV/Streamer, Set Top Box |
+| `volumeAdd` / `volumeSub` | TV, IPTV/Streamer, Set Top Box, Speaker |
+| `channelAdd` / `channelSub` | TV, IPTV/Streamer, Set Top Box |
+| `setMute` | DVD, Speaker |
+| `FastForward` / `Rewind` | DVD, Speaker |
+| `Next` / `Previous` | DVD, Speaker |
+| `Pause` / `Play` / `Stop` | DVD, Speaker |
 | `brightnessUp` / `brightnessDown` | Light, Projector |
 | `swing` / `timer` | Fan |
 | `lowSpeed` / `middleSpeed` / `highSpeed` | Fan |
