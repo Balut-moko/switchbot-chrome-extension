@@ -1,11 +1,11 @@
 ---
 id: "049"
 title: "IR コマンド名のケーシングを公式 API に準拠させる"
-status: "todo"
+status: "done"
 priority: "low"
 depends_on: ["048"]
 created: "2026-03-08"
-updated: "2026-03-08"
+updated: "2026-03-09"
 ---
 
 # IR コマンド名のケーシングを公式 API に準拠させる
@@ -28,9 +28,9 @@ SwitchBot API の IR リモートデバイス向けコマンド名（fastForward
 
 ## Acceptance Criteria
 
-- [ ] 公式ドキュメントの IR コマンド名を直接確認済み
-- [ ] `deviceCapabilities.ts` のコマンド名が公式と一致する
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] 公式ドキュメントの IR コマンド名を直接確認済み
+- [x] `deviceCapabilities.ts` のコマンド名が公式と一致する
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
