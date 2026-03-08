@@ -24,6 +24,7 @@ export default function ApiKeyForm({
   const [showSecret, setShowSecret] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showForm, setShowForm] = useState(false);
 
   const isHighSecurity = securityMode === 'high';
 
@@ -31,16 +32,8 @@ export default function ApiKeyForm({
   const hasSecretInput = secret.trim().length > 0;
 
   const handleSave = async () => {
-    // 保存済みで両方空の場合は何もしない（既存の値を維持）
-    if (isConfigured && !hasTokenInput && !hasSecretInput) {
-      return;
-    }
-    // 新規設定時、または片方だけ入力された場合は両方必須
-    if (!isConfigured && (!hasTokenInput || !hasSecretInput)) {
-      setError('VALIDATION_TOKEN_SECRET_REQUIRED');
-      return;
-    }
-    if (hasTokenInput !== hasSecretInput) {
+    // 新規設定時は両方必須
+    if (!hasTokenInput || !hasSecretInput) {
       setError('VALIDATION_TOKEN_SECRET_REQUIRED');
       return;
     }
@@ -61,6 +54,9 @@ export default function ApiKeyForm({
         mode: securityMode,
         password: isHighSecurity ? password : undefined,
       });
+      setShowForm(false);
+      setToken('');
+      setSecret('');
       onSaved();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'FAILED_TO_SAVE');
@@ -68,6 +64,40 @@ export default function ApiKeyForm({
       setSaving(false);
     }
   };
+
+  // 設定済みかつフォーム非表示の場合は「設定済み」表示 + 再設定ボタン
+  if (isConfigured && !showForm) {
+    return (
+      <div className="space-y-4">
+        <h2 className="text-lg font-semibold dark:text-gray-200">{t('API_CREDENTIALS')}</h2>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 text-sm text-green-700 dark:text-green-300">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+                role="img"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              {t('API_CREDENTIALS_CONFIGURED')}
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowForm(true)}
+            className="px-3 py-1.5 text-sm font-medium text-blue-600 dark:text-blue-400 border border-blue-300 dark:border-blue-600 rounded-md hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors"
+          >
+            {t('RECONFIGURE_API_CREDENTIALS')}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">
@@ -87,7 +117,7 @@ export default function ApiKeyForm({
             value={token}
             onChange={(e) => setToken(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder={isConfigured ? '••••••••••••' : t('API_TOKEN_PLACEHOLDER')}
+            placeholder={t('API_TOKEN_PLACEHOLDER')}
           />
           <button
             type="button"
@@ -113,7 +143,7 @@ export default function ApiKeyForm({
             value={secret}
             onChange={(e) => setSecret(e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder={isConfigured ? '••••••••••••' : t('API_SECRET_PLACEHOLDER')}
+            placeholder={t('API_SECRET_PLACEHOLDER')}
           />
           <button
             type="button"
@@ -124,12 +154,6 @@ export default function ApiKeyForm({
           </button>
         </div>
       </div>
-
-      {isConfigured && !hasTokenInput && !hasSecretInput && (
-        <p className="text-xs text-gray-500 dark:text-gray-400">
-          {t('CREDENTIALS_ALREADY_SAVED_HINT')}
-        </p>
-      )}
 
       {error && <p className="text-sm text-red-600 dark:text-red-300">{t(error)}</p>}
 

@@ -78,6 +78,13 @@ export const UI_MESSAGES: Record<string, Record<Locale, string>> = {
   SAVING: { ja: '保存中...', en: 'Saving...' },
   SAVE_CREDENTIALS: { ja: '認証情報を保存', en: 'Save Credentials' },
 
+  // ApiKeyForm - Reconfigure
+  API_CREDENTIALS_CONFIGURED: {
+    ja: 'API 認証情報は設定済みです',
+    en: 'API credentials are configured',
+  },
+  RECONFIGURE_API_CREDENTIALS: { ja: '再設定', en: 'Reconfigure' },
+
   // SecuritySettings
   SECURITY_MODE: { ja: 'セキュリティモード', en: 'Security Mode' },
   STANDARD_MODE: { ja: '標準（推奨）', en: 'Standard (Recommended)' },
