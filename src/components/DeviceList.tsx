@@ -83,8 +83,6 @@ export default function DeviceList() {
     onPreferencesChange: setPreferences,
   });
 
-  const cycleTheme = () =>
-    setTheme(theme === 'light' ? 'dark' : theme === 'dark' ? 'system' : 'light');
   const toggleReorderMode = useCallback(() => {
     setReorderMode((prev) => !prev);
     if (reorderMode) setQuery('');
@@ -112,7 +110,7 @@ export default function DeviceList() {
         loading={loading}
         reorderMode={reorderMode}
         searchOpen={searchOpen}
-        onCycleTheme={cycleTheme}
+        onSetTheme={setTheme}
         onRefresh={refresh}
         onToggleReorder={toggleReorderMode}
         onToggleSearch={toggleSearch}
