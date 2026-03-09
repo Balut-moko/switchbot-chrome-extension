@@ -3,6 +3,7 @@ import path from 'node:path';
 import { expect, test } from '@playwright/test';
 
 const BUILD_DIR = path.resolve(import.meta.dirname, '../../.output/chrome-mv3');
+const OUTPUT_DIR = path.resolve(import.meta.dirname, '../../.output');
 
 test.describe('ビルド出力検証', () => {
   test.beforeAll(() => {
@@ -73,5 +74,40 @@ test.describe('ビルド出力検証', () => {
   test('manifest_version が 3 である', () => {
     const manifest = JSON.parse(fs.readFileSync(path.join(BUILD_DIR, 'manifest.json'), 'utf-8'));
     expect(manifest.manifest_version).toBe(3);
+  });
+});
+
+test.describe('Zip 生成検証', () => {
+  test('bun run zip で配布用 zip ファイルが生成される', async () => {
+    const { execSync } = await import('node:child_process');
+    const projectRoot = path.resolve(import.meta.dirname, '../..');
+
+    // zip 生成を実行
+    execSync('bun run zip', { cwd: projectRoot, stdio: 'pipe' });
+
+    // .output/ 内に zip ファイルが存在することを確認
+    const files = fs.readdirSync(OUTPUT_DIR);
+    const zipFiles = files.filter((f) => f.endsWith('.zip'));
+    expect(zipFiles.length, 'zip ファイルが .output/ に存在すること').toBeGreaterThanOrEqual(1);
+
+    // zip ファイルのサイズが妥当であることを確認（空ファイルでないこと）
+    for (const zipFile of zipFiles) {
+      const stat = fs.statSync(path.join(OUTPUT_DIR, zipFile));
+      expect(stat.size, `${zipFile} が空でないこと`).toBeGreaterThan(0);
+    }
+  });
+
+  test('zip ファイル名にバージョン情報が含まれる', () => {
+    const files = fs.readdirSync(OUTPUT_DIR);
+    const zipFiles = files.filter((f) => f.endsWith('.zip'));
+    expect(zipFiles.length).toBeGreaterThanOrEqual(1);
+
+    // zip ファイル名にプロジェクト名が含まれることを確認
+    const hasProjectName = zipFiles.some((f) => f.includes('switchbot'));
+    expect(hasProjectName, 'zip ファイル名にプロジェクト名が含まれること').toBe(true);
+
+    // zip ファイル名に chrome が含まれることを確認
+    const hasBrowserName = zipFiles.some((f) => f.includes('chrome'));
+    expect(hasBrowserName, 'zip ファイル名にブラウザ名が含まれること').toBe(true);
   });
 });

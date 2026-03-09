@@ -1,7 +1,7 @@
 ---
 id: "012"
 title: "ビルド検証と E2E 動作確認を実施する"
-status: "todo"
+status: "done"
 priority: "high"
 phase: 5
 depends_on: ["002", "003", "005", "006", "007", "054"]
@@ -32,11 +32,11 @@ updated: "2026-03-10"
 
 ## Acceptance Criteria
 
-- [ ] `bun run build` がエラー・警告なしで成功する
-- [ ] `bunx playwright test tests/e2e/build-verification.spec.ts` で全テストがパスする（zip 検証含む）
-- [ ] `bunx playwright test tests/e2e/popup.spec.ts` で Popup UI テストがパスする
-- [ ] `bun run check` で Biome エラーがない
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] `bun run build` がエラー・警告なしで成功する
+- [x] `bunx playwright test tests/e2e/build-verification.spec.ts` で全テストがパスする（zip 検証含む）
+- [x] `bunx playwright test tests/e2e/popup.spec.ts` で Popup UI テストがパスする
+- [x] `bun run check` で Biome エラーがない
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
