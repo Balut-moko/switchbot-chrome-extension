@@ -32,6 +32,7 @@
     "includes": [
       "src/**",
       "tests/**",
+      "!tests/e2e/results",
       "*.config.{ts,js}",
       "biome.json",
       "package.json",

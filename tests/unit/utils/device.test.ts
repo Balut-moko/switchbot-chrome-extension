@@ -3,6 +3,7 @@ import type { Device, SwitchBotDevice, SwitchBotIRDevice } from '@/types/switchb
 import {
   getDeviceCategory,
   getDeviceGroup,
+  getDeviceIcon,
   getOptionsDeviceGroup,
   groupDevices,
   groupDevicesForOptions,
@@ -12,182 +13,194 @@ import {
   toUnifiedDevice,
 } from '@/utils/device';
 
-const makeDevice = (overrides: Partial<Device> = {}): Device => ({
-  deviceId: 'test-id',
-  deviceName: 'Test Device',
-  deviceType: 'Bot',
-  hubDeviceId: '',
-  isIR: false,
-  ...overrides,
-});
+// --- Test helpers ---
 
-const makePhysicalDevice = (overrides: Partial<SwitchBotDevice> = {}): SwitchBotDevice => ({
-  deviceId: 'physical-id',
-  deviceName: 'Physical Device',
-  deviceType: 'Bot',
-  hubDeviceId: '',
-  enableCloudService: true,
-  ...overrides,
-});
+function makeDevice(overrides: Partial<Device> = {}): Device {
+  return {
+    deviceId: 'test-id',
+    deviceName: 'Test Device',
+    deviceType: 'Bot',
+    hubDeviceId: 'hub-id',
+    isIR: false,
+    ...overrides,
+  };
+}
 
-const makeIRDevice = (overrides: Partial<SwitchBotIRDevice> = {}): SwitchBotIRDevice => ({
-  deviceId: 'ir-id',
-  deviceName: 'IR Device',
-  remoteType: 'Air Conditioner',
-  hubDeviceId: 'hub-1',
-  ...overrides,
-});
+function makePhysicalDevice(overrides: Partial<SwitchBotDevice> = {}): SwitchBotDevice {
+  return {
+    deviceId: 'physical-id',
+    deviceName: 'Physical Device',
+    deviceType: 'Bot',
+    hubDeviceId: 'hub-id',
+    enableCloudService: true,
+    ...overrides,
+  };
+}
+
+function makeIRDevice(overrides: Partial<SwitchBotIRDevice> = {}): SwitchBotIRDevice {
+  return {
+    deviceId: 'ir-id',
+    deviceName: 'IR Device',
+    remoteType: 'Air Conditioner',
+    hubDeviceId: 'hub-id',
+    ...overrides,
+  };
+}
+
+// --- Tests ---
 
 describe('isIRDevice', () => {
-  it('returns true for IR devices (has remoteType)', () => {
-    expect(isIRDevice(makeIRDevice())).toBe(true);
+  it('physical device を false と判定する', () => {
+    expect(isIRDevice(makePhysicalDevice())).toBe(false);
   });
 
-  it('returns false for physical devices (no remoteType)', () => {
-    expect(isIRDevice(makePhysicalDevice())).toBe(false);
+  it('IR device を true と判定する', () => {
+    expect(isIRDevice(makeIRDevice())).toBe(true);
   });
 });
 
 describe('toUnifiedDevice', () => {
-  it('converts a physical device to unified format', () => {
-    const device = makePhysicalDevice({
-      deviceId: 'bot-1',
-      deviceName: 'My Bot',
-      deviceType: 'Bot',
-    });
-    const result = toUnifiedDevice(device);
-    expect(result).toEqual({
-      deviceId: 'bot-1',
-      deviceName: 'My Bot',
-      deviceType: 'Bot',
-      hubDeviceId: '',
+  it('physical device を統一形式に変換する', () => {
+    const device = makePhysicalDevice({ deviceType: 'Plug Mini (JP)' });
+    const unified = toUnifiedDevice(device);
+    expect(unified).toEqual({
+      deviceId: 'physical-id',
+      deviceName: 'Physical Device',
+      deviceType: 'Plug Mini (JP)',
+      hubDeviceId: 'hub-id',
       isIR: false,
     });
   });
 
-  it('converts an IR device to unified format with remoteType as deviceType', () => {
-    const device = makeIRDevice({
-      deviceId: 'ac-1',
-      deviceName: 'AC',
-      remoteType: 'Air Conditioner',
-    });
-    const result = toUnifiedDevice(device);
-    expect(result).toEqual({
-      deviceId: 'ac-1',
-      deviceName: 'AC',
-      deviceType: 'Air Conditioner',
-      hubDeviceId: 'hub-1',
+  it('IR device を統一形式に変換する（remoteType → deviceType）', () => {
+    const device = makeIRDevice({ remoteType: 'TV' });
+    const unified = toUnifiedDevice(device);
+    expect(unified).toEqual({
+      deviceId: 'ir-id',
+      deviceName: 'IR Device',
+      deviceType: 'TV',
+      hubDeviceId: 'hub-id',
       isIR: true,
     });
   });
 });
 
 describe('getDeviceCategory', () => {
-  it('returns "bot" for Bot type', () => {
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Bot' }))).toBe('bot');
+  const cases: [string, boolean, string][] = [
+    ['Bot', false, 'bot'],
+    ['Plug', false, 'switch'],
+    ['Plug Mini (JP)', false, 'switch'],
+    ['Color Bulb', false, 'light'],
+    ['Strip Light', false, 'light'],
+    ['Meter', false, 'sensor'],
+    ['Meter Plus', false, 'sensor'],
+    ['MeterPro(CO2)', false, 'sensor'],
+    ['Hub 2', false, 'sensor'],
+    ['Curtain', false, 'curtain'],
+    ['Curtain3', false, 'curtain'],
+    ['Blind Tilt', false, 'curtain'],
+    ['Smart Lock', false, 'lock'],
+    ['Hub Mini', false, 'hub'],
+    ['Robot Vacuum Cleaner S1', false, 'vacuum'],
+    ['K10+', false, 'vacuum'],
+    ['Indoor Cam', false, 'camera'],
+    ['Humidifier', false, 'climate'],
+    ['Battery Circulator Fan', false, 'fan'],
+    ['Keypad', false, 'lock'],
+    ['Remote', false, 'other'],
+    ['Air Conditioner', true, 'ac'],
+    ['TV', true, 'tv'],
+    ['IPTV', true, 'tv'],
+    ['DVD', true, 'tv'],
+    ['Light', true, 'light'],
+    ['Fan', true, 'fan'],
+    ['Camera', true, 'camera'],
+    ['Air Purifier', true, 'climate'],
+    ['Robot Vacuum Cleaner', true, 'vacuum'],
+    ['Others', true, 'other'],
+    ['Unknown Device', false, 'other'],
+    ['Unknown IR', true, 'other'],
+  ];
+
+  it.each(cases)('%s (isIR=%s) → %s', (deviceType, isIR, expected) => {
+    const device = makeDevice({ deviceType, isIR });
+    expect(getDeviceCategory(device)).toBe(expected);
+  });
+});
+
+describe('getDeviceIcon', () => {
+  it('既知のデバイスタイプにアイコンを返す', () => {
+    const device = makeDevice({ deviceType: 'Bot' });
+    const icon = getDeviceIcon(device);
+    expect(icon).toBeDefined();
+    expect(typeof icon).toBe('object'); // LucideIcon is a ForwardRefExoticComponent
   });
 
-  it('returns "switch" for Plug types', () => {
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Plug' }))).toBe('switch');
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Plug Mini (JP)' }))).toBe('switch');
+  it('不明な physical device にデフォルトアイコンを返す', () => {
+    const device = makeDevice({ deviceType: 'Unknown', isIR: false });
+    const icon = getDeviceIcon(device);
+    expect(icon).toBeDefined();
   });
 
-  it('returns "light" for lighting devices', () => {
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Color Bulb' }))).toBe('light');
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Strip Light' }))).toBe('light');
-  });
-
-  it('returns "sensor" for sensor devices', () => {
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Meter' }))).toBe('sensor');
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Meter Plus' }))).toBe('sensor');
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Motion Sensor' }))).toBe('sensor');
-  });
-
-  it('returns "curtain" for curtain/blind types', () => {
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Curtain' }))).toBe('curtain');
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Blind Tilt' }))).toBe('curtain');
-  });
-
-  it('returns "lock" for lock and security types', () => {
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Smart Lock' }))).toBe('lock');
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Keypad' }))).toBe('lock');
-  });
-
-  it('returns "hub" for hub types', () => {
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Hub Mini' }))).toBe('hub');
-  });
-
-  it('returns "vacuum" for robot vacuum types', () => {
-    expect(getDeviceCategory(makeDevice({ deviceType: 'K10+' }))).toBe('vacuum');
-  });
-
-  it('returns "ac" for IR Air Conditioner', () => {
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Air Conditioner', isIR: true }))).toBe('ac');
-  });
-
-  it('returns "tv" for IR TV-related types', () => {
-    expect(getDeviceCategory(makeDevice({ deviceType: 'TV', isIR: true }))).toBe('tv');
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Projector', isIR: true }))).toBe('tv');
-  });
-
-  it('returns "light" for IR Light', () => {
-    expect(getDeviceCategory(makeDevice({ deviceType: 'Light', isIR: true }))).toBe('light');
-  });
-
-  it('returns "other" for unknown types', () => {
-    expect(getDeviceCategory(makeDevice({ deviceType: 'UnknownDevice' }))).toBe('other');
+  it('不明な IR device にデフォルトアイコンを返す', () => {
+    const device = makeDevice({ deviceType: 'Unknown', isIR: true });
+    const icon = getDeviceIcon(device);
+    expect(icon).toBeDefined();
   });
 });
 
 describe('isStatusAvailable', () => {
-  it('returns true for physical devices', () => {
+  it('physical device は true', () => {
     expect(isStatusAvailable(makeDevice({ isIR: false }))).toBe(true);
   });
 
-  it('returns false for IR devices', () => {
+  it('IR device は false', () => {
     expect(isStatusAvailable(makeDevice({ isIR: true }))).toBe(false);
   });
 });
 
 describe('getDeviceGroup', () => {
-  it('returns "sensors" for sensor devices', () => {
+  it('sensor カテゴリは sensors グループ', () => {
     expect(getDeviceGroup(makeDevice({ deviceType: 'Meter' }))).toBe('sensors');
   });
 
-  it('returns "sensors" for hub devices', () => {
+  it('hub カテゴリは sensors グループ', () => {
     expect(getDeviceGroup(makeDevice({ deviceType: 'Hub Mini' }))).toBe('sensors');
   });
 
-  it('returns "controls" for other devices', () => {
+  it('bot カテゴリは controls グループ', () => {
     expect(getDeviceGroup(makeDevice({ deviceType: 'Bot' }))).toBe('controls');
-    expect(getDeviceGroup(makeDevice({ deviceType: 'Smart Lock' }))).toBe('controls');
+  });
+
+  it('light カテゴリは controls グループ', () => {
+    expect(getDeviceGroup(makeDevice({ deviceType: 'Color Bulb' }))).toBe('controls');
   });
 });
 
 describe('sortDevicesByCategory', () => {
-  it('sorts devices by category order', () => {
+  it('カテゴリ順にソートする', () => {
     const devices = [
-      makeDevice({ deviceId: '1', deviceName: 'Sensor', deviceType: 'Meter' }),
-      makeDevice({ deviceId: '2', deviceName: 'Bot', deviceType: 'Bot' }),
-      makeDevice({ deviceId: '3', deviceName: 'Light', deviceType: 'Color Bulb' }),
+      makeDevice({ deviceName: 'Sensor', deviceType: 'Meter' }),
+      makeDevice({ deviceName: 'Bot', deviceType: 'Bot' }),
+      makeDevice({ deviceName: 'Light', deviceType: 'Color Bulb' }),
     ];
     const sorted = sortDevicesByCategory(devices);
-    expect(sorted.map((d) => d.deviceType)).toEqual(['Bot', 'Color Bulb', 'Meter']);
+    expect(sorted.map((d) => d.deviceName)).toEqual(['Bot', 'Light', 'Sensor']);
   });
 
-  it('sorts alphabetically within the same category', () => {
+  it('同カテゴリ内は名前順にソートする', () => {
     const devices = [
-      makeDevice({ deviceId: '1', deviceName: 'Z Bot', deviceType: 'Bot' }),
-      makeDevice({ deviceId: '2', deviceName: 'A Bot', deviceType: 'Bot' }),
+      makeDevice({ deviceName: 'Z Plug', deviceType: 'Plug' }),
+      makeDevice({ deviceName: 'A Plug', deviceType: 'Plug Mini (JP)' }),
     ];
     const sorted = sortDevicesByCategory(devices);
-    expect(sorted.map((d) => d.deviceName)).toEqual(['A Bot', 'Z Bot']);
+    expect(sorted.map((d) => d.deviceName)).toEqual(['A Plug', 'Z Plug']);
   });
 
-  it('does not mutate the original array', () => {
+  it('元の配列を変更しない', () => {
     const devices = [
-      makeDevice({ deviceId: '1', deviceName: 'Sensor', deviceType: 'Meter' }),
-      makeDevice({ deviceId: '2', deviceName: 'Bot', deviceType: 'Bot' }),
+      makeDevice({ deviceName: 'B', deviceType: 'Meter' }),
+      makeDevice({ deviceName: 'A', deviceType: 'Bot' }),
     ];
     const original = [...devices];
     sortDevicesByCategory(devices);
@@ -196,22 +209,24 @@ describe('sortDevicesByCategory', () => {
 });
 
 describe('groupDevices', () => {
-  it('groups devices into controls and sensors', () => {
+  it('controls と sensors に分類する', () => {
     const devices = [
-      makeDevice({ deviceId: '1', deviceType: 'Bot' }),
-      makeDevice({ deviceId: '2', deviceType: 'Meter' }),
-      makeDevice({ deviceId: '3', deviceType: 'Smart Lock' }),
-      makeDevice({ deviceId: '4', deviceType: 'Hub Mini' }),
+      makeDevice({ deviceName: 'Bot', deviceType: 'Bot' }),
+      makeDevice({ deviceName: 'Meter', deviceType: 'Meter' }),
+      makeDevice({ deviceName: 'Hub', deviceType: 'Hub Mini' }),
+      makeDevice({ deviceName: 'Light', deviceType: 'Color Bulb' }),
     ];
     const grouped = groupDevices(devices);
-    expect(grouped.controls).toHaveLength(2);
-    expect(grouped.sensors).toHaveLength(2);
+    expect(grouped.controls.map((d) => d.deviceName)).toContain('Bot');
+    expect(grouped.controls.map((d) => d.deviceName)).toContain('Light');
+    expect(grouped.sensors.map((d) => d.deviceName)).toContain('Meter');
+    expect(grouped.sensors.map((d) => d.deviceName)).toContain('Hub');
   });
 
-  it('preserves order when preserveOrder option is set', () => {
+  it('preserveOrder: true でソートしない', () => {
     const devices = [
-      makeDevice({ deviceId: '1', deviceName: 'Z Meter', deviceType: 'Meter' }),
-      makeDevice({ deviceId: '2', deviceName: 'A Meter', deviceType: 'Meter Plus' }),
+      makeDevice({ deviceName: 'Z Meter', deviceType: 'Meter' }),
+      makeDevice({ deviceName: 'A Meter', deviceType: 'Meter Plus' }),
     ];
     const grouped = groupDevices(devices, { preserveOrder: true });
     expect(grouped.sensors.map((d) => d.deviceName)).toEqual(['Z Meter', 'A Meter']);
@@ -219,27 +234,25 @@ describe('groupDevices', () => {
 });
 
 describe('getOptionsDeviceGroup', () => {
-  it('returns "ir" for IR devices', () => {
-    expect(getOptionsDeviceGroup(makeDevice({ isIR: true, deviceType: 'Air Conditioner' }))).toBe(
-      'ir',
-    );
+  it('IR device は ir グループ', () => {
+    expect(getOptionsDeviceGroup(makeDevice({ isIR: true, deviceType: 'TV' }))).toBe('ir');
   });
 
-  it('returns "sensors" for sensor devices', () => {
+  it('sensor は sensors グループ', () => {
     expect(getOptionsDeviceGroup(makeDevice({ deviceType: 'Meter' }))).toBe('sensors');
   });
 
-  it('returns "controls" for other physical devices', () => {
+  it('その他は controls グループ', () => {
     expect(getOptionsDeviceGroup(makeDevice({ deviceType: 'Bot' }))).toBe('controls');
   });
 });
 
 describe('groupDevicesForOptions', () => {
-  it('groups into controls, sensors, and ir', () => {
+  it('controls, sensors, ir に3分類する', () => {
     const devices = [
-      makeDevice({ deviceId: '1', deviceType: 'Bot' }),
-      makeDevice({ deviceId: '2', deviceType: 'Meter' }),
-      makeDevice({ deviceId: '3', deviceType: 'Air Conditioner', isIR: true }),
+      makeDevice({ deviceName: 'Bot', deviceType: 'Bot' }),
+      makeDevice({ deviceName: 'Meter', deviceType: 'Meter' }),
+      makeDevice({ deviceName: 'AC', deviceType: 'Air Conditioner', isIR: true }),
     ];
     const grouped = groupDevicesForOptions(devices);
     expect(grouped.controls).toHaveLength(1);

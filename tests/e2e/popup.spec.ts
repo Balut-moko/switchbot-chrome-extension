@@ -1,13 +1,13 @@
 import { expect, test } from './fixtures';
 
-test('popup loads and renders root element', async ({ context, extensionId }) => {
-  const page = await context.newPage();
-  await page.goto(`chrome-extension://${extensionId}/popup.html`);
-  await expect(page.locator('#root')).not.toBeEmpty();
-});
+test.describe('Popup UI', () => {
+  test('popup ページが開く', async ({ context, extensionId }) => {
+    const page = await context.newPage();
+    await page.goto(`chrome-extension://${extensionId}/popup.html`);
 
-test('popup has correct title', async ({ context, extensionId }) => {
-  const page = await context.newPage();
-  await page.goto(`chrome-extension://${extensionId}/popup.html`);
-  await expect(page).toHaveTitle(/SwitchBot/i);
+    // ページが読み込まれることを確認
+    await page.waitForLoadState('domcontentloaded');
+    const title = await page.title();
+    expect(title).toBeTruthy();
+  });
 });

@@ -7,7 +7,7 @@ export const test = base.extend<{
   context: BrowserContext;
   extensionId: string;
 }>({
-  // biome-ignore lint/correctness/noEmptyPattern: required by Playwright fixture API
+  // biome-ignore lint/correctness/noEmptyPattern: Playwright fixture pattern requires destructuring
   context: async ({}, use) => {
     const context = await chromium.launchPersistentContext('', {
       headless: false,
@@ -15,20 +15,25 @@ export const test = base.extend<{
         `--disable-extensions-except=${EXTENSION_PATH}`,
         `--load-extension=${EXTENSION_PATH}`,
         '--no-first-run',
-        '--no-default-browser-check',
+        '--disable-gpu',
       ],
     });
     await use(context);
     await context.close();
   },
   extensionId: async ({ context }, use) => {
-    let [background] = context.serviceWorkers();
-    if (!background) {
+    let background: { url(): string };
+
+    // Wait for service worker to be available
+    if (context.serviceWorkers().length > 0) {
+      background = context.serviceWorkers()[0];
+    } else {
       background = await context.waitForEvent('serviceworker');
     }
+
     const extensionId = background.url().split('/')[2];
     await use(extensionId);
   },
 });
 
-export const { expect } = test;
+export { expect } from '@playwright/test';
