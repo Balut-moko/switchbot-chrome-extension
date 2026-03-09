@@ -8,6 +8,14 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.18.0-beta',
+    date: '2026-03-10',
+    changes: {
+      ja: ['エアコンカードを他のデバイスと同じ1列幅にコンパクト化'],
+      en: ['Compact AC card to single-column width matching other device cards'],
+    },
+  },
+  {
     version: '0.17.0-beta',
     date: '2026-03-09',
     changes: {
