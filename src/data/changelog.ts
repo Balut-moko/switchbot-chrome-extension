@@ -8,6 +8,20 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.21.0-beta',
+    date: '2026-03-10',
+    changes: {
+      ja: [
+        'ストアアセット用スクリーンショット自動撮影を追加',
+        'ビルド検証・zip生成・Popup UIのE2Eテストを拡充',
+      ],
+      en: [
+        'Add automated screenshot capture for store assets',
+        'Expand E2E tests for build verification, zip generation, and popup UI',
+      ],
+    },
+  },
+  {
     version: '0.20.0-beta',
     date: '2026-03-10',
     changes: {
