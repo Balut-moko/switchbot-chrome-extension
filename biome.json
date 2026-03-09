@@ -29,6 +29,13 @@
     }
   },
   "files": {
-    "includes": ["src/**", "*.config.{ts,js}", "biome.json", "package.json", "tsconfig.json"]
+    "includes": [
+      "src/**",
+      "tests/**",
+      "*.config.{ts,js}",
+      "biome.json",
+      "package.json",
+      "tsconfig.json"
+    ]
   }
 }

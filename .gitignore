@@ -19,6 +19,12 @@ dist/
 .DS_Store
 Thumbs.db
 
+# Test outputs
+tests/e2e/results/
+tests/screenshots/
+test-results/
+playwright-report/
+
 # Claude Code (local)
 .claude/settings.local.json
 .claude/worktrees/

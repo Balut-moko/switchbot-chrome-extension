@@ -14,6 +14,11 @@
     "check": "biome check .",
     "check:fix": "biome check --write .",
     "generate:icons": "bun run scripts/generate-icons.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "bun run build && bunx playwright test",
+    "test:e2e:mock": "MOCK_MODE=true bun run build && bunx playwright test",
+    "test:e2e:screenshots": "MOCK_MODE=true bun run build && bunx playwright test tests/e2e/screenshots.spec.ts",
     "spellcheck": "cspell \"src/**/*.{ts,tsx}\" \"*.{json,ts,js,yml,md}\"",
     "postinstall": "wxt prepare && lefthook install"
   },
@@ -36,10 +41,15 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.5",
+    "@playwright/test": "^1.58.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "cspell": "^9.7.0",
+    "happy-dom": "^20.8.3",
     "lefthook": "^2.1.2",
-    "sharp": "^0.34.5"
+    "sharp": "^0.34.5",
+    "vitest": "^4.0.18"
   }
 }
