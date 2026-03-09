@@ -127,6 +127,14 @@ export const UI_MESSAGES: Record<string, Record<Locale, string>> = {
     ja: '操作可能（クリックで無効化）',
     en: 'Control enabled (click to disable)',
   },
+  DEVICE_VISIBLE_TOOLTIP: {
+    ja: '表示中（クリックで非表示）',
+    en: 'Visible (click to hide)',
+  },
+  DEVICE_HIDDEN_TOOLTIP: {
+    ja: '非表示（クリックで表示）',
+    en: 'Hidden (click to show)',
+  },
   NO_DEVICES_FOUND: {
     ja: 'デバイスが見つかりません。先に API 接続をテストしてください。',
     en: 'No devices found. Test your API connection first.',

@@ -10,7 +10,9 @@ interface UseDeviceFilteringResult {
   query: string;
   setQuery: (q: string) => void;
   filtered: Device[];
+  allSortedDevices: Device[];
   disabledDeviceIds: Set<string>;
+  hiddenDeviceIds: Set<string>;
   preferences: DevicePreferences;
   setPreferences: (prefs: DevicePreferences) => void;
   mockMode: boolean;
@@ -37,17 +39,24 @@ export function useDeviceFiltering(devices: Device[]): UseDeviceFilteringResult 
 
   const hasPrefs = Object.keys(preferences).length > 0;
 
-  const visibleDevices = useMemo(() => {
-    if (!hasPrefs) return sortDevicesByCategory(devices);
+  const getDeviceList = useCallback(
+    (includeHidden: boolean) => {
+      if (!hasPrefs) return sortDevicesByCategory(devices);
 
-    return devices
-      .filter((d) => preferences[d.deviceId]?.visible !== false)
-      .sort((a, b) => {
-        const orderA = preferences[a.deviceId]?.order ?? Number.MAX_SAFE_INTEGER;
-        const orderB = preferences[b.deviceId]?.order ?? Number.MAX_SAFE_INTEGER;
-        return orderA - orderB;
-      });
-  }, [devices, preferences, hasPrefs]);
+      return devices
+        .filter((d) => includeHidden || preferences[d.deviceId]?.visible !== false)
+        .sort((a, b) => {
+          const orderA = preferences[a.deviceId]?.order ?? Number.MAX_SAFE_INTEGER;
+          const orderB = preferences[b.deviceId]?.order ?? Number.MAX_SAFE_INTEGER;
+          return orderA - orderB;
+        });
+    },
+    [devices, preferences, hasPrefs],
+  );
+
+  const visibleDevices = useMemo(() => getDeviceList(false), [getDeviceList]);
+
+  const allSortedDevices = useMemo(() => getDeviceList(true), [getDeviceList]);
 
   const filtered = query
     ? visibleDevices.filter((d) => d.deviceName.toLowerCase().includes(query))
@@ -61,11 +70,21 @@ export function useDeviceFiltering(devices: Device[]): UseDeviceFilteringResult 
     return ids;
   }, [preferences]);
 
+  const hiddenDeviceIds = useMemo(() => {
+    const ids = new Set<string>();
+    for (const [id, pref] of Object.entries(preferences)) {
+      if (pref.visible === false) ids.add(id);
+    }
+    return ids;
+  }, [preferences]);
+
   return {
     query,
     setQuery: handleSearch,
     filtered,
+    allSortedDevices,
     disabledDeviceIds,
+    hiddenDeviceIds,
     preferences,
     setPreferences,
     mockMode,

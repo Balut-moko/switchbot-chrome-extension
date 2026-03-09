@@ -22,17 +22,24 @@ import { useDeviceReordering } from '@/hooks/useDeviceReordering';
 import { useDevices } from '@/hooks/useDevices';
 import { useLocale } from '@/hooks/useLocale';
 import { useTheme } from '@/hooks/useTheme';
+import { devicePreferencesItem } from '@/lib/storage';
 import type { Device } from '@/types/switchbot';
 import { t } from '@/utils/i18n';
 
 function SortableDeviceCard({
   device,
   disabled,
+  hidden,
   reorderMode,
+  onToggleVisible,
+  onToggleDisabled,
 }: {
   device: Device;
   disabled: boolean;
+  hidden: boolean;
   reorderMode: boolean;
+  onToggleVisible?: (deviceId: string) => void;
+  onToggleDisabled?: (deviceId: string) => void;
 }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: device.deviceId,
@@ -52,9 +59,12 @@ function SortableDeviceCard({
       <DeviceCard
         device={device}
         disabled={disabled}
+        hidden={hidden}
         reorderMode={reorderMode}
         dragHandleListeners={listeners}
         dragHandleAttributes={attributes}
+        onToggleVisible={onToggleVisible}
+        onToggleDisabled={onToggleDisabled}
       />
     </div>
   );
@@ -71,18 +81,58 @@ export default function DeviceList({ onOpenSettings }: Props) {
   const [reorderMode, setReorderMode] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const searchKeyRef = useRef(0);
-  const { query, setQuery, filtered, disabledDeviceIds, preferences, setPreferences, mockMode } =
-    useDeviceFiltering(devices);
+  const {
+    query,
+    setQuery,
+    filtered,
+    allSortedDevices,
+    disabledDeviceIds,
+    hiddenDeviceIds,
+    preferences,
+    setPreferences,
+    mockMode,
+  } = useDeviceFiltering(devices);
+  // In reorder mode, show all devices (including hidden); in normal mode, show only visible
+  const displayDevices = reorderMode ? allSortedDevices : filtered;
+
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   );
   const { handleDragEnd } = useDeviceReordering({
-    filtered,
+    filtered: displayDevices,
     preferences,
     allDevices: devices,
     onPreferencesChange: setPreferences,
   });
+
+  const toggleVisible = useCallback(
+    (deviceId: string) => {
+      const current = preferences[deviceId];
+      if (!current) return;
+      const updated = {
+        ...preferences,
+        [deviceId]: { ...current, visible: !current.visible },
+      };
+      setPreferences(updated);
+      devicePreferencesItem.setValue(updated);
+    },
+    [preferences, setPreferences],
+  );
+
+  const toggleDisabled = useCallback(
+    (deviceId: string) => {
+      const current = preferences[deviceId];
+      if (!current) return;
+      const updated = {
+        ...preferences,
+        [deviceId]: { ...current, disabled: !(current.disabled ?? false) },
+      };
+      setPreferences(updated);
+      devicePreferencesItem.setValue(updated);
+    },
+    [preferences, setPreferences],
+  );
 
   const toggleReorderMode = useCallback(() => {
     setReorderMode((prev) => !prev);
@@ -101,7 +151,7 @@ export default function DeviceList({ onOpenSettings }: Props) {
     setSearchOpen(false);
   }, []);
 
-  const deviceIds = filtered.map((d) => d.deviceId);
+  const deviceIds = displayDevices.map((d) => d.deviceId);
 
   return (
     <div className="flex flex-col h-full">
@@ -139,7 +189,7 @@ export default function DeviceList({ onOpenSettings }: Props) {
             {t(error)}
           </div>
         )}
-        {!loading && filtered.length === 0 && !error && (
+        {!loading && displayDevices.length === 0 && !error && (
           <div className="text-center py-8 text-sm text-gray-400">
             {query ? t('NO_SEARCH_RESULTS') : t('NO_DEVICES')}
           </div>
@@ -147,12 +197,15 @@ export default function DeviceList({ onOpenSettings }: Props) {
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={deviceIds} strategy={rectSortingStrategy}>
             <div className="grid grid-cols-2 gap-2">
-              {filtered.map((device) => (
+              {displayDevices.map((device) => (
                 <SortableDeviceCard
                   key={device.deviceId}
                   device={device}
                   disabled={disabledDeviceIds.has(device.deviceId)}
+                  hidden={hiddenDeviceIds.has(device.deviceId)}
                   reorderMode={reorderMode}
+                  onToggleVisible={reorderMode ? toggleVisible : undefined}
+                  onToggleDisabled={reorderMode ? toggleDisabled : undefined}
                 />
               ))}
             </div>
