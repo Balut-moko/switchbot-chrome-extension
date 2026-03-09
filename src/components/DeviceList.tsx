@@ -23,7 +23,6 @@ import { useDevices } from '@/hooks/useDevices';
 import { useLocale } from '@/hooks/useLocale';
 import { useTheme } from '@/hooks/useTheme';
 import type { Device } from '@/types/switchbot';
-import { getDeviceCategory } from '@/utils/device';
 import { t } from '@/utils/i18n';
 
 function SortableDeviceCard({
@@ -40,8 +39,6 @@ function SortableDeviceCard({
     disabled: !reorderMode,
   });
 
-  const isAC = getDeviceCategory(device) === 'ac';
-
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -51,7 +48,7 @@ function SortableDeviceCard({
   };
 
   return (
-    <div ref={setNodeRef} style={style} className={isAC ? 'col-span-2' : ''}>
+    <div ref={setNodeRef} style={style}>
       <DeviceCard
         device={device}
         disabled={disabled}
