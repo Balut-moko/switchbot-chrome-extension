@@ -1,7 +1,7 @@
 ---
 id: "010"
 title: "Chrome Web Store 掲載用アセットを作成する"
-status: "todo"
+status: "done"
 priority: "low"
 phase: 5
 depends_on: ["008", "054"]
@@ -32,11 +32,11 @@ Chrome Web Store に公開するにはスクリーンショットやプロモー
 
 ## Acceptance Criteria
 
-- [ ] モックモードビルドが成功する
-- [ ] Playwright テストで Popup のスクリーンショットが `store-assets/` に生成される
-- [ ] Playwright テストで Settings 画面のスクリーンショットが `store-assets/` に生成される
-- [ ] `bun run build` が TypeScript エラーなしで成功する
-- [ ] `bun run check` で Biome エラーがない
+- [x] モックモードビルドが成功する
+- [x] Playwright テストで Popup のスクリーンショットが `store-assets/` に生成される
+- [x] Playwright テストで Settings 画面のスクリーンショットが `store-assets/` に生成される
+- [x] `bun run build` が TypeScript エラーなしで成功する
+- [x] `bun run check` で Biome エラーがない
 
 ## Notes
 
