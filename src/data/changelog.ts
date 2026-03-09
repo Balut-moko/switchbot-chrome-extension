@@ -8,6 +8,14 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.19.0-beta',
+    date: '2026-03-10',
+    changes: {
+      ja: ['Vitest + Playwright テスト環境を構築'],
+      en: ['Set up Vitest + Playwright test environment'],
+    },
+  },
+  {
     version: '0.18.0-beta',
     date: '2026-03-10',
     changes: {
