@@ -8,6 +8,14 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.20.0-beta',
+    date: '2026-03-10',
+    changes: {
+      ja: ['設定画面の並び替えUIを削除し、ポップアップの並び替えモードに一本化'],
+      en: ['Remove device reorder UI from settings and consolidate into popup reorder mode'],
+    },
+  },
+  {
     version: '0.19.0-beta',
     date: '2026-03-10',
     changes: {
