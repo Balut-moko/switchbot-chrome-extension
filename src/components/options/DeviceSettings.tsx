@@ -1,19 +1,3 @@
-import {
-  closestCenter,
-  DndContext,
-  type DragEndEvent,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
-import {
-  SortableContext,
-  sortableKeyboardCoordinates,
-  useSortable,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDevices } from '@/hooks/useDevices';
 import { devicePreferencesItem } from '@/lib/storage';
@@ -68,34 +52,7 @@ function buildSortedList(devices: Device[], prefs: DevicePreferences): DeviceWit
     .sort((a, b) => a.order - b.order);
 }
 
-/** 6-dot drag handle icon */
-function DragHandle({
-  listeners,
-  attributes,
-}: {
-  listeners?: Record<string, unknown>;
-  attributes?: Record<string, unknown>;
-}) {
-  return (
-    <button
-      type="button"
-      className="cursor-grab active:cursor-grabbing touch-none p-1 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-      {...listeners}
-      {...attributes}
-    >
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-        <circle cx="5" cy="3" r="1.5" />
-        <circle cx="11" cy="3" r="1.5" />
-        <circle cx="5" cy="8" r="1.5" />
-        <circle cx="11" cy="8" r="1.5" />
-        <circle cx="5" cy="13" r="1.5" />
-        <circle cx="11" cy="13" r="1.5" />
-      </svg>
-    </button>
-  );
-}
-
-function SortableDeviceRow({
+function DeviceRow({
   item,
   onToggleVisible,
   onToggleDisabled,
@@ -104,31 +61,8 @@ function SortableDeviceRow({
   onToggleVisible: (deviceId: string) => void;
   onToggleDisabled: (deviceId: string) => void;
 }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
-    id: item.device.deviceId,
-  });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : undefined,
-    zIndex: isDragging ? 10 : undefined,
-    position: 'relative' as const,
-  };
-
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      className={`flex items-center gap-3 py-2 px-2 rounded-md border transition-colors ${
-        isDragging
-          ? 'border-blue-300 dark:border-blue-600 bg-blue-50 dark:bg-blue-900/20 shadow-md'
-          : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750'
-      }`}
-    >
-      {/* Drag handle */}
-      <DragHandle listeners={listeners} attributes={attributes} />
-
+    <div className="flex items-center gap-3 py-2 px-2 rounded-md border transition-colors border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-750">
       {/* Visibility checkbox */}
       <input
         type="checkbox"
@@ -222,8 +156,6 @@ function DeviceGroupSection({
   onToggleVisible: (deviceId: string) => void;
   onToggleDisabled: (deviceId: string) => void;
 }) {
-  const deviceIds = items.map((item) => item.device.deviceId);
-
   if (items.length === 0) return null;
 
   return (
@@ -234,18 +166,16 @@ function DeviceGroupSection({
           {items.length}
         </span>
       </h3>
-      <SortableContext items={deviceIds} strategy={verticalListSortingStrategy}>
-        <div className="space-y-1">
-          {items.map((item) => (
-            <SortableDeviceRow
-              key={item.device.deviceId}
-              item={item}
-              onToggleVisible={onToggleVisible}
-              onToggleDisabled={onToggleDisabled}
-            />
-          ))}
-        </div>
-      </SortableContext>
+      <div className="space-y-1">
+        {items.map((item) => (
+          <DeviceRow
+            key={item.device.deviceId}
+            item={item}
+            onToggleVisible={onToggleVisible}
+            onToggleDisabled={onToggleDisabled}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -333,78 +263,6 @@ export default function DeviceSettings() {
     return result;
   }, [sortedList, hasPrefs, devices, prefs]);
 
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
-  );
-
-  const handleDragEnd = useCallback(
-    (event: DragEndEvent) => {
-      const { active, over } = event;
-      if (!over || active.id === over.id) return;
-
-      const activeId = String(active.id);
-      const overId = String(over.id);
-
-      // Find which group both items belong to
-      const activeDevice = sortedList.find((item) => item.device.deviceId === activeId)?.device;
-      const overDevice = sortedList.find((item) => item.device.deviceId === overId)?.device;
-      if (!activeDevice || !overDevice) return;
-
-      const activeGroup = getOptionsDeviceGroup(activeDevice);
-      const overGroup = getOptionsDeviceGroup(overDevice);
-      if (activeGroup !== overGroup) return; // Only allow reorder within same group
-
-      // Get the current group's items in order
-      const groupItems = [...grouped[activeGroup]];
-      const oldIndex = groupItems.findIndex((item) => item.device.deviceId === activeId);
-      const newIndex = groupItems.findIndex((item) => item.device.deviceId === overId);
-      if (oldIndex === -1 || newIndex === -1) return;
-
-      // Reorder within the group
-      const [moved] = groupItems.splice(oldIndex, 1);
-      groupItems.splice(newIndex, 0, moved);
-
-      // Rebuild order: all groups in order (controls -> sensors -> ir)
-      const allOrdered: Device[] = [];
-      for (const groupKey of GROUP_ORDER) {
-        if (groupKey === activeGroup) {
-          for (const item of groupItems) {
-            allOrdered.push(item.device);
-          }
-        } else {
-          for (const item of grouped[groupKey]) {
-            allOrdered.push(item.device);
-          }
-        }
-      }
-
-      const updatedPrefs = { ...prefs };
-      for (let i = 0; i < allOrdered.length; i++) {
-        const deviceId = allOrdered[i].deviceId;
-        updatedPrefs[deviceId] = {
-          ...updatedPrefs[deviceId],
-          visible: updatedPrefs[deviceId]?.visible ?? true,
-          order: i,
-        };
-      }
-
-      // Preserve order for devices not in allOrdered (e.g. devices not loaded yet)
-      let maxOrder = allOrdered.length;
-      for (const deviceId of Object.keys(updatedPrefs)) {
-        if (!allOrdered.find((d) => d.deviceId === deviceId)) {
-          updatedPrefs[deviceId] = {
-            ...updatedPrefs[deviceId],
-            order: maxOrder++,
-          };
-        }
-      }
-
-      savePrefs(updatedPrefs);
-    },
-    [sortedList, grouped, prefs, savePrefs],
-  );
-
   if (loading || prefsLoading) {
     return (
       <div className="space-y-3">
@@ -441,19 +299,17 @@ export default function DeviceSettings() {
         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('DEVICE_DISPLAY_HINT')}</p>
       </div>
 
-      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <div className="space-y-6">
-          {GROUP_ORDER.map((groupKey) => (
-            <DeviceGroupSection
-              key={groupKey}
-              groupKey={groupKey}
-              items={grouped[groupKey]}
-              onToggleVisible={toggleVisible}
-              onToggleDisabled={toggleDisabled}
-            />
-          ))}
-        </div>
-      </DndContext>
+      <div className="space-y-6">
+        {GROUP_ORDER.map((groupKey) => (
+          <DeviceGroupSection
+            key={groupKey}
+            groupKey={groupKey}
+            items={grouped[groupKey]}
+            onToggleVisible={toggleVisible}
+            onToggleDisabled={toggleDisabled}
+          />
+        ))}
+      </div>
     </div>
   );
 }
