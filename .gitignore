@@ -25,6 +25,9 @@ tests/screenshots/
 test-results/
 playwright-report/
 
+# Store assets (generated)
+store-assets/
+
 # Claude Code (local)
 .claude/settings.local.json
 .claude/worktrees/
