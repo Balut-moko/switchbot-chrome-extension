@@ -1,7 +1,7 @@
 ---
 id: "054"
 title: "Vitest + Playwright テスト環境を構築する"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-10"
@@ -39,7 +39,7 @@ updated: "2026-03-10"
 
 ## Acceptance Criteria
 
-- [ ] `bun run test` で Vitest ユニットテストが全件パスする
-- [ ] `bunx playwright test tests/e2e/build-verification.spec.ts` でビルド検証テストがパスする
-- [ ] `bun run check` で Biome エラーがない
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] `bun run test` で Vitest ユニットテストが全件パスする
+- [x] `bunx playwright test tests/e2e/build-verification.spec.ts` でビルド検証テストがパスする
+- [x] `bun run check` で Biome エラーがない
+- [x] `bun run build` が TypeScript エラーなしで成功する
