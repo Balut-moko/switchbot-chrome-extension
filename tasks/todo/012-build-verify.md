@@ -4,45 +4,40 @@ title: "ビルド検証と E2E 動作確認を実施する"
 status: "todo"
 priority: "high"
 phase: 5
-depends_on: ["002", "003", "005", "006", "007"]
+depends_on: ["002", "003", "005", "006", "007", "054"]
 created: "2026-03-03"
-updated: "2026-03-03"
+updated: "2026-03-10"
 ---
 
 # ビルド検証と E2E 動作確認を実施する
 
 ## Context
 
-全タスク完了後、リリース前にビルドの成功と基本的な動作確認を実施する。
+タスク054で構築済みの Playwright テスト環境を活用し、ビルド検証と E2E テストを自動化する。
+既存の `tests/e2e/build-verification.spec.ts` がビルド出力検証を既にカバーしている。
+追加で zip 生成検証と、Popup UI の基本動作テストを拡充する。
 
 ## Requirements
 
-- `bun run build` が警告なしで成功する
-- ビルド出力の `manifest.json` に必要な permissions がすべて含まれている
-- Chrome に開発者モードで読み込み、以下を確認:
-  - Options ページで API キー設定が動作する
-  - 接続テストが成功する
-  - Popup でデバイス一覧が表示される
-  - デバイス操作（トグル等）が動作する
-  - 検索フィルタが動作する
-  - 高セキュリティモードのロック/アンロックが動作する
-- `bun run zip` で配布用 zip が生成される
+- `bun run build` が警告なしで成功する（既存テストでカバー済み）
+- ビルド出力の `manifest.json` に必要な permissions がすべて含まれている（既存テストでカバー済み）
+- `bun run zip` で配布用 zip が生成されることを検証するテストを追加
+- `tests/e2e/build-verification.spec.ts` に zip 生成検証を追加
+- `tests/e2e/popup.spec.ts` を拡充して Popup の基本的な UI 要素の存在確認テストを追加
 
 ## Affected Files
 
-- ビルド出力全体の検証（ソース変更は原則なし、問題発見時は修正）
+- `tests/e2e/build-verification.spec.ts` — zip 生成検証テストを追加
+- `tests/e2e/popup.spec.ts` — Popup UI の基本テストを拡充
 
 ## Acceptance Criteria
 
 - [ ] `bun run build` がエラー・警告なしで成功する
-- [ ] `manifest.json` に `storage`, `alarms` パーミッションが含まれている
-- [ ] Chrome へのサイドロードが成功する
-- [ ] Options ページの全機能が動作する
-- [ ] Popup の全機能が動作する
-- [ ] 高セキュリティモードが動作する
-- [ ] `bun run zip` が成功する
+- [ ] `bunx playwright test tests/e2e/build-verification.spec.ts` で全テストがパスする（zip 検証含む）
+- [ ] `bunx playwright test tests/e2e/popup.spec.ts` で Popup UI テストがパスする
+- [ ] `bun run check` で Biome エラーがない
+- [ ] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
-このタスクは依存タスクがすべて完了してから実施する。
-問題発見時は新規タスクを作成して修正し、再度検証する。
+手動でのブラウザ検証（サイドロード、機能動作確認、高セキュリティモード）は自動化の範囲外とし、別途手動で実施する。
