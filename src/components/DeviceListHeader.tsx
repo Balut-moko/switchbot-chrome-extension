@@ -43,6 +43,7 @@ export default function DeviceListHeader({
 
   useEffect(() => {
     if (!themePopoverOpen) return;
+    if (typeof document === 'undefined') return;
     const handler = (e: MouseEvent) => {
       if (popoverRef.current && !popoverRef.current.contains(e.target as Node)) {
         setThemePopoverOpen(false);

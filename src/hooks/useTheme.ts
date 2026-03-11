@@ -6,13 +6,16 @@ export function useTheme() {
 
   const getEffective = useCallback((pref: ThemePreference) => {
     if (pref !== 'system') return pref;
+    if (typeof window === 'undefined') return 'light';
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }, []);
 
   const applyTheme = useCallback(
     (pref: ThemePreference) => {
       const effective = getEffective(pref);
-      document.documentElement.classList.toggle('dark', effective === 'dark');
+      if (typeof document !== 'undefined') {
+        document.documentElement.classList.toggle('dark', effective === 'dark');
+      }
     },
     [getEffective],
   );
@@ -26,6 +29,7 @@ export function useTheme() {
 
   useEffect(() => {
     if (theme !== 'system') return;
+    if (typeof window === 'undefined') return;
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
     const handler = () => applyTheme('system');
     mq.addEventListener('change', handler);
