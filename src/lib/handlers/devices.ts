@@ -1,5 +1,6 @@
 import { recordCommandTime, throttleIRCommand } from '@/lib/ir-throttle';
 import { onMessage } from '@/lib/messaging';
+import { MOCK_DEVICES, MOCK_STATUSES } from '@/lib/mock-data';
 import { cachedDevicesItem, cacheTimestampItem, irDeviceStatesItem } from '@/lib/storage';
 import type { Device, DeviceStatus } from '@/types/switchbot';
 import { CACHE_TTL_MS } from '@/utils/constants';
@@ -7,12 +8,12 @@ import { toUnifiedDevice } from '@/utils/device';
 import { createAPI, getCredentials } from './auth';
 
 /**
- * モックデータを動的 import で取得する。
- * __MOCK_MODE__ が false の場合は呼ばれないため、
- * 本番ビルドでは tree-shaking により除外される。
+ * モックデータを返す。
+ * 静的 import を使用する（Service Worker では動的 import() が使えないため）。
+ * __MOCK_MODE__ が false のビルドでは参照箇所が dead code 除去されるため、
+ * tree-shaking によりモックデータはバンドルに含まれない。
  */
-async function loadMockData() {
-  const { MOCK_DEVICES, MOCK_STATUSES } = await import('@/lib/mock-data');
+function loadMockData() {
   return { devices: MOCK_DEVICES, statuses: MOCK_STATUSES };
 }
 
@@ -22,7 +23,7 @@ async function loadMockData() {
 export function registerDeviceHandlers(): void {
   onMessage('getDevices', async ({ data }) => {
     if (__MOCK_MODE__) {
-      const mock = await loadMockData();
+      const mock = loadMockData();
       return mock.devices;
     }
 
@@ -53,7 +54,7 @@ export function registerDeviceHandlers(): void {
 
   onMessage('getDeviceStatus', async ({ data }) => {
     if (__MOCK_MODE__) {
-      const mock = await loadMockData();
+      const mock = loadMockData();
       return (mock.statuses[data.deviceId] ?? {
         deviceId: data.deviceId,
         deviceType: 'Unknown',

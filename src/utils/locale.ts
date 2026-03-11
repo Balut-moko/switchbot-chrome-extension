@@ -12,6 +12,7 @@ const listeners = new Set<LocaleChangeListener>();
 
 function resolveLocale(pref: LanguagePreference): Locale {
   if (pref === 'ja' || pref === 'en') return pref;
+  if (typeof navigator === 'undefined') return 'en';
   const lang = navigator.language;
   return lang.startsWith('ja') ? 'ja' : 'en';
 }
