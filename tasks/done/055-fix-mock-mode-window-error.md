@@ -1,11 +1,11 @@
 ---
 id: "055"
 title: "モックモード Playwright 実行時の window is not defined エラーを修正する"
-status: "todo"
+status: "done"
 priority: "high"
 depends_on: ["054"]
 created: "2026-03-11"
-updated: "2026-03-11"
+updated: "2026-03-12"
 ---
 
 # モックモード Playwright 実行時の window is not defined エラーを修正する
@@ -30,11 +30,11 @@ updated: "2026-03-11"
 
 ## Acceptance Criteria
 
-- [ ] モックモードビルド + Playwright でエラーなく Popup が表示される
-- [ ] スクリーンショットテストでデバイス一覧が表示される
-- [ ] 通常モードのビルドに影響がない
-- [ ] `bun run build` が TypeScript エラーなしで成功する
-- [ ] `bun run check` で Biome エラーがない
+- [x] モックモードビルド + Playwright でエラーなく Popup が表示される
+- [x] スクリーンショットテストでデバイス一覧が表示される
+- [x] 通常モードのビルドに影響がない
+- [x] `bun run build` が TypeScript エラーなしで成功する
+- [x] `bun run check` で Biome エラーがない
 
 ## Notes
 
