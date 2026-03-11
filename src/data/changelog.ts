@@ -8,6 +8,14 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.22.0-beta',
+    date: '2026-03-12',
+    changes: {
+      ja: ['モックモード Playwright 実行時の window/document 未定義エラーを修正'],
+      en: ['Fix window/document undefined error in mock mode Playwright execution'],
+    },
+  },
+  {
     version: '0.21.0-beta',
     date: '2026-03-10',
     changes: {
