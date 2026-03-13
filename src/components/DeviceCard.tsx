@@ -294,6 +294,7 @@ export default function DeviceCard({
   if (category === 'ac') {
     return (
       <div
+        data-testid={`device-card-${device.deviceId}`}
         className={`rounded-lg shadow-sm dark:shadow-gray-900/30 border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 overflow-hidden ${disabledClass} ${hiddenClass}`}
       >
         {reorderMode && (
@@ -314,6 +315,7 @@ export default function DeviceCard({
   if (isSensor) {
     return (
       <div
+        data-testid={`device-card-${device.deviceId}`}
         className={`p-3 rounded-lg shadow-sm dark:shadow-gray-900/30 border transition-colors bg-gray-50 dark:bg-gray-800 border-gray-100 dark:border-gray-700 flex flex-col h-full ${hiddenClass}`}
       >
         <div className="flex items-center gap-2 min-w-0">
@@ -336,6 +338,7 @@ export default function DeviceCard({
 
   return (
     <div
+      data-testid={`device-card-${device.deviceId}`}
       className={`p-3 rounded-lg shadow-sm dark:shadow-gray-900/30 border transition-colors bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 flex flex-col h-full ${hiddenClass}`}
     >
       <div className="flex items-center gap-2 min-w-0">

@@ -21,6 +21,7 @@ Thumbs.db
 
 # Test outputs
 tests/e2e/results/
+tests/e2e/screenshots/
 tests/screenshots/
 test-results/
 playwright-report/
