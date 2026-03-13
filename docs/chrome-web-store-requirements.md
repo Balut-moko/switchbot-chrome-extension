@@ -11,15 +11,15 @@
 | 要件 | 状況 | 備考 |
 |------|------|------|
 | manifest_version: 3 | OK | |
-| name (max 75 chars) | "SwitchBot Controller" (20 chars) | OK |
-| version | "1.0.0" | OK |
-| description (max 132 chars) | 55 chars | OK |
-| Icons: 16, 32, 48, 128 px PNG | **32x32 追加必要** | 128x128 は 96x96 コンテンツ + 16px パディング |
-| Screenshots: 1280x800 px (1-5枚) | **未作成** | 必須 |
+| name (max 75 chars) | "SwitchBot Controller (Unofficial)" (35 chars) | OK |
+| version | "0.23.0-beta" | ベータ期間中 |
+| description (max 132 chars) | 109 chars | OK |
+| Icons: 16, 32, 48, 128 px PNG | OK（全4サイズ作成済み） | 128x128 は 96x96 コンテンツ + 16px パディング |
+| Screenshots: 1280x800 px (1-5枚) | OK（2枚作成済み） | |
 | Small promo image: 440x280 px | **未作成** | 必須 |
-| Privacy policy URL (HTTPS) | **未作成** | 必須 |
-| Single purpose description | **未作成** | 必須 |
-| Permission justifications | **未作成** | ダッシュボード入力 |
+| Privacy policy URL (HTTPS) | **未ホスト** | Markdown 作成済み、HTTPS URL 未設定 |
+| Single purpose description | OK（作成済み） | |
+| Permission justifications | OK（作成済み） | ダッシュボード入力 |
 
 ## 3. Icon Sizes
 
@@ -115,7 +115,7 @@
 
 | Field | Limit | Notes |
 |-------|-------|-------|
-| Name | 75 chars | "SwitchBot Controller" |
+| Name | 75 chars | "SwitchBot Controller (Unofficial)" |
 | Summary (manifest description) | 132 chars | 検索結果に表示 |
 | Detailed Description (store) | ~16,000 chars | リスティングページ |
 | Category | ドロップダウン選択 | **Productivity** 推奨 |
@@ -123,14 +123,14 @@
 
 ## 12. Pre-Submission Checklist
 
-- [ ] プライバシーポリシー作成 & HTTPS URL でホスト
-- [ ] アイコン作成（16, 32, 48, 128 px PNG）
-- [ ] スクリーンショット作成（1-5枚、1280x800 px）
+- [x] プライバシーポリシー作成（作成済み、HTTPS ホスト未）
+- [x] アイコン作成（全4サイズ完了: 16, 32, 48, 128 px PNG）
+- [x] スクリーンショット作成（2枚完了、1280x800 px）
 - [ ] Small promo image 作成（440x280 px）
-- [ ] ストア詳細説明文作成
-- [ ] Single purpose description 作成
-- [ ] Permission justifications 準備
-- [ ] "Unofficial" 免責事項追加
-- [ ] パック版ビルドの動作テスト
+- [x] ストア詳細説明文作成
+- [x] Single purpose description 作成
+- [x] Permission justifications 準備
+- [x] "Unofficial" 免責事項追加
+- [ ] パック版ビルドの動作テスト（最終検証未）
 - [ ] 開発者アカウント登録（$5 + 2段階認証）
 - [ ] Privacy Practices タブ入力
