@@ -119,99 +119,109 @@ export default function ACControl({ device, disabled = false }: Props) {
         </div>
       )}
 
-      {/* Temperature */}
+      {/* Controls row: Temperature + Mode + Fan side by side */}
       <div
-        className={`flex items-center justify-center gap-3 py-2 transition-opacity ${
+        className={`flex items-center gap-3 px-2 py-2 transition-opacity ${
           !isOn ? 'opacity-40' : ''
         }`}
       >
-        <button
-          type="button"
-          onClick={() => adjustTemp(-1)}
-          disabled={controlsDisabled || state.temperature <= AC_TEMP_MIN}
-          aria-label={t('DECREASE_TEMP')}
-          className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center text-lg font-bold hover:bg-blue-100 dark:hover:bg-blue-900/50 active:bg-blue-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-        >
-          -
-        </button>
-        <div className="relative text-center select-none">
-          <span className="text-2xl font-bold tabular-nums tracking-tight dark:text-gray-200">
-            {state.temperature}
-          </span>
-          <span className="absolute text-sm text-gray-400 dark:text-gray-500 ml-0.5 top-0">
-            &deg;C
-          </span>
+        {/* Temperature */}
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <button
+            type="button"
+            onClick={() => adjustTemp(-1)}
+            disabled={controlsDisabled || state.temperature <= AC_TEMP_MIN}
+            aria-label={t('DECREASE_TEMP')}
+            className="w-7 h-7 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center text-base font-bold hover:bg-blue-100 dark:hover:bg-blue-900/50 active:bg-blue-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          >
+            -
+          </button>
+          <div className="relative text-center select-none">
+            <span className="text-xl font-bold tabular-nums tracking-tight dark:text-gray-200">
+              {state.temperature}
+            </span>
+            <span className="absolute text-xs text-gray-400 dark:text-gray-500 ml-0.5 top-0">
+              &deg;C
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={() => adjustTemp(1)}
+            disabled={controlsDisabled || state.temperature >= AC_TEMP_MAX}
+            aria-label={t('INCREASE_TEMP')}
+            className="w-7 h-7 rounded-full bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-base font-bold hover:bg-red-100 dark:hover:bg-red-900/50 active:bg-red-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          >
+            +
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={() => adjustTemp(1)}
-          disabled={controlsDisabled || state.temperature >= AC_TEMP_MAX}
-          aria-label={t('INCREASE_TEMP')}
-          className="w-8 h-8 rounded-full bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 flex items-center justify-center text-lg font-bold hover:bg-red-100 dark:hover:bg-red-900/50 active:bg-red-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-        >
-          +
-        </button>
-      </div>
 
-      {/* Mode selector */}
-      <div className={`px-2 pb-1.5 transition-opacity ${!isOn ? 'opacity-40' : ''}`}>
-        <div className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 font-medium mb-1">
-          {t('AC_MODE')}
-        </div>
-        <div className="grid grid-cols-5 gap-0.5" role="radiogroup" aria-label={t('AC_MODE_LABEL')}>
-          {AC_MODES.map((m) => (
-            /* biome-ignore lint/a11y/useSemanticElements: custom radio UI with buttons */
-            <button
-              type="button"
-              key={m.value}
-              onClick={() => sendSetAll({ ...state, mode: m.value })}
-              disabled={controlsDisabled}
-              role="radio"
-              aria-checked={state.mode === m.value}
-              className={`flex flex-col items-center gap-0.5 py-1 rounded text-xs transition-colors disabled:cursor-not-allowed ${
-                state.mode === m.value
-                  ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-medium ring-1 ring-blue-200 dark:ring-blue-800'
-                  : 'bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600'
-              }`}
+        {/* Mode + Fan selectors side by side */}
+        <div className="flex gap-2 flex-1 min-w-0">
+          {/* Mode selector */}
+          <div className="flex-1 min-w-0">
+            <div className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 font-medium mb-0.5">
+              {t('AC_MODE')}
+            </div>
+            <div
+              className="grid grid-cols-5 gap-0.5"
+              role="radiogroup"
+              aria-label={t('AC_MODE_LABEL')}
             >
-              {(() => {
-                const ModeIcon = AC_MODE_DISPLAY[m.value].icon;
-                return <ModeIcon className="w-3.5 h-3.5" />;
-              })()}
-              <span className="text-[9px] leading-tight">{m.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
+              {AC_MODES.map((m) => (
+                /* biome-ignore lint/a11y/useSemanticElements: custom radio UI with buttons */
+                <button
+                  type="button"
+                  key={m.value}
+                  onClick={() => sendSetAll({ ...state, mode: m.value })}
+                  disabled={controlsDisabled}
+                  role="radio"
+                  aria-checked={state.mode === m.value}
+                  className={`flex flex-col items-center gap-0.5 py-1 rounded text-xs transition-colors disabled:cursor-not-allowed ${
+                    state.mode === m.value
+                      ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-medium ring-1 ring-blue-200 dark:ring-blue-800'
+                      : 'bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600'
+                  }`}
+                >
+                  {(() => {
+                    const ModeIcon = AC_MODE_DISPLAY[m.value].icon;
+                    return <ModeIcon className="w-3.5 h-3.5" />;
+                  })()}
+                  <span className="text-[9px] leading-tight">{m.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
 
-      {/* Fan speed selector */}
-      <div className={`px-2 pb-2 transition-opacity ${!isOn ? 'opacity-40' : ''}`}>
-        <div className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 font-medium mb-1">
-          {t('FAN')}
-        </div>
-        <div className="grid grid-cols-4 gap-0.5" role="radiogroup" aria-label={t('FAN_SPEED')}>
-          {AC_FAN_SPEEDS.map((f) => (
-            /* biome-ignore lint/a11y/useSemanticElements: custom radio UI with buttons */
-            <button
-              type="button"
-              key={f.value}
-              onClick={() => sendSetAll({ ...state, fanSpeed: f.value })}
-              disabled={controlsDisabled}
-              role="radio"
-              aria-checked={state.fanSpeed === f.value}
-              className={`flex flex-col items-center gap-0.5 py-1 rounded text-xs transition-colors disabled:cursor-not-allowed ${
-                state.fanSpeed === f.value
-                  ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-medium ring-1 ring-blue-200 dark:ring-blue-800'
-                  : 'bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600'
-              }`}
-            >
-              {(() => {
-                const FanIcon = AC_FAN_DISPLAY[f.value].icon;
-                return <FanIcon className="w-3.5 h-3.5" />;
-              })()}
-              <span className="text-[9px] leading-tight">{f.label}</span>
-            </button>
-          ))}
+          {/* Fan speed selector */}
+          <div className="flex-1 min-w-0">
+            <div className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 font-medium mb-0.5">
+              {t('FAN')}
+            </div>
+            <div className="grid grid-cols-4 gap-0.5" role="radiogroup" aria-label={t('FAN_SPEED')}>
+              {AC_FAN_SPEEDS.map((f) => (
+                /* biome-ignore lint/a11y/useSemanticElements: custom radio UI with buttons */
+                <button
+                  type="button"
+                  key={f.value}
+                  onClick={() => sendSetAll({ ...state, fanSpeed: f.value })}
+                  disabled={controlsDisabled}
+                  role="radio"
+                  aria-checked={state.fanSpeed === f.value}
+                  className={`flex flex-col items-center gap-0.5 py-1 rounded text-xs transition-colors disabled:cursor-not-allowed ${
+                    state.fanSpeed === f.value
+                      ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-medium ring-1 ring-blue-200 dark:ring-blue-800'
+                      : 'bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600'
+                  }`}
+                >
+                  {(() => {
+                    const FanIcon = AC_FAN_DISPLAY[f.value].icon;
+                    return <FanIcon className="w-3.5 h-3.5" />;
+                  })()}
+                  <span className="text-[9px] leading-tight">{f.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -24,6 +24,7 @@ import { useLocale } from '@/hooks/useLocale';
 import { useTheme } from '@/hooks/useTheme';
 import { devicePreferencesItem } from '@/lib/storage';
 import type { Device } from '@/types/switchbot';
+import { getDeviceCategory } from '@/utils/device';
 import { t } from '@/utils/i18n';
 
 function SortableDeviceCard({
@@ -54,8 +55,10 @@ function SortableDeviceCard({
     zIndex: isDragging ? 10 : undefined,
   };
 
+  const isAC = getDeviceCategory(device) === 'ac';
+
   return (
-    <div ref={setNodeRef} style={style}>
+    <div ref={setNodeRef} style={style} className={isAC ? 'col-span-2' : undefined}>
       <DeviceCard
         device={device}
         disabled={disabled}
