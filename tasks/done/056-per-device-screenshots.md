@@ -1,7 +1,7 @@
 ---
 id: "056"
 title: "デバイスごとのスクリーンショットをライト/ダークモードで撮影する"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-13"
@@ -34,12 +34,12 @@ updated: "2026-03-13"
 
 ## Acceptance Criteria
 
-- [ ] 全モックデバイス（19種）のカード単体スクリーンショットがライト/ダーク両モードで撮影される
-- [ ] デバイス一覧と Settings のスクリーンショットがライト/ダーク両モードで撮影される
-- [ ] `bun run test:e2e:screenshots` で `tests/e2e/screenshots/` に全スクリーンショットが自動生成される
-- [ ] `tests/e2e/screenshots/` が `.gitignore` に含まれている
-- [ ] DeviceCard に `data-testid` が付与されている
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] 全モックデバイス（19種）のカード単体スクリーンショットがライト/ダーク両モードで撮影される
+- [x] デバイス一覧と Settings のスクリーンショットがライト/ダーク両モードで撮影される
+- [x] `bun run test:e2e:screenshots` で `tests/e2e/screenshots/` に全スクリーンショットが自動生成される
+- [x] `tests/e2e/screenshots/` が `.gitignore` に含まれている
+- [x] DeviceCard に `data-testid` が付与されている
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
