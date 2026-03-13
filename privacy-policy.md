@@ -79,7 +79,7 @@ If this privacy policy is updated, the changes will be reflected in the "Last Up
 
 ## 10. Contact
 
-For questions or concerns about this privacy policy, please open an issue on the [GitHub repository](https://github.com/placeholder/switchbot-chrome-extension).
+For questions or concerns about this privacy policy, please open an issue on the [GitHub repository](https://github.com/Balut-moko/switchbot-chrome-extension).
 
 ---
 ---
@@ -165,4 +165,4 @@ For questions or concerns about this privacy policy, please open an issue on the
 
 ## 10. お問い合わせ
 
-本プライバシーポリシーに関するご質問やご懸念がありましたら、[GitHub リポジトリ](https://github.com/placeholder/switchbot-chrome-extension)で Issue を作成してください。
+本プライバシーポリシーに関するご質問やご懸念がありましたら、[GitHub リポジトリ](https://github.com/Balut-moko/switchbot-chrome-extension)で Issue を作成してください。
