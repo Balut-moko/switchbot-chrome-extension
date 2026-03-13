@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Battery, Droplets, Thermometer } from 'lucide-react';
+import { Droplets, Thermometer } from 'lucide-react';
 import { useDeviceStatus } from '@/hooks/useDeviceStatus';
 import type { Device } from '@/types/switchbot';
 import { BADGE_VARIANT_CLASSES } from '@/utils/styles';
@@ -43,9 +43,6 @@ function FallbackStatusDisplay({ device }: { device: Device }) {
   }
   if ('humidity' in s && typeof s.humidity === 'number') {
     badges.push({ icon: Droplets, value: `${s.humidity}%` });
-  }
-  if ('battery' in s && typeof s.battery === 'number') {
-    badges.push({ icon: Battery, value: `${s.battery}%` });
   }
   if ('workingStatus' in s && typeof s.workingStatus === 'string') {
     badges.push({ value: s.workingStatus });

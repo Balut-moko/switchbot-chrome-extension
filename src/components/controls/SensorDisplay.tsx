@@ -1,7 +1,6 @@
 import type { LucideIcon } from 'lucide-react';
 import {
   AlertTriangle,
-  Battery,
   CheckCircle,
   Droplets,
   Lock,
@@ -47,10 +46,6 @@ function buildBadges(
   if (caps.hasCO2 && 'CO2' in status) {
     badges.push({ icon: Wind, label: 'CO₂', value: `${status.CO2} ppm`, variant: 'secondary' });
   }
-  if (caps.hasBattery && 'battery' in status) {
-    badges.push({ icon: Battery, value: `${status.battery}%`, variant: 'secondary' });
-  }
-
   if ('moveDetected' in status) {
     badges.push(
       (status as { moveDetected: boolean }).moveDetected

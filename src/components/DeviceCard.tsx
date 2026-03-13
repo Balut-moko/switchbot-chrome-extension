@@ -300,6 +300,7 @@ export default function DeviceCard({
           <div className="flex items-center gap-2 px-3 pt-2">
             <DragHandle listeners={dragHandleListeners} attributes={dragHandleAttributes} />
             <DeviceNameInline device={device} />
+            <BatteryBadge device={device} />
             <div className="ml-auto flex-shrink-0">{toggles}</div>
           </div>
         )}
@@ -321,7 +322,10 @@ export default function DeviceCard({
           )}
           <DeviceIconDisplay device={device} />
           <DeviceNameWithType device={device} />
-          {reorderMode && <div className="ml-auto flex-shrink-0">{toggles}</div>}
+          <div className="ml-auto flex-shrink-0 flex items-center gap-1">
+            <BatteryBadge device={device} />
+            {reorderMode && toggles}
+          </div>
         </div>
         <div className={`mt-auto pt-1 ${reorderDisabledClass}`}>
           <DeviceControl device={device} disabled={disabled} />
@@ -340,12 +344,14 @@ export default function DeviceCard({
         )}
         <DeviceIconDisplay device={device} />
         <DeviceNameWithType device={device} />
-        {reorderMode && <div className="ml-auto flex-shrink-0">{toggles}</div>}
+        <div className="ml-auto flex-shrink-0 flex items-center gap-1">
+          <BatteryBadge device={device} />
+          {reorderMode && toggles}
+        </div>
       </div>
       <div
         className={`flex items-center gap-2 mt-auto pt-2 ${disabledClass} ${reorderDisabledClass}`}
       >
-        <BatteryBadge device={device} />
         <DeviceControl device={device} disabled={disabled} />
       </div>
     </div>
