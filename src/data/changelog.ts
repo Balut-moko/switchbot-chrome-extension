@@ -8,6 +8,22 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.23.0-beta',
+    date: '2026-03-13',
+    changes: {
+      ja: [
+        'エアコンカードを全幅表示にしてグリッドレイアウトのバランスを改善',
+        'バッテリー残量の表示位置をカードヘッダー右上に統一',
+        'デバイスごとのスクリーンショットをライト/ダーク両モードで自動撮影',
+      ],
+      en: [
+        'Improve grid layout balance by making AC card full-width',
+        'Unify battery level display position to card header top-right',
+        'Add automated per-device screenshots in both light/dark modes',
+      ],
+    },
+  },
+  {
     version: '0.22.0-beta',
     date: '2026-03-12',
     changes: {
