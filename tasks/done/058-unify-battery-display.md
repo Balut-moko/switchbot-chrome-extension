@@ -1,7 +1,7 @@
 ---
 id: "058"
 title: "バッテリー残量の表示位置をカード間で統一する"
-status: "todo"
+status: "done"
 priority: "medium"
 depends_on: []
 created: "2026-03-13"
@@ -37,11 +37,11 @@ updated: "2026-03-13"
 
 ## Acceptance Criteria
 
-- [ ] バッテリー対応デバイス（Bot, Meter, Contact Sensor, Curtain, Smart Lock 等）で統一された位置にバッテリーが表示される
-- [ ] バッテリー非対応デバイス（Plug Mini, IR デバイス等）ではバッテリーが表示されない
-- [ ] センサーカードの温度・湿度・CO2 等のセンサー値表示が維持される
-- [ ] ライト/ダークモードの両方で正しく表示される
-- [ ] `bun run build` が TypeScript エラーなしで成功する
+- [x] バッテリー対応デバイス（Bot, Meter, Contact Sensor, Curtain, Smart Lock 等）で統一された位置にバッテリーが表示される
+- [x] バッテリー非対応デバイス（Plug Mini, IR デバイス等）ではバッテリーが表示されない
+- [x] センサーカードの温度・湿度・CO2 等のセンサー値表示が維持される
+- [x] ライト/ダークモードの両方で正しく表示される
+- [x] `bun run build` が TypeScript エラーなしで成功する
 
 ## Notes
 
