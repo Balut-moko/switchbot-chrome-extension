@@ -33,3 +33,8 @@ store-assets/
 .claude/settings.local.json
 .claude/worktrees/
 .claude/plans/
+.claude/skills/
+CLAUDE.md
+
+# Task management (local)
+tasks/
