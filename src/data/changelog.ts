@@ -8,6 +8,22 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.25.0-beta',
+    date: '2026-03-21',
+    changes: {
+      ja: [
+        'Chrome Web Store 要件ドキュメントのステータスを最新に更新',
+        'プライバシーポリシーを GitHub Pages でホスト',
+        '最終ビルド検証（lint・テスト・ビルド・zip）を完了',
+      ],
+      en: [
+        'Update Chrome Web Store requirements document status',
+        'Host privacy policy on GitHub Pages',
+        'Complete final build verification (lint, test, build, zip)',
+      ],
+    },
+  },
+  {
     version: '0.24.0-beta',
     date: '2026-03-21',
     changes: {
