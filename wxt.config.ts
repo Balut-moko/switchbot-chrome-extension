@@ -12,7 +12,7 @@ export default defineConfig({
   }),
   manifest: {
     name: 'SwitchBot Controller (Unofficial)',
-    version_name: '0.23.0-beta',
+    version_name: '1.0.0',
     description: 'Control your SwitchBot devices from the browser toolbar',
     permissions: ['storage', 'alarms'],
     host_permissions: ['https://api.switch-bot.com/*'],
