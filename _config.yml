@@ -1,0 +1,26 @@
+# GitHub Pages / Jekyll configuration
+# Only serve the privacy policy; exclude everything else.
+
+title: SwitchBot Controller
+description: Privacy Policy for SwitchBot Controller Chrome Extension
+
+# Render Markdown with kramdown (GitHub Pages default)
+markdown: kramdown
+
+# Only include files needed for GitHub Pages
+include:
+  - privacy-policy.md
+
+exclude:
+  - src/
+  - docs/
+  - tests/
+  - node_modules/
+  - "*.config.*"
+  - package.json
+  - bun.lock
+  - tsconfig.json
+  - LICENSE
+  - README.md
+  - CLAUDE.md
+  - Makefile

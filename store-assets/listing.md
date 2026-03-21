@@ -69,6 +69,13 @@ Control and monitor SwitchBot smart home devices directly from the Chrome toolba
 
 Productivity
 
+## URLs
+
+| Purpose | URL |
+|---|---|
+| Privacy Policy | https://balut-moko.github.io/switchbot-chrome-extension/privacy-policy |
+| Source Code | https://github.com/Balut-moko/switchbot-chrome-extension |
+
 ## Permission Justifications
 
 These notes are for entry in the Chrome Web Store developer dashboard.
