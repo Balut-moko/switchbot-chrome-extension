@@ -12,12 +12,12 @@
 |------|------|------|
 | manifest_version: 3 | OK | |
 | name (max 75 chars) | "SwitchBot Controller (Unofficial)" (35 chars) | OK |
-| version | "0.23.0-beta" | ベータ期間中 |
+| version | "0.24.0-beta" | ベータ期間中 |
 | description (max 132 chars) | 109 chars | OK |
 | Icons: 16, 32, 48, 128 px PNG | OK（全4サイズ作成済み） | 128x128 は 96x96 コンテンツ + 16px パディング |
 | Screenshots: 1280x800 px (1-5枚) | OK（2枚作成済み） | |
 | Small promo image: 440x280 px | **未作成** | 必須 |
-| Privacy policy URL (HTTPS) | **未ホスト** | Markdown 作成済み、HTTPS URL 未設定 |
+| Privacy policy URL (HTTPS) | **未ホスト** | Markdown 作成済み、listing.md に URL 記載済み、HTTPS ホスト未 |
 | Single purpose description | OK（作成済み） | |
 | Permission justifications | OK（作成済み） | ダッシュボード入力 |
 
@@ -133,4 +133,5 @@
 - [x] "Unofficial" 免責事項追加
 - [ ] パック版ビルドの動作テスト（最終検証未）
 - [ ] 開発者アカウント登録（$5 + 2段階認証）
-- [ ] Privacy Practices タブ入力
+- [x] Privacy Practices タブの回答準備（listing.md に文書化済み）
+- [x] 審査用テスト手順の準備（listing.md に文書化済み）
