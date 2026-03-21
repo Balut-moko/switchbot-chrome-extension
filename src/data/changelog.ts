@@ -8,6 +8,24 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.24.0-beta',
+    date: '2026-03-21',
+    changes: {
+      ja: [
+        'コアライブラリ（認証・暗号化・API・ストレージ）のユニットテストを強化',
+        'GitHub Actions CI に Node.js セットアップとキャッシュを追加',
+        'manifest description をストアリスティングと統一',
+        'Privacy Practices 回答と審査用テスト手順を文書化',
+      ],
+      en: [
+        'Enhance unit tests for core libraries (auth, crypto, API, storage)',
+        'Add Node.js setup and caching to GitHub Actions CI',
+        'Align manifest description with store listing',
+        'Document Privacy Practices answers and reviewer testing instructions',
+      ],
+    },
+  },
+  {
     version: '0.23.0-beta',
     date: '2026-03-13',
     changes: {
