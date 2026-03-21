@@ -133,4 +133,6 @@
 - [x] "Unofficial" 免責事項追加
 - [ ] パック版ビルドの動作テスト（最終検証未）
 - [ ] 開発者アカウント登録（$5 + 2段階認証）
+- [x] Privacy Practices タブの回答準備（listing.md に文書化済み）
+- [x] 審査用テスト手順の準備（listing.md に記載済み）
 - [ ] Privacy Practices タブ入力
