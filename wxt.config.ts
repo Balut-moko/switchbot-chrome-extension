@@ -13,7 +13,8 @@ export default defineConfig({
   manifest: {
     name: 'SwitchBot Controller (Unofficial)',
     version_name: '0.23.0-beta',
-    description: 'Control your SwitchBot devices from the browser toolbar',
+    description:
+      'Unofficial extension to control and monitor your SwitchBot smart home devices directly from the Chrome toolbar.',
     permissions: ['storage', 'alarms'],
     host_permissions: ['https://api.switch-bot.com/*'],
     icons: {
