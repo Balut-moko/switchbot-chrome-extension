@@ -8,6 +8,14 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: '1.1.0',
+    date: '2026-03-29',
+    changes: {
+      ja: ['Chrome Web Store での拡張機能名・説明の日本語表示に対応'],
+      en: ['Added Japanese localization for extension name and description in Chrome Web Store'],
+    },
+  },
+  {
     version: '1.0.0',
     date: '2026-03-21',
     changes: {
