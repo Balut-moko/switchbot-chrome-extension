@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "SwitchBot Controller（非公式）",
+    "description": "Extension name shown in Chrome Web Store and browser UI"
+  },
+  "appDescription": {
+    "message": "SwitchBot スマートホームデバイスを Chrome ツールバーから直接操作・監視できる非公式拡張機能です。",
+    "description": "Extension description shown in Chrome Web Store"
+  }
+}

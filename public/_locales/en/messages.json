@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "SwitchBot Controller (Unofficial)",
+    "description": "Extension name shown in Chrome Web Store and browser UI"
+  },
+  "appDescription": {
+    "message": "Unofficial extension to control and monitor your SwitchBot smart home devices directly from the Chrome toolbar.",
+    "description": "Extension description shown in Chrome Web Store"
+  }
+}
