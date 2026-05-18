@@ -61,6 +61,61 @@ Your API credentials are stored locally and never leave your browser except to c
 
 This is an unofficial, third-party extension. Not affiliated with SwitchBot or Wonderlabs Inc.
 
+## Detailed Description — Japanese (日本語)
+
+ブラウザから SwitchBot スマートホームデバイスを操作・監視できる拡張機能です。SwitchBot Controller は、SwitchBot API v1.1 を利用して、ツールバーのポップアップから物理デバイスや IR リモコンを操作できます。
+
+### 対応デバイス
+
+**物理デバイス** — 操作とリアルタイムステータス表示:
+- ボット（スイッチ押下）
+- プラグ / プラグミニ
+- カーテン / カーテン3 / ブラインドチルト / ローラーシェード
+- スマートロック / スマートロック Pro
+- カラー電球 / テープライト / シーリングライト
+- 温湿度計 / 温湿度計プラス / Hub 2（温度・湿度）
+- 人感センサー / 開閉センサー
+
+**IR リモコンデバイス** — SwitchBot ハブ経由でコマンド送信:
+- エアコン（温度・モード・風量の制御）
+- テレビ / IPTV / セットトップボックス
+- 照明 / DIY ライト
+- 扇風機
+- その他の学習済み IR リモコン
+
+### 主な機能
+
+- ブラウザのツールバーポップアップからワンクリックでデバイス操作
+- 物理デバイスのリアルタイムステータス監視（電源、温度、湿度、バッテリー、施錠状態、カーテン位置など）
+- エアコンのフルコントロール: 温度（16〜30℃）、モード（自動 / 冷房 / 除湿 / 送風 / 暖房）、風量（自動 / 弱 / 中 / 強）
+- chrome.alarms による5分間隔の自動ステータス更新
+- ローカルデバイスキャッシュによるポップアップの即時表示
+- API 認証情報の接続テスト
+
+### セキュリティとプライバシー
+
+API 認証情報はローカルに保存され、公式 SwitchBot API との通信以外でブラウザ外に送信されることはありません。
+
+**通常モード** — 認証情報は chrome.storage.local にそのまま保存されます。
+
+**高セキュリティモード** — マスターパスワードを使用し、PBKDF2（600,000回反復）による鍵導出と AES-GCM 暗号化で認証情報を暗号化します。復号された認証情報は chrome.storage.session にのみ保持され、ブラウザを閉じると消去されます。
+
+- https://api.switch-bot.com（SwitchBot API v1.1）とのみ通信
+- テレメトリ、アナリティクス、トラッキングなし
+- 開発者や第三者へのデータ収集・共有なし
+- 完全オープンソース
+
+### セットアップ
+
+1. 拡張機能をインストール
+2. ツールバーアイコンをクリックし、SwitchBot API トークンとシークレットキーを入力（SwitchBot アプリの 設定 > 開発者向けオプション から取得）
+3. 通常モードまたは高セキュリティモードを選択
+4. デバイスが自動的に表示されます
+
+### 免責事項
+
+本拡張機能は非公式のサードパーティ製です。SwitchBot および Wonderlabs Inc. とは提携していません。
+
 ## Single Purpose Statement
 
 Control and monitor SwitchBot smart home devices directly from the Chrome toolbar.
