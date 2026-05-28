@@ -179,6 +179,36 @@ async function composeStoreImage(rawPath: string, outPath: string, theme: Theme)
 
 // --- メイン: テーマ × ロケールごとの撮影 + ストア用合成 ---
 
+/**
+ * ストア掲載用スクリーンショットの連番・組み合わせ定義。
+ *
+ * ファイル名は `screenshot-{n}-{locale}-{view}-{theme}.png` 形式で出力され、
+ * エクスプローラのアルファベット順 = Chrome Web Store へのアップロード推奨順となる。
+ *
+ * 並び順の意図:
+ *  - 英語ロケール (01-04) → 日本語ロケール (05-08)
+ *  - 各ロケール内では Popup（メイン UI）→ Settings（設定）の順
+ *  - 同じビューの中では light（既定）→ dark（バリエーション）の順
+ */
+type View = 'popup' | 'settings';
+interface StoreVariant {
+  n: string;
+  view: View;
+  locale: Locale;
+  theme: Theme;
+}
+
+const STORE_VARIANTS: StoreVariant[] = [
+  { n: '01', view: 'popup', locale: 'en', theme: 'light' },
+  { n: '02', view: 'popup', locale: 'en', theme: 'dark' },
+  { n: '03', view: 'settings', locale: 'en', theme: 'light' },
+  { n: '04', view: 'settings', locale: 'en', theme: 'dark' },
+  { n: '05', view: 'popup', locale: 'ja', theme: 'light' },
+  { n: '06', view: 'popup', locale: 'ja', theme: 'dark' },
+  { n: '07', view: 'settings', locale: 'ja', theme: 'light' },
+  { n: '08', view: 'settings', locale: 'ja', theme: 'dark' },
+];
+
 test.describe('Chrome Web Store 掲載用スクリーンショット撮影', () => {
   test.beforeAll(() => {
     for (const dir of [STORE_ASSETS_DIR, RAW_DIR]) {
@@ -188,45 +218,33 @@ test.describe('Chrome Web Store 掲載用スクリーンショット撮影', () 
     }
   });
 
-  for (const theme of THEMES) {
-    for (const locale of LOCALES) {
-      const variant = `${theme}-${locale}`;
+  for (const { n, view, locale, theme } of STORE_VARIANTS) {
+    const label = `${n} ${locale} ${view} ${theme}`;
+    const filename = `screenshot-${n}-${locale}-${view}-${theme}.png`;
 
-      test(`Popup（デバイス一覧）[${variant}]`, async ({ context, extensionId }) => {
-        const page = await openPopup(context, extensionId, theme, locale);
+    test(`[${label}]`, async ({ context, extensionId }) => {
+      const page = await openPopup(context, extensionId, theme, locale);
 
-        // body 要素を切り出してポップアップ実寸でキャプチャ
-        const rawPath = path.join(RAW_DIR, `popup-${variant}.png`);
-        await page.locator('body').screenshot({ path: rawPath });
-
-        // 1280x800 ストア画像を合成
-        const storePath = path.join(STORE_ASSETS_DIR, `screenshot-popup-${variant}.png`);
-        await composeStoreImage(rawPath, storePath, theme);
-
-        expect(fs.existsSync(rawPath)).toBe(true);
-        expect(fs.existsSync(storePath)).toBe(true);
-      });
-
-      test(`Settings 画面 [${variant}]`, async ({ context, extensionId }) => {
-        const page = await openPopup(context, extensionId, theme, locale);
-
+      if (view === 'settings') {
         // 設定ボタンをクリックして OptionsView を表示
         const settingsBtn = page.locator(`button[title="${SETTINGS_BUTTON_TITLE[locale]}"]`);
         await settingsBtn.click();
         // 設定見出しが出るまで待つ
         await page.getByText(SETTINGS_TITLE[locale]).first().waitFor({ timeout: 5_000 });
         await page.waitForTimeout(300);
+      }
 
-        const rawPath = path.join(RAW_DIR, `settings-${variant}.png`);
-        await page.locator('body').screenshot({ path: rawPath });
+      // body 要素を切り出してポップアップ実寸でキャプチャ
+      const rawPath = path.join(RAW_DIR, filename);
+      await page.locator('body').screenshot({ path: rawPath });
 
-        const storePath = path.join(STORE_ASSETS_DIR, `screenshot-settings-${variant}.png`);
-        await composeStoreImage(rawPath, storePath, theme);
+      // 1280x800 ストア画像を合成
+      const storePath = path.join(STORE_ASSETS_DIR, filename);
+      await composeStoreImage(rawPath, storePath, theme);
 
-        expect(fs.existsSync(rawPath)).toBe(true);
-        expect(fs.existsSync(storePath)).toBe(true);
-      });
-    }
+      expect(fs.existsSync(rawPath)).toBe(true);
+      expect(fs.existsSync(storePath)).toBe(true);
+    });
   }
 });
 
