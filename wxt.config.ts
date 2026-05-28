@@ -12,7 +12,7 @@ export default defineConfig({
   }),
   manifest: {
     name: '__MSG_appName__',
-    version_name: '1.1.0',
+    version_name: '1.2.0',
     description: '__MSG_appDescription__',
     default_locale: 'en',
     permissions: ['storage', 'alarms'],

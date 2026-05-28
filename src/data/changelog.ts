@@ -8,6 +8,14 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: '1.2.0',
+    date: '2026-05-29',
+    changes: {
+      ja: ['フォントスタックを明示し、macOS / Windows / Linux 間で日本語表示を統一'],
+      en: ['Explicit font stack for unified Japanese rendering across macOS / Windows / Linux'],
+    },
+  },
+  {
     version: '1.1.0',
     date: '2026-03-29',
     changes: {

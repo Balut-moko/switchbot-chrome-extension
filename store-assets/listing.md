@@ -57,6 +57,17 @@ Your API credentials are stored locally and never leave your browser except to c
 3. Choose Standard or High Security mode
 4. Your devices appear automatically
 
+### Changelog
+
+**1.2.0** (2026-05-29)
+- Explicit font stack for unified Japanese rendering across macOS / Windows / Linux
+
+**1.1.0** (2026-03-29)
+- Added Japanese localization for the extension name and description in Chrome Web Store
+
+**1.0.0** (2026-03-21)
+- Initial release: control physical SwitchBot devices and IR remotes, high-security mode, dark mode, Japanese / English localization, device reorder and search, automatic status refresh
+
 ### Disclaimer
 
 This is an unofficial, third-party extension. Not affiliated with SwitchBot or Wonderlabs Inc.
@@ -111,6 +122,17 @@ API 認証情報はローカルに保存され、公式 SwitchBot API との通�
 2. ツールバーアイコンをクリックし、SwitchBot API トークンとシークレットキーを入力（SwitchBot アプリの 設定 > 開発者向けオプション から取得）
 3. 通常モードまたは高セキュリティモードを選択
 4. デバイスが自動的に表示されます
+
+### 更新履歴
+
+**1.2.0**（2026-05-29）
+- フォントスタックを明示し、macOS / Windows / Linux 間で日本語表示を統一
+
+**1.1.0**（2026-03-29）
+- Chrome Web Store での拡張機能名・説明の日本語表示に対応
+
+**1.0.0**（2026-03-21）
+- 初回リリース: SwitchBot 物理デバイス・IR リモコンの操作、高セキュリティモード、ダークモード、日本語 / 英語切り替え、デバイス並び替え・検索、ステータス自動更新
 
 ### 免責事項
 
